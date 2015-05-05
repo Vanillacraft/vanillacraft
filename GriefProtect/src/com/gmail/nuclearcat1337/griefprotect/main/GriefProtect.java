@@ -42,7 +42,7 @@ public class GriefProtect extends JavaPlugin
     @Override
     public void onEnable()
     {
-        //TODO---Test commit 2
+        //TODO---Test commit 3 update
         
         instance = this;
 
