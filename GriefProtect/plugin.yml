@@ -1,0 +1,26 @@
+name: GriefProtect
+main: com.gmail.nuclearcat1337.griefprotect.main.GriefProtect
+version: 1.0
+description: Protection from griefs and hacks
+authors: [void420, Mr_Little_Kitty]
+commands:
+  allow:
+    description: allow player to modify owner blocks
+    usage: |
+           /<command> <player> <range> <block list>
+  tempallow:
+    description: temporarily allow player to modify owner blocks
+    usage: |
+           /<command> <player> <range> <block list>
+  revoke:
+    description: revoke a player's access to blocks
+    usage: |
+           /<command> <player>
+  public:
+    description: allow player to modify owner blocks
+    usage: |
+           /<command> [range] <block list>
+  listaccess:
+    description: list all access granted
+    usage: |
+      /<command> [Owner] <Target>
