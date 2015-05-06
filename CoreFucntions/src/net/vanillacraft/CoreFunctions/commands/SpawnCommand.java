@@ -33,7 +33,6 @@ public class SpawnCommand implements CommandExecutor {
 
                 if(plugin.modMode.containsKey(player)){
                     if(plugin.modMode.get(player).enabled){
-                        player.sendMessage(ChatColor.GREEN + "You've been teleported via mod powers and as such have no cool down.");
                         normalTeleport(player, plugin.spawnLocation, true); //The true here makes it so they don't have a cool down
                         return true;
                     } else {
