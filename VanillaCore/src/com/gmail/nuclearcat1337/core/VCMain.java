@@ -7,7 +7,6 @@ public class VCMain extends JavaPlugin
     @Override
     public void onEnable()
     {
-        //Todo--Test
-        //Todo------Second Test
+
     }
 }

@@ -42,8 +42,6 @@ public class GriefProtect extends JavaPlugin
     @Override
     public void onEnable()
     {
-        //TODO---Test commit 3 update
-        
         instance = this;
 
         Database database = setupDatabase(); //Establish the database connection and setup the tables
