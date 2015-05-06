@@ -1,0 +1,6 @@
+name: VanillaCore
+main: com.gmail.nuclearcat1337.core.VCMain
+version: 1.0
+description: Core plugin for VC
+authors: [Mr_Little_Kitty, ryan00793]
+commands:
