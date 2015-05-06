@@ -43,11 +43,11 @@ public class CoreMethods {
     }
 
     public int getMinutesRemainTeleport(Player player){
-        return plugin.coredata.getMinutesRemainTeleport(player);
+        return plugin.getCoredata().getMinutesRemainTeleport(player);
     }
 
     public boolean isModMode(Player player){
-        return plugin.coredata.isModMode(player);
+        return plugin.getCoredata().isModMode(player);
     }
 
 }
