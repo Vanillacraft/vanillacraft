@@ -31,22 +31,14 @@ public class SpawnCommand implements CommandExecutor {
             if(sender instanceof Player){
                 Player player = (Player)sender;
 
-                if(plugin.modMode.containsKey(player)){
-                    if(plugin.modMode.get(player).enabled){
-                        normalTeleport(player, plugin.spawnLocation, true); //The true here makes it so they don't have a cool down
-                        return true;
-                    } else {
-                        normalTeleport(player, plugin.spawnLocation);
-                        return true;
-                    }
+                if(plugin.coremethods.isModMode(player)){
+                    normalTeleport(player, plugin.coredata.spawnLocation, true);
                 } else {
-                    normalTeleport(player, plugin.spawnLocation);
+                    normalTeleport(player, plugin.coredata.spawnLocation);
                     return true;
                 }
-
             }
         }
-        //TODO:: Remove this
         return false;
     }
 
@@ -55,7 +47,7 @@ public class SpawnCommand implements CommandExecutor {
     }
 
     public void normalTeleport(Player player, Location location, Boolean op){
-        //This needs to add teleport delay timer on
+        plugin.coremethods.teleport(player, location,op);
     }
 
 }
