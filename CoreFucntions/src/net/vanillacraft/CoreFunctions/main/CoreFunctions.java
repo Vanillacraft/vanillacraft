@@ -1,12 +1,10 @@
 package net.vanillacraft.CoreFunctions.main;
 
-import net.vanillacraft.CoreFunctions.datastores.opMode;
+import net.vanillacraft.CoreFunctions.datastores.CoreData;
+import net.vanillacraft.CoreFunctions.utils.CoreMethods;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.HashMap;
 
 /**
  * Created by ryan on 5/5/2015.
@@ -21,8 +19,8 @@ public class CoreFunctions extends JavaPlugin
 {
     private static CoreFunctions instance;
 
-    public HashMap<Player, opMode> modMode;
-    public Location spawnLocation = new Location(getServer().getWorld("world"), 0,0,0);
+    public CoreData coredata;
+    public CoreMethods coremethods;
 
     public static JavaPlugin getInstance()
     {
@@ -37,7 +35,9 @@ public class CoreFunctions extends JavaPlugin
     @Override
     public void onEnable() {
         instance = this;
-        modMode = new HashMap<Player, opMode>();
+
+        coredata = new CoreData(this);
+        coremethods = new CoreMethods(this);
     }
 
     @Override

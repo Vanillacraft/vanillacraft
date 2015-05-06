@@ -32,9 +32,9 @@ public class SpawnCommand implements CommandExecutor {
                 Player player = (Player)sender;
 
                 if(plugin.coremethods.isModMode(player)){
-                    normalTeleport(player, plugin.coredata.spawnLocation, true);
+                    normalTeleport(player, plugin.coredata.getSpawnLocation(), true);
                 } else {
-                    normalTeleport(player, plugin.coredata.spawnLocation);
+                    normalTeleport(player, plugin.coredata.getSpawnLocation());
                     return true;
                 }
             }
