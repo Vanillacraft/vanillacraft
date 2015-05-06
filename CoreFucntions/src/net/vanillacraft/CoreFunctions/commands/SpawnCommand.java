@@ -31,10 +31,15 @@ public class SpawnCommand implements CommandExecutor {
             if(sender instanceof Player){
                 Player player = (Player)sender;
 
-                if(plugin.coremethods.isModMode(player)){
-                    normalTeleport(player, plugin.coredata.getSpawnLocation(), true);
+                if(player.getLocation().getWorld() == plugin.coredata.getSpawnLocation().getWorld()){
+                    if(plugin.coremethods.isModMode(player)){
+                        normalTeleport(player, plugin.coredata.getSpawnLocation(), true);
+                    } else {
+                        normalTeleport(player, plugin.coredata.getSpawnLocation());
+                        return true;
+                    }
                 } else {
-                    normalTeleport(player, plugin.coredata.getSpawnLocation());
+                    player.sendMessage(ChatColor.RED + "You must be in the main world.");
                     return true;
                 }
             }
