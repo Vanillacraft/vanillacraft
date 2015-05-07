@@ -15,21 +15,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import static mkremins.fanciful.TextualComponent.rawText;
-
-import com.gmail.nuclearcat1337.antwars.utils.Reflection;
-import com.gmail.nuclearcat1337.utils.ArrayWrapper;
 //import com.google.gson.JsonArray;
 //import com.google.gson.JsonElement;
 //import com.google.gson.JsonObject;
 //import com.google.gson.JsonParser;
 //import com.google.gson.stream.JsonWriter;
 
-
-
-
-
-
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonWriter;
 import org.bukkit.Achievement;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -39,11 +35,7 @@ import org.bukkit.Statistic.Type;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.craftbukkit.libs.com.google.gson.JsonArray;
-import org.bukkit.craftbukkit.libs.com.google.gson.JsonElement;
-import org.bukkit.craftbukkit.libs.com.google.gson.JsonObject;
-import org.bukkit.craftbukkit.libs.com.google.gson.JsonParser;
-import org.bukkit.craftbukkit.libs.com.google.gson.stream.JsonWriter;
+
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -54,7 +46,7 @@ import org.bukkit.inventory.ItemStack;
  * <p>
  * This class follows the builder pattern, allowing for method chaining.
  * It is set up such that invocations of property-setting methods will affect the current editing component,
- * and a call to {@link #then()} or {@link #then(Object)} will append a new editing component to the end of the message,
+ * and a call to {@link #then()} or will append a new editing component to the end of the message,
  * optionally initializing it with text. Further property-setting method calls will affect that editing component.
  * </p>
  */
@@ -87,7 +79,7 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 	 * @param firstPartText The existing text in the message.
 	 */
 	public FancyMessage(final String firstPartText) {
-		this(rawText(firstPartText));
+		this(TextualComponent.rawText(firstPartText));
 	}
 
 	public FancyMessage(final TextualComponent firstPartText) {
@@ -122,7 +114,7 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 	 */
 	public FancyMessage text(String text) {
 		MessagePart latest = latest();
-		latest.text = rawText(text);
+		latest.text = TextualComponent.rawText(text);
 		dirty = true;
 		return this;
 	}
@@ -461,7 +453,7 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 					}
 				}
 				if(i != lines.length - 1){
-					result.messageParts.add(new MessagePart(rawText("\n")));
+					result.messageParts.add(new MessagePart(TextualComponent.rawText("\n")));
 				}
 			} catch (CloneNotSupportedException e) {
 				Bukkit.getLogger().log(Level.WARNING, "Failed to clone object", e);
@@ -542,7 +534,7 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 	 * @return This builder instance.
 	 */
 	public FancyMessage then(final String text) {
-		return then(rawText(text));
+		return then(TextualComponent.rawText(text));
 	}
 
 	/**
@@ -763,7 +755,8 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
 	public Iterator<MessagePart> iterator() {
 		return messageParts.iterator();
 	}
-	
+
+
 	private static JsonParser _stringParser = new JsonParser();
 	
 	/**
