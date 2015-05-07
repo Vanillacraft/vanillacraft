@@ -1,4 +1,4 @@
-package com.gmail.nuclearcat1337.griefprotect.util;
+package net.vanillacraft.CoreFunctions.utils;
 
 public interface Receiver<T>
 {

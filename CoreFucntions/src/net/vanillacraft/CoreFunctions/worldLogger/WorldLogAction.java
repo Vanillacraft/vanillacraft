@@ -1,4 +1,4 @@
-package com.gmail.nuclearcat1337.griefprotect.worldLogger;
+package net.vanillacraft.CoreFunctions.worldLogger;
 
 public enum WorldLogAction
 {

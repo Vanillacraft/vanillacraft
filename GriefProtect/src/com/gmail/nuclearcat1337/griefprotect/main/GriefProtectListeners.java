@@ -3,7 +3,7 @@ package com.gmail.nuclearcat1337.griefprotect.main;
 import com.gmail.nuclearcat1337.griefprotect.griefData.GriefData;
 import com.gmail.nuclearcat1337.griefprotect.griefItems.GriefChest;
 import com.gmail.nuclearcat1337.griefprotect.queries.GriefProtectBlockCheck;
-import com.gmail.nuclearcat1337.griefprotect.util.BlockHelper;
+import net.vanillacraft.CoreFunctions.utils.BlockHelper;
 import com.gmail.nuclearcat1337.griefprotect.util.Loc;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

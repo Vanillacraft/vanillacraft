@@ -6,6 +6,7 @@ import net.vanillacraft.CoreFunctions.database.SQLiteDatabase;
 import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.CoreMethods;
+import net.vanillacraft.CoreFunctions.worldLogger.WorldLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -85,10 +86,10 @@ public class CoreFunctions extends JavaPlugin
             return;
         }
 
-        coredata = new CoreData(this,db);
+        coredata = new CoreData(this,db,new WorldLogger(db));
         coremethods = new CoreMethods(this);
 
-        Bukkit.getServicesManager().register(CoreFunctions.class,this,this, ServicePriority.High);
+        Bukkit.getServicesManager().register(CoreFunctions.class, this, this, ServicePriority.High);
     }
 
     @Override

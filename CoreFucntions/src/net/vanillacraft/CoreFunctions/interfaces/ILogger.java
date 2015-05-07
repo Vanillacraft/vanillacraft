@@ -1,4 +1,4 @@
-package com.gmail.nuclearcat1337.griefprotect.interfaces;
+package net.vanillacraft.CoreFunctions.interfaces;
 
 public interface ILogger
 {

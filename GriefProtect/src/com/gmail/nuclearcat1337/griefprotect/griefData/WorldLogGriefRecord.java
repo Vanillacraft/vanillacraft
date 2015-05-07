@@ -1,7 +1,6 @@
 package com.gmail.nuclearcat1337.griefprotect.griefData;
 
-import com.gmail.nuclearcat1337.griefprotect.interfaces.WorldLogRecord;
-import com.gmail.nuclearcat1337.griefprotect.worldLogger.RecordType;
+import net.vanillacraft.CoreFunctions.interfaces.WorldLogRecord;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
@@ -56,11 +55,16 @@ public class WorldLogGriefRecord implements WorldLogRecord
     }
 
     @Override
-    public RecordType getType()
+    public String getType()
     {
-        return RecordType.GriefLog;
+        return "Greif";
     }
 
+    @Override
+    public String getStatementText()
+    {
+        return "INSERT INTO tbl_griefprotect_log (col_timestamp, col_action, col_player, col_owner, col_block_material, col_block_data, col_content, col_x, col_y, col_z, col_allowed, col_world) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
 
     public WorldLogGriefRecord(String action, UUID player, UUID owner, BlockState block, boolean allowed, String content) {
         timestamp = System.currentTimeMillis();

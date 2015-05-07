@@ -1,10 +1,10 @@
-package com.gmail.nuclearcat1337.griefprotect.worldLogger;
+package net.vanillacraft.CoreFunctions.worldLogger;
 
-import com.gmail.nuclearcat1337.griefprotect.interfaces.ILogger;
-import com.gmail.nuclearcat1337.griefprotect.interfaces.WorldLogRecord;
-import com.gmail.nuclearcat1337.griefprotect.main.GriefProtect;
-import com.gmail.nuclearcat1337.griefprotect.util.Provider;
+import net.vanillacraft.CoreFunctions.interfaces.ILogger;
+import net.vanillacraft.CoreFunctions.interfaces.WorldLogRecord;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
+import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import net.vanillacraft.CoreFunctions.utils.Provider;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,12 +21,12 @@ public class WorldLogger implements ILogger, Provider<WorldLogRecord>,Listener
 
     public WorldLogger(Database database)
     {
-        Bukkit.getPluginManager().registerEvents(this, GriefProtect.getInstance());
+        Bukkit.getPluginManager().registerEvents(this, CoreFunctions.getInstance());
         this.database = database;
         recordQueue = new ConcurrentLinkedQueue<>();
-        thread = new LogThread(database.getConnection(),this);
+        thread = new LogThread(database,this);
         thread.start();
-        new WorldLogListeners(GriefProtect.getInstance(),this);
+        new WorldLogListeners(CoreFunctions.getInstance(),this);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class WorldLogger implements ILogger, Provider<WorldLogRecord>,Listener
     @EventHandler
     public void onDisable(PluginDisableEvent event)
     {
-        if(event.getPlugin().getName().equals(GriefProtect.getInstance().getName()))
+        if(event.getPlugin().getName().equals(CoreFunctions.getInstance().getName()))
             thread.enabled = false;
     }
 

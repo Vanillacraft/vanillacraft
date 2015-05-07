@@ -4,7 +4,7 @@ import com.gmail.nuclearcat1337.griefprotect.griefData.GriefData;
 import com.gmail.nuclearcat1337.griefprotect.queries.GriefProtectPlayerAccessRemove;
 import com.gmail.nuclearcat1337.griefprotect.util.PlayerProfile;
 import com.gmail.nuclearcat1337.griefprotect.util.ProfileUtils;
-import com.gmail.nuclearcat1337.griefprotect.util.Receiver;
+import net.vanillacraft.CoreFunctions.utils.Receiver;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

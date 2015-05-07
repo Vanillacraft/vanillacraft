@@ -1,6 +1,7 @@
 package net.vanillacraft.CoreFunctions.datastores;
 
 import net.vanillacraft.CoreFunctions.interfaces.Database;
+import net.vanillacraft.CoreFunctions.interfaces.ILogger;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,16 +16,24 @@ public class CoreData {
     private Database database;
 
     private CoreFunctions plugin;
+    private ILogger logger;
 
     private HashMap<Player, Long> teleportTimers = new HashMap<>();
     private HashMap<Player, opMode> modMode = new HashMap<Player, opMode>();
 
     private Location spawnLocation = new Location(plugin.getServer().getWorld("world"), 0,0,0);
 
-    public CoreData(CoreFunctions plugin, Database database){
+    public CoreData(CoreFunctions plugin, Database database, ILogger logger){
         this.plugin = plugin;
         this.database = database;
+        this.logger = logger;
     }
+
+    public ILogger getLogger()
+    {
+        return logger;
+    }
+
 
     public Database getDatabase()
     {

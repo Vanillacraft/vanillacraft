@@ -1,6 +1,6 @@
-package com.gmail.nuclearcat1337.griefprotect.worldLogger;
+package net.vanillacraft.CoreFunctions.worldLogger;
 
-import com.gmail.nuclearcat1337.griefprotect.interfaces.WorldLogRecord;
+import net.vanillacraft.CoreFunctions.interfaces.WorldLogRecord;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -145,6 +145,18 @@ public class WorldLogBlockRecord implements WorldLogRecord
     }
 
     @Override
+    public String getType()
+    {
+        return "Block";
+    }
+
+    @Override
+    public String getStatementText()
+    {
+        return "INSERT INTO tbl_block_log (col_timestamp, col_action, col_player, col_item_type, col_player_x, col_player_y, col_player_z, col_player_pitch, col_player_yaw, col_block_material, col_block_data, col_block_x, col_block_y, col_block_z, col_content, col_cancelled, col_world, col_public) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
+
+    @Override
     public void executeRecord(final PreparedStatement statement)
     {
         //col_timestamp,
@@ -194,11 +206,6 @@ public class WorldLogBlockRecord implements WorldLogRecord
         }
     }
 
-    @Override
-    public RecordType getType()
-    {
-        return RecordType.BlockLog;
-    }
 }
 
 

@@ -1,7 +1,7 @@
-package com.gmail.nuclearcat1337.griefprotect.worldLogger;
+package net.vanillacraft.CoreFunctions.worldLogger;
 
-import com.gmail.nuclearcat1337.griefprotect.interfaces.ILogger;
-import com.gmail.nuclearcat1337.griefprotect.util.BlockHelper;
+import net.vanillacraft.CoreFunctions.interfaces.ILogger;
+import net.vanillacraft.CoreFunctions.utils.BlockHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

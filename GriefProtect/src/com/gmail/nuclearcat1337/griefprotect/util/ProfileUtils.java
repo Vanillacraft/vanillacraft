@@ -1,6 +1,7 @@
 package com.gmail.nuclearcat1337.griefprotect.util;
 
 import com.gmail.nuclearcat1337.griefprotect.main.GriefProtect;
+import net.vanillacraft.CoreFunctions.utils.Receiver;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONArray;
