@@ -67,4 +67,92 @@ public class Zone {
         opOnly = false;
 
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getCenter_x() {
+        return center_x;
+    }
+
+    public double getCenter_z() {
+        return center_z;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public double getMin_x() {
+        return min_x;
+    }
+
+    public double getMax_x() {
+        return max_x;
+    }
+
+    public double getMin_y() {
+        return min_y;
+    }
+
+    public double getMax_y() {
+        return max_y;
+    }
+
+    public double getMin_z() {
+        return min_z;
+    }
+
+    public double getMax_z() {
+        return max_z;
+    }
+
+    public boolean isCircle() {
+        return circle;
+    }
+
+    public boolean isPvp() {
+        return pvp;
+    }
+
+    public boolean isFfaPVP() {
+        return ffaPVP;
+    }
+
+    public boolean isProtect() {
+        return protect;
+    }
+
+    public boolean isOpOnly() {
+        return opOnly;
+    }
+
+    public boolean isDonor() {
+        return donor;
+    }
+
+    public boolean isModOnly() {
+        return modOnly;
+    }
+
+    public int getWarning() {
+        return warning;
+    }
+
+    public boolean isPermaBan() {
+        return permaBan;
+    }
+
+    public String getFaction() {
+        return faction;
+    }
+
+    public HashSet<Integer> getIgnoreBlockId() {
+        return ignoreBlockId;
+    }
+
+    public Location getSpawn() {
+        return spawn;
+    }
 }
