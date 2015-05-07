@@ -6,14 +6,13 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ryan on 5/6/2015.
  */
 public class Zones extends JavaPlugin {
+
     private static Zones instance;
 
     private ArrayList<String> worldsWithZones = new ArrayList<>();
