@@ -31,11 +31,11 @@ public class SpawnCommand implements CommandExecutor {
             if(sender instanceof Player){
                 Player player = (Player)sender;
 
-                if(player.getLocation().getWorld() == plugin.coredata.getSpawnLocation().getWorld()){
-                    if(plugin.coremethods.isModMode(player)){
-                        normalTeleport(player, plugin.coredata.getSpawnLocation(), true);
+                if(player.getLocation().getWorld() == plugin.getCoredata().getSpawnLocation().getWorld()){
+                    if(plugin.getCoremethods().isModMode(player)){
+                        normalTeleport(player, plugin.getCoredata().getSpawnLocation(), true);
                     } else {
-                        normalTeleport(player, plugin.coredata.getSpawnLocation());
+                        normalTeleport(player, plugin.getCoredata().getSpawnLocation());
                         return true;
                     }
                 } else {
@@ -52,7 +52,7 @@ public class SpawnCommand implements CommandExecutor {
     }
 
     public void normalTeleport(Player player, Location location, Boolean op){
-        plugin.coremethods.teleport(player, location,op);
+        plugin.getCoremethods().teleport(player, location,op);
     }
 
 }
