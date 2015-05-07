@@ -1,0 +1,70 @@
+package net.vanillacraft.Zones.datastores;
+
+import org.bukkit.Location;
+
+import java.util.HashSet;
+
+/**
+ * Created by ryan on 5/6/2015.
+ */
+public class Zone {
+    String name;
+
+    double center_x;
+    double center_z;
+    double radius;
+
+    double min_x;
+    double max_x;
+    double min_y;
+    double max_y;
+    double min_z;
+    double max_z;
+
+    boolean circle;
+    boolean pvp;
+    boolean ffaPVP;
+    boolean protect;
+    boolean opOnly;
+    boolean donor;
+    boolean modOnly;
+
+    int warning;
+    boolean permaBan;
+
+    String faction;
+
+    HashSet<Integer> ignoreBlockId;
+
+    Location spawn;
+
+    public Zone(String name, double x1, double y1, double z1, double x2, double y2, double z2, boolean circle, boolean pvp, boolean protect, int warning, boolean permaBan) {
+        min_x = x1;
+        min_y = y1;
+        min_z = z1;
+
+        max_x = x2;
+        max_y = y2;
+        max_z = z2;
+
+        center_x = min_x + ((max_x - min_x) / 2);
+        center_z = min_z + ((max_z - min_z) / 2);
+
+        this.radius = Math.abs(center_x - min_x);
+
+        this.circle = circle;
+        this.pvp = pvp;
+        this.protect = protect;
+        this.warning = warning;
+        this.permaBan = permaBan;
+
+        ignoreBlockId = null;
+
+        spawn = null;
+
+        faction = null;
+
+        opOnly = false;
+
+    }
+}
