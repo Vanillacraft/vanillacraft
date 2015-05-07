@@ -9,6 +9,7 @@ import net.vanillacraft.CoreFunctions.utils.CoreMethods;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.xml.crypto.Data;
@@ -86,6 +87,8 @@ public class CoreFunctions extends JavaPlugin
 
         coredata = new CoreData(this,db);
         coremethods = new CoreMethods(this);
+
+        Bukkit.getServicesManager().register(CoreFunctions.class,this,this, ServicePriority.High);
     }
 
     @Override

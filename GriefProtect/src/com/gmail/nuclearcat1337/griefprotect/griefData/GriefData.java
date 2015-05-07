@@ -1,8 +1,8 @@
 package com.gmail.nuclearcat1337.griefprotect.griefData;
 
 import com.gmail.nuclearcat1337.griefprotect.interfaces.BlockWatcher;
-import com.gmail.nuclearcat1337.griefprotect.interfaces.Database;
 import com.gmail.nuclearcat1337.griefprotect.interfaces.ILogger;
+import net.vanillacraft.CoreFunctions.interfaces.Database;
 
 public class GriefData
 {

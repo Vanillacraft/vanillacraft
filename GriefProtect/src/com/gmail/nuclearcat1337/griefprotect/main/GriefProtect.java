@@ -1,13 +1,11 @@
 package com.gmail.nuclearcat1337.griefprotect.main;
 
-import com.gmail.nuclearcat1337.griefprotect.database.DatabaseQueryManager;
-import com.gmail.nuclearcat1337.griefprotect.database.MySQLDatabase;
-import com.gmail.nuclearcat1337.griefprotect.database.SQLiteDatabase;
 import com.gmail.nuclearcat1337.griefprotect.griefData.GriefData;
-import com.gmail.nuclearcat1337.griefprotect.interfaces.Database;
 import com.gmail.nuclearcat1337.griefprotect.interfaces.ILogger;
 import com.gmail.nuclearcat1337.griefprotect.queries.GriefProtectPlayerAccessInit;
 import com.gmail.nuclearcat1337.griefprotect.worldLogger.WorldLogger;
+import net.vanillacraft.CoreFunctions.interfaces.Database;
+import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,14 +24,24 @@ public class GriefProtect extends JavaPlugin
         return instance;
     }
 
-    public static void logInfoMessage(String message)
+    public static void logError(String message, Class<?> clazz, int errorNumber)
     {
-        Bukkit.getLogger().info("[GriefProtect] "+message);
+        Bukkit.getLogger().log(Level.SEVERE, "[GriefProtect] Class={" + clazz.getSimpleName() + "} Error " + errorNumber + ": " + message);
     }
 
-    public static void logWarning(String message, Level level)
+    public static void logError(String message, Class<?> clazz)
     {
-        Bukkit.getLogger().log(level,"[GriefProtect] "+message);
+        logError(message, clazz, 1);
+    }
+
+    public static void logInfoMessage(String message)
+    {
+        Bukkit.getLogger().info("[GriefProtect] " + message);
+    }
+
+    public static void logWarning(String message)
+    {
+        Bukkit.getLogger().warning("[GriefProtect] " + message);
     }
 
 
@@ -44,20 +52,21 @@ public class GriefProtect extends JavaPlugin
     {
         instance = this;
 
-        Database database = setupDatabase(); //Establish the database connection and setup the tables
-
-        if(database == null)
+        if(!Bukkit.getServicesManager().isProvidedFor(CoreFunctions.class))
         {
+            logInfoMessage("Could not get the VC core. Disabling.");
             Bukkit.getPluginManager().disablePlugin(this);
-            logInfoMessage("Database connection error. Disabling GriefProtect.");
             return;
         }
 
-        ILogger l = new WorldLogger(setupDatabase()); //Then create the logger using the database and the created tables
+        CoreFunctions core = Bukkit.getServicesManager().load(CoreFunctions.class);//getRegistration(CoreFunctions.class).getProvider();
+        Database db = core.getCoredata().getDatabase();
 
-        data = new GriefData(l, database, null); //TODO---Actual or fake block watcher implementation
+        ILogger l = new WorldLogger(db); //Then create the logger using the database and the created tables
 
-        data.getDatabase().submitQuery(new GriefProtectPlayerAccessInit(data));
+        data = new GriefData(l, db, null); //TODO---Actual or fake block watcher implementation
+
+        db.submitQuery(new GriefProtectPlayerAccessInit(data));
 
        // new AllowCommand(this,data);
        // new RevokeCommand(this,data);
@@ -74,96 +83,6 @@ public class GriefProtect extends JavaPlugin
     public GriefData getData()
     {
         return data;
-    }
-
-    private Database setupDatabase()
-    {
-        createConfigDefaults();
-        Database db = null;
-        boolean mysql = getConfig().getBoolean("Database.Use-MySQL");
-        if(mysql)
-        {
-            ConfigurationSection mysqlSec = getConfig().getConfigurationSection("Database.MySQL");
-
-            String user,database,password,port,hostname;
-            user = mysqlSec.getString("User");
-            database = mysqlSec.getString("Database");
-            password = mysqlSec.getString("Password");
-            port = mysqlSec.getString("Port");
-            hostname = mysqlSec.getString("Host-Name");
-
-            db = new MySQLDatabase(hostname,port,database,user,password);
-        }
-        else
-        {
-            File file = new File(this.getDataFolder(),"GriefProtect.db");
-//            if(!file.exists())
-//            {
-//                try
-//                {
-//                    file.createNewFile();
-//                }
-//                catch (IOException e)
-//                {
-//                    e.printStackTrace();
-//                }
-//            }
-            db = new SQLiteDatabase(file);
-            //logInfoMessage("MySQL is turned off. It is currently the only database option and must be enabled.");
-        }
-
-        if(db == null || !db.isUseable())
-            return null;
-
-        tableCheck(db); //Then make sure all tables are created
-
-        int threads = getConfig().getInt("Database.Number-Of-DB-Threads");
-
-        //Run the database handlers to prepare themselves to start logging queries
-        new DatabaseQueryManager(db,threads);
-        //new DBLogQueryAsync(db);
-        //new DBLogQueryAsync(db);
-
-        return db;
-    }
-
-    private void createConfigDefaults()
-    {
-        int counter = 0;
-        ConfigurationSection config = getConfig();
-
-        ConfigurationSection db = config.getConfigurationSection("Database");
-        if(db == null)
-        {
-            db = config.createSection("Database");
-            counter++;
-        }
-        counter += setIfNotSet(db,"Use-MySQL",true);
-        counter += setIfNotSet(db, "Number-Of-DB-Threads",3);
-        ConfigurationSection mysql = db.getConfigurationSection("MySQL");
-        if(mysql == null)
-        {
-            mysql = db.createSection("MySQL");
-            counter++;
-        }
-        counter += setIfNotSet(mysql,"Host-Name", "Test");
-        counter += setIfNotSet(mysql,"Port", "Test");
-        counter += setIfNotSet(mysql,"User", "Test");
-        counter += setIfNotSet(mysql,"Password", "Test");
-        counter += setIfNotSet(mysql,"Database", "Test");
-
-        if(counter > 0)
-            saveConfig();
-    }
-
-    private int setIfNotSet(ConfigurationSection section, String path, Object value)
-    {
-        if(!section.isSet(path))
-        {
-            section.set(path,value);
-            return 1;
-        }
-        return 0;
     }
 
 

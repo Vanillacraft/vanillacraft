@@ -2,8 +2,8 @@ package com.gmail.nuclearcat1337.griefprotect.queries;
 
 import com.gmail.nuclearcat1337.griefprotect.griefData.GriefData;
 import com.gmail.nuclearcat1337.griefprotect.griefItems.ProtectData;
-import com.gmail.nuclearcat1337.griefprotect.interfaces.DBQuery;
 import com.gmail.nuclearcat1337.griefprotect.main.GriefProtect;
+import net.vanillacraft.CoreFunctions.interfaces.DBQuery;
 import org.bukkit.Material;
 
 import java.sql.ResultSet;
@@ -91,7 +91,8 @@ public class GriefProtectPlayerAccessInit implements DBQuery
         catch (SQLException e)
         {
             //Bukkit.getLogger().log(Level.SEVERE, "GriefProtectPlayed: Error fetching results: " + e.getMessage());
-            GriefProtect.logWarning("Class={"+this.getClass().getSimpleName()+"} Error: "+e.getMessage(),Level.SEVERE);
+            //GriefProtect.logWarning("Class={"+this.getClass().getSimpleName()+"} Error: "+e.getMessage(),Level.SEVERE);
+            GriefProtect.logError(e.getMessage(),this.getClass());
         }
     }
 }

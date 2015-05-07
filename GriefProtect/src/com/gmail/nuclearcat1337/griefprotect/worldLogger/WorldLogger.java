@@ -1,10 +1,10 @@
 package com.gmail.nuclearcat1337.griefprotect.worldLogger;
 
-import com.gmail.nuclearcat1337.griefprotect.interfaces.Database;
 import com.gmail.nuclearcat1337.griefprotect.interfaces.ILogger;
 import com.gmail.nuclearcat1337.griefprotect.interfaces.WorldLogRecord;
 import com.gmail.nuclearcat1337.griefprotect.main.GriefProtect;
 import com.gmail.nuclearcat1337.griefprotect.util.Provider;
+import net.vanillacraft.CoreFunctions.interfaces.Database;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

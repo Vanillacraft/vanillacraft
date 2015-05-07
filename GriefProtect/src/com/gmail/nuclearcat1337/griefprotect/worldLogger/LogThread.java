@@ -79,7 +79,8 @@ public class LogThread extends Thread
             catch (InterruptedException e)
             {
                 //log.warning("WorldLogThread interrupted: " + e.getMessage());
-                GriefProtect.logWarning("The logging thread has been interrupted: "+e.getMessage(), Level.WARNING);
+                //GriefProtect.logWarning("The logging thread has been interrupted: "+e.getMessage(), Level.WARNING);
+                GriefProtect.logWarning("The logging thread has been interrupted: "+e.getMessage());
                 break;
             }
             Map<RecordType,PreparedStatement> statementCache = new HashMap<>();

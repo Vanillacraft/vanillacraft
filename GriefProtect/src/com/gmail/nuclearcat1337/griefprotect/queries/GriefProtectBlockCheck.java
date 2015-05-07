@@ -5,8 +5,8 @@ import com.gmail.nuclearcat1337.griefprotect.griefData.WorldLogGriefRecord;
 import com.gmail.nuclearcat1337.griefprotect.griefItems.GriefBlock;
 import com.gmail.nuclearcat1337.griefprotect.griefItems.GriefChest;
 import com.gmail.nuclearcat1337.griefprotect.griefItems.GriefContainer;
-import com.gmail.nuclearcat1337.griefprotect.interfaces.DBLogQuery;
 import com.gmail.nuclearcat1337.griefprotect.main.GriefProtect;
+import net.vanillacraft.CoreFunctions.interfaces.DBLogQuery;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
@@ -200,7 +200,8 @@ public class GriefProtectBlockCheck implements DBLogQuery
         } catch (SQLException e)
         {
            //Bukkit.getLogger().log(Level.SEVERE, "GriefProtectBreak: Error fetching results: " + e.getMessage());
-            GriefProtect.logWarning("class={"+this.getClass().getSimpleName()+"} Error: "+e.getMessage(),Level.SEVERE);
+            //GriefProtect.logWarning("class={"+this.getClass().getSimpleName()+"} Error: "+e.getMessage(),Level.SEVERE);
+            GriefProtect.logError(e.getMessage(),this.getClass());
         }
     }
 

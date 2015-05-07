@@ -1,6 +1,7 @@
 package com.gmail.nuclearcat1337.griefprotect.queries;
 
-import com.gmail.nuclearcat1337.griefprotect.interfaces.DBQuery;
+
+import net.vanillacraft.CoreFunctions.interfaces.DBQuery;
 
 import java.sql.ResultSet;
 import java.util.UUID;

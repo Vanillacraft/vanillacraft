@@ -26,6 +26,12 @@ public class CoreData {
         this.database = database;
     }
 
+    public Database getDatabase()
+    {
+        return database;
+    }
+
+
     public Location getSpawnLocation(){
         return spawnLocation;
     }

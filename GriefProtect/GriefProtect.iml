@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bukkit-1.8-R0.1-SNAPSHOT-shaded" level="project" />
     <orderEntry type="library" name="craftbukkit-1.8.3" level="project" />
+    <orderEntry type="module" module-name="CoreFucntions" />
   </component>
 </module>
