@@ -32,7 +32,6 @@ public class CoreFunctions extends JavaPlugin
 
     private CoreData coredata;
     private CoreMethods coremethods;
-    public Database database; //Im making this public because "getDatabase()" is already a method in JavaPlugin :(
 
     public CoreData getCoredata()
     {
@@ -66,7 +65,7 @@ public class CoreFunctions extends JavaPlugin
         Bukkit.getLogger().info("[CoreFunctions] " + message);
     }
 
-    public static  void logWarning(String message)
+    public static void logWarning(String message)
     {
         Bukkit.getLogger().warning("[CoreFunctions] " + message);
     }
@@ -85,7 +84,7 @@ public class CoreFunctions extends JavaPlugin
             return;
         }
 
-        coredata = new CoreData(this);
+        coredata = new CoreData(this,db);
         coremethods = new CoreMethods(this);
     }
 
@@ -148,41 +147,41 @@ public class CoreFunctions extends JavaPlugin
 
     private void createConfigDefaults()
     {
-        int counter = 0;
+        boolean saveConfig = false;
         ConfigurationSection config = getConfig();
 
         ConfigurationSection db = config.getConfigurationSection("Database");
         if(db == null)
         {
             db = config.createSection("Database");
-            counter++;
+            saveConfig = true;
         }
-        counter += setIfNotSet(db,"Use-MySQL",true);
-        counter += setIfNotSet(db, "Number-Of-DB-Threads",3);
+        saveConfig = setIfNotSet(db,"Use-MySQL",true);
+        saveConfig = setIfNotSet(db, "Number-Of-DB-Threads",3);
         ConfigurationSection mysql = db.getConfigurationSection("MySQL");
         if(mysql == null)
         {
             mysql = db.createSection("MySQL");
-            counter++;
+            saveConfig = true;
         }
-        counter += setIfNotSet(mysql,"Host-Name", "Test");
-        counter += setIfNotSet(mysql,"Port", "Test");
-        counter += setIfNotSet(mysql,"User", "Test");
-        counter += setIfNotSet(mysql,"Password", "Test");
-        counter += setIfNotSet(mysql,"Database", "Test");
+        saveConfig = setIfNotSet(mysql,"Host-Name", "Test");
+        saveConfig = setIfNotSet(mysql,"Port", "Test");
+        saveConfig = setIfNotSet(mysql,"User", "Test");
+        saveConfig = setIfNotSet(mysql,"Password", "Test");
+        saveConfig = setIfNotSet(mysql,"Database", "Test");
 
-        if(counter > 0)
+        if(saveConfig)
             saveConfig();
     }
 
-    private int setIfNotSet(ConfigurationSection section, String path, Object value)
+    private boolean setIfNotSet(ConfigurationSection section, String path, Object value)
     {
         if(!section.isSet(path))
         {
             section.set(path,value);
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 
 

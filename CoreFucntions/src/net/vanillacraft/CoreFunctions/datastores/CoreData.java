@@ -1,10 +1,10 @@
 package net.vanillacraft.CoreFunctions.datastores;
 
+import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -12,15 +12,18 @@ import java.util.HashMap;
  */
 public class CoreData {
 
+    private Database database;
+
     private CoreFunctions plugin;
 
-    HashMap<Player, Long> teleportTimers = new HashMap<>();
-    HashMap<Player, opMode> modMode = new HashMap<Player, opMode>();
+    private HashMap<Player, Long> teleportTimers = new HashMap<>();
+    private HashMap<Player, opMode> modMode = new HashMap<Player, opMode>();
 
-    Location spawnLocation = new Location(plugin.getServer().getWorld("world"), 0,0,0);
+    private Location spawnLocation = new Location(plugin.getServer().getWorld("world"), 0,0,0);
 
-    public CoreData(CoreFunctions plugin){
+    public CoreData(CoreFunctions plugin, Database database){
         this.plugin = plugin;
+        this.database = database;
     }
 
     public Location getSpawnLocation(){
@@ -29,7 +32,7 @@ public class CoreData {
 
     public boolean isModMode(Player player){
         if(modMode.containsKey(player)){
-            if(modMode.get(player).enabled){
+            if(modMode.get(player).isEnabled()){
                 return true;
             }
         }
