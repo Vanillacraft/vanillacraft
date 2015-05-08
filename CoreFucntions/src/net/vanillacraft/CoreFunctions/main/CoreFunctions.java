@@ -150,7 +150,9 @@ public class CoreFunctions extends JavaPlugin
         }
 
         if (db == null || !db.isUseable())
+        {
             return null;
+        }
 
         tableCheck(db); //Then make sure all tables are created
 
@@ -192,7 +194,9 @@ public class CoreFunctions extends JavaPlugin
         saveConfig = setIfNotSet(mysql, "Database", "Test");
 
         if (saveConfig)
+        {
             saveConfig();
+        }
     }
 
     private boolean setIfNotSet(ConfigurationSection section, String path, Object value)
