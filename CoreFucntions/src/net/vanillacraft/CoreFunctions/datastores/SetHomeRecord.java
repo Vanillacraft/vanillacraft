@@ -2,7 +2,6 @@ package net.vanillacraft.CoreFunctions.datastores;
 
 import net.vanillacraft.CoreFunctions.interfaces.InsertRecord;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

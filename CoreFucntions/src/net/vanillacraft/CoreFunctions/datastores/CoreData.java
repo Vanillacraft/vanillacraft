@@ -112,6 +112,7 @@ public class CoreData
 
         //TODO add method to write to the database
         SetHomeRecord record = new SetHomeRecord(uuid, location);
+        getDatabase().submitInsertRecord(record);
 
         playerSetHomeCoolDown.put(uuid, System.currentTimeMillis() + SETHOMECOOLDOWN);
         playerHomeLocations.put(uuid, location);

@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
  */
 public class CoreMethods
 {
-    CoreFunctions plugin;
+    private CoreFunctions plugin;
 
     public CoreMethods(CoreFunctions plugin)
     {
