@@ -11,7 +11,8 @@ import java.util.ArrayList;
 /**
  * Created by ryan on 5/6/2015.
  */
-public class Zones extends JavaPlugin {
+public class Zones extends JavaPlugin
+{
 
     private static Zones instance;
 
@@ -25,11 +26,12 @@ public class Zones extends JavaPlugin {
 
     public static void logInfoMessage(String message)
     {
-        Bukkit.getLogger().info("[Zones] "+message);
+        Bukkit.getLogger().info("[Zones] " + message);
     }
 
     @Override
-    public void onEnable() {
+    public void onEnable()
+    {
         instance = this;
     }
 
@@ -39,12 +41,15 @@ public class Zones extends JavaPlugin {
         Bukkit.getScheduler().cancelTasks(this);
     }
 
-    public Zone getZone(Player player){
+    public Zone getZone(Player player)
+    {
         return getZone(player.getLocation());
     }
 
-    public Zone getZone(Location loc){
-        if(!worldsWithZones.contains(loc.getWorld())){
+    public Zone getZone(Location loc)
+    {
+        if (!worldsWithZones.contains(loc.getWorld()))
+        {
             return null;
         }
 
@@ -52,12 +57,16 @@ public class Zones extends JavaPlugin {
         int loc_y = loc.getBlockY();
         int loc_z = loc.getBlockZ();
 
-        for (Zone z : zoneList) {
-            if (loc_x >= z.getMin_x() && loc_x <= z.getMax_x() && loc_y >= z.getMin_y() && loc_y <= z.getMax_y() && loc_z >= z.getMin_z() && loc_z <= z.getMax_z()) {
-                if (!z.isCircle()) {
+        for (Zone z : zoneList)
+        {
+            if (loc_x >= z.getMin_x() && loc_x <= z.getMax_x() && loc_y >= z.getMin_y() && loc_y <= z.getMax_y() && loc_z >= z.getMin_z() && loc_z <= z.getMax_z())
+            {
+                if (!z.isCircle())
+                {
                     return z;
                 }
-                else if ((Math.pow(loc.getX() - z.getCenter_x(), 2) + Math.pow(loc.getZ() - z.getCenter_z(), 2)) < Math.pow(z.getRadius(), 2)) {
+                else if ((Math.pow(loc.getX() - z.getCenter_x(), 2) + Math.pow(loc.getZ() - z.getCenter_z(), 2)) < Math.pow(z.getRadius(), 2))
+                {
                     return z;
                 }
             }

@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="bukkit-1.8-R0.1-SNAPSHOT-shaded">
     <CLASSES>
-      <root url="jar://C:/Minecraft/bukkit api/bukkit-1.8-R0.1-SNAPSHOT-shaded.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../References/bukkit-1.8-R0.1-SNAPSHOT-shaded.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

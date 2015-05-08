@@ -90,8 +90,8 @@ public class BlockHelper
                     case REDSTONE_TORCH_OFF:
                     case REDSTONE_TORCH_ON:
                     case LEVER:
-                        Attachable t = (Attachable)b.getState().getData();
-                        if(t.getAttachedFace() != BlockFace.DOWN)
+                        Attachable t = (Attachable) b.getState().getData();
+                        if (t.getAttachedFace() != BlockFace.DOWN)
                             return null;
                         else
                             return b;
@@ -106,13 +106,13 @@ public class BlockHelper
 
     public static Block getConnectedSide(Location location, BlockFace side)
     {
-//        int x = location.getBlockX();
-//        int y = location.getBlockY();
-//        int z = location.getBlockZ();
+        //        int x = location.getBlockX();
+        //        int y = location.getBlockY();
+        //        int z = location.getBlockZ();
         Block block = location.getBlock().getRelative(side);
         Block b = location.getBlock();
-        Bukkit.getLogger().info("Block: "+block.getX()+", "+block.getY()+", "+block.getZ());
-        Bukkit.getLogger().info("Side block: "+b.getX()+", "+b.getY()+", "+b.getZ());
+        Bukkit.getLogger().info("Block: " + block.getX() + ", " + block.getY() + ", " + block.getZ());
+        Bukkit.getLogger().info("Side block: " + b.getX() + ", " + b.getY() + ", " + b.getZ());
         switch (block.getType())
         {
             // case 50:
@@ -155,7 +155,7 @@ public class BlockHelper
             case ACTIVATOR_RAIL:
             case DETECTOR_RAIL:
             case POWERED_RAIL:
-                Rails rail = (Rails)block.getState().getData();
+                Rails rail = (Rails) block.getState().getData();
                 if (rail.isOnSlope())
                 {
                     BlockFace face1 = rail.getDirection().getOppositeFace();
@@ -172,14 +172,14 @@ public class BlockHelper
 
     public static Block getConnectedBelow(Location location)
     {
-        Block block = location.getBlock().getWorld().getBlockAt(location.getBlockX(),location.getBlockY()-1,location.getBlockZ());
+        Block block = location.getBlock().getWorld().getBlockAt(location.getBlockX(), location.getBlockY() - 1, location.getBlockZ());
         switch (block.getType())
         {
             case LEVER:
             case STONE_BUTTON:
             case WOOD_BUTTON:
-                Attachable at = (Attachable)block.getState().getData();
-                if(at.getAttachedFace() == BlockFace.UP)
+                Attachable at = (Attachable) block.getState().getData();
+                if (at.getAttachedFace() == BlockFace.UP)
                     return block;
                 return null;
             default:
@@ -194,30 +194,30 @@ public class BlockHelper
         Block b;
 
         b = getConnectedAbove(location);
-        if(b != null)
+        if (b != null)
             blocks.add(b);
 
         b = getConnectedBelow(location);
-        if(b != null)
+        if (b != null)
             blocks.add(b);
 
-        b = getConnectedSide(location,BlockFace.SOUTH);
-        if(b != null)
+        b = getConnectedSide(location, BlockFace.SOUTH);
+        if (b != null)
             blocks.add(b);
 
-        b = getConnectedSide(location,BlockFace.NORTH);
-        if(b != null)
+        b = getConnectedSide(location, BlockFace.NORTH);
+        if (b != null)
             blocks.add(b);
 
-        b = getConnectedSide(location,BlockFace.EAST);
-        if(b != null)
+        b = getConnectedSide(location, BlockFace.EAST);
+        if (b != null)
             blocks.add(b);
 
-        b = getConnectedSide(location,BlockFace.WEST);
-        if(b != null)
+        b = getConnectedSide(location, BlockFace.WEST);
+        if (b != null)
             blocks.add(b);
 
-        if(blocks.isEmpty())
+        if (blocks.isEmpty())
             return null;
         return blocks;
     }

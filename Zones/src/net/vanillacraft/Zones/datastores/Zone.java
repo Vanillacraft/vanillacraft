@@ -7,7 +7,8 @@ import java.util.HashSet;
 /**
  * Created by ryan on 5/6/2015.
  */
-public class Zone {
+public class Zone
+{
     String name;
 
     double center_x;
@@ -38,7 +39,8 @@ public class Zone {
 
     Location spawn;
 
-    public Zone(String name, double x1, double y1, double z1, double x2, double y2, double z2, boolean circle, boolean pvp, boolean protect, int warning, boolean permaBan) {
+    public Zone(String name, double x1, double y1, double z1, double x2, double y2, double z2, boolean circle, boolean pvp, boolean protect, int warning, boolean permaBan)
+    {
         min_x = x1;
         min_y = y1;
         min_z = z1;
@@ -68,91 +70,113 @@ public class Zone {
 
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public double getCenter_x() {
+    public double getCenter_x()
+    {
         return center_x;
     }
 
-    public double getCenter_z() {
+    public double getCenter_z()
+    {
         return center_z;
     }
 
-    public double getRadius() {
+    public double getRadius()
+    {
         return radius;
     }
 
-    public double getMin_x() {
+    public double getMin_x()
+    {
         return min_x;
     }
 
-    public double getMax_x() {
+    public double getMax_x()
+    {
         return max_x;
     }
 
-    public double getMin_y() {
+    public double getMin_y()
+    {
         return min_y;
     }
 
-    public double getMax_y() {
+    public double getMax_y()
+    {
         return max_y;
     }
 
-    public double getMin_z() {
+    public double getMin_z()
+    {
         return min_z;
     }
 
-    public double getMax_z() {
+    public double getMax_z()
+    {
         return max_z;
     }
 
-    public boolean isCircle() {
+    public boolean isCircle()
+    {
         return circle;
     }
 
-    public boolean isPvp() {
+    public boolean isPvp()
+    {
         return pvp;
     }
 
-    public boolean isFfaPVP() {
+    public boolean isFfaPVP()
+    {
         return ffaPVP;
     }
 
-    public boolean isProtect() {
+    public boolean isProtect()
+    {
         return protect;
     }
 
-    public boolean isOpOnly() {
+    public boolean isOpOnly()
+    {
         return opOnly;
     }
 
-    public boolean isDonor() {
+    public boolean isDonor()
+    {
         return donor;
     }
 
-    public boolean isModOnly() {
+    public boolean isModOnly()
+    {
         return modOnly;
     }
 
-    public int getWarning() {
+    public int getWarning()
+    {
         return warning;
     }
 
-    public boolean isPermaBan() {
+    public boolean isPermaBan()
+    {
         return permaBan;
     }
 
-    public String getFaction() {
+    public String getFaction()
+    {
         return faction;
     }
 
-    public HashSet<Integer> getIgnoreBlockId() {
+    public HashSet<Integer> getIgnoreBlockId()
+    {
         return ignoreBlockId;
     }
 
-    public Location getSpawn() {
+    public Location getSpawn()
+    {
         return spawn;
     }
 }

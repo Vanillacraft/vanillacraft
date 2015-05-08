@@ -23,7 +23,7 @@ import java.util.UUID;
 public class WorldLogListeners implements Listener
 {
     private ILogger log;
-    private Map<UUID,Long> physicalInteractTimers;
+    private Map<UUID, Long> physicalInteractTimers;
 
     public WorldLogListeners(Plugin plugin, ILogger log)
     {
@@ -54,9 +54,9 @@ public class WorldLogListeners implements Listener
         if (b.getType().isSolid())
         {
             List<Block> blocks = BlockHelper.getConnectedBlocks(b.getLocation());
-            if(blocks != null)
+            if (blocks != null)
             {
-                for(Block block : blocks)
+                for (Block block : blocks)
                     logAction(WorldLogAction.BREAK, event.getPlayer(), block, event.isCancelled());
             }
             //TODO----Were also going to need to check the block below to see if there is a button or a lever attached to the bottom of this block
@@ -76,64 +76,64 @@ public class WorldLogListeners implements Listener
 
     //TODO--------------Were gonna go ahead and not log interact events until there is a system in place to only log some of them
     //TODO--------------Because logging all interact events really spams the logs
-//    @EventHandler(priority = EventPriority.MONITOR)
-//    public void onPlayerInteract(PlayerInteractEvent event)
-//    {
-//        //if (plugin.logOnInteract)
-//        //{
-//            Action action = event.getAction();
-//            //String playerName = ChatColor.stripColor(event.getPlayer().getName());
-//            // right click interact
-//            if (action == Action.RIGHT_CLICK_BLOCK )//&& (plugin.interactRightClickSet.isEmpty() || plugin.interactRightClickSet.contains(event.getClickedBlock().getTypeId())))
-//            {
-//                //if (plugin.worldSet.contains(event.getClickedBlock().getWorld().getName()))
-//               // {
-//                    //plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.INTERACT, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
-//                log.log(new WorldLogBlockRecord(WorldLogAction.INTERACT,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
-//                //}
-//            }
-//            // left click interact
-//            else if (action == Action.LEFT_CLICK_BLOCK )//&& (plugin.interactLeftClickSet.isEmpty() || plugin.interactLeftClickSet.contains(event.getClickedBlock().getTypeId())))
-//            {
-//                //if (plugin.worldSet.contains(event.getClickedBlock().getWorld().getName()))
-//                //{
-//                   // plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.INTERACT, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
-//                log.log(new WorldLogBlockRecord(WorldLogAction.INTERACT,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
-//                //}
-//            }
-//            // physical interact
-//            else if (action == Action.PHYSICAL )//&& (plugin.interactPhysicalSet.isEmpty() || plugin.interactPhysicalSet.contains(event.getClickedBlock().getTypeId())))
-//            {
-//               // if (plugin.worldSet.contains(event.getClickedBlock().getWorld().getName()))
-//                //{
-//                    // throttled logging cancelled physical interact events... they spam too much
-//                    if (event.isCancelled())
-//                    {
-//                        Long time = physicalInteractTimers.get(event.getPlayer().getUniqueId());
-//                        if (time == null || System.currentTimeMillis() > time)
-//                        {
-//                            physicalInteractTimers.put(event.getPlayer().getUniqueId(), System.currentTimeMillis() + 1000);
-//
-//                            //plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.INTERACT, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
-//                            log.log(new WorldLogBlockRecord(WorldLogAction.INTERACT,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
-//                        }
-//                    }
-//                    else
-//                    {
-//                        //plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.INTERACT, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
-//                        log.log(new WorldLogBlockRecord(WorldLogAction.INTERACT,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
-//                    }
-//                //}
-//            }
-//            // item use
-//            else if (action == Action.RIGHT_CLICK_BLOCK && event.hasItem())// && (plugin.useSet.isEmpty() || plugin.useSet.contains(event.getItem().getTypeId())))
-//            {
-//               // if (plugin.worldSet.contains(event.getClickedBlock().getWorld().getName()))
-//               // {
-//                    //plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.USE, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
-//                log.log(new WorldLogBlockRecord(WorldLogAction.USE,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
-//               // }
-//            }
-//        //}
-//    }
+    //    @EventHandler(priority = EventPriority.MONITOR)
+    //    public void onPlayerInteract(PlayerInteractEvent event)
+    //    {
+    //        //if (plugin.logOnInteract)
+    //        //{
+    //            Action action = event.getAction();
+    //            //String playerName = ChatColor.stripColor(event.getPlayer().getName());
+    //            // right click interact
+    //            if (action == Action.RIGHT_CLICK_BLOCK )//&& (plugin.interactRightClickSet.isEmpty() || plugin.interactRightClickSet.contains(event.getClickedBlock().getTypeId())))
+    //            {
+    //                //if (plugin.worldSet.contains(event.getClickedBlock().getWorld().getName()))
+    //               // {
+    //                    //plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.INTERACT, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
+    //                log.log(new WorldLogBlockRecord(WorldLogAction.INTERACT,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
+    //                //}
+    //            }
+    //            // left click interact
+    //            else if (action == Action.LEFT_CLICK_BLOCK )//&& (plugin.interactLeftClickSet.isEmpty() || plugin.interactLeftClickSet.contains(event.getClickedBlock().getTypeId())))
+    //            {
+    //                //if (plugin.worldSet.contains(event.getClickedBlock().getWorld().getName()))
+    //                //{
+    //                   // plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.INTERACT, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
+    //                log.log(new WorldLogBlockRecord(WorldLogAction.INTERACT,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
+    //                //}
+    //            }
+    //            // physical interact
+    //            else if (action == Action.PHYSICAL )//&& (plugin.interactPhysicalSet.isEmpty() || plugin.interactPhysicalSet.contains(event.getClickedBlock().getTypeId())))
+    //            {
+    //               // if (plugin.worldSet.contains(event.getClickedBlock().getWorld().getName()))
+    //                //{
+    //                    // throttled logging cancelled physical interact events... they spam too much
+    //                    if (event.isCancelled())
+    //                    {
+    //                        Long time = physicalInteractTimers.get(event.getPlayer().getUniqueId());
+    //                        if (time == null || System.currentTimeMillis() > time)
+    //                        {
+    //                            physicalInteractTimers.put(event.getPlayer().getUniqueId(), System.currentTimeMillis() + 1000);
+    //
+    //                            //plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.INTERACT, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
+    //                            log.log(new WorldLogBlockRecord(WorldLogAction.INTERACT,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
+    //                        }
+    //                    }
+    //                    else
+    //                    {
+    //                        //plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.INTERACT, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
+    //                        log.log(new WorldLogBlockRecord(WorldLogAction.INTERACT,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
+    //                    }
+    //                //}
+    //            }
+    //            // item use
+    //            else if (action == Action.RIGHT_CLICK_BLOCK && event.hasItem())// && (plugin.useSet.isEmpty() || plugin.useSet.contains(event.getItem().getTypeId())))
+    //            {
+    //               // if (plugin.worldSet.contains(event.getClickedBlock().getWorld().getName()))
+    //               // {
+    //                    //plugin.logQueue.add((WorldLogRecord) new WorldLogBlockRecord(WorldLogAction.USE, event.getPlayer(), event.getClickedBlock(), event.isCancelled()));
+    //                log.log(new WorldLogBlockRecord(WorldLogAction.USE,event.getPlayer(),event.getClickedBlock(), event.isCancelled()));
+    //               // }
+    //            }
+    //        //}
+    //    }
 }

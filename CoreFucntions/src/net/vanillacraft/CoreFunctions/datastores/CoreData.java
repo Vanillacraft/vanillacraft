@@ -14,7 +14,8 @@ import java.util.UUID;
 /**
  * Created by ryan on 5/5/2015.
  */
-public class CoreData {
+public class CoreData
+{
 
     private Database database;
 
@@ -31,9 +32,10 @@ public class CoreData {
     private final long TELEPORTCOOLDOWN = (1000 * 60) * 30;
 
 
-    private Location spawnLocation = new Location(plugin.getServer().getWorld("world"), 0,0,0);
+    private Location spawnLocation = new Location(plugin.getServer().getWorld("world"), 0, 0, 0);
 
-    public CoreData(CoreFunctions plugin, Database database, ILogger logger){
+    public CoreData(CoreFunctions plugin, Database database, ILogger logger)
+    {
         this.plugin = plugin;
         this.database = database;
         this.logger = logger;
@@ -50,52 +52,69 @@ public class CoreData {
     }
 
 
-    public Location getSpawnLocation(){
+    public Location getSpawnLocation()
+    {
         return spawnLocation;
     }
 
-    public boolean isModMode(UUID uuid){
-        if(modMode.containsKey(uuid)){
-            if(modMode.get(uuid).isEnabled()){
+    public boolean isModMode(UUID uuid)
+    {
+        if (modMode.containsKey(uuid))
+        {
+            if (modMode.get(uuid).isEnabled())
+            {
                 return true;
             }
         }
         return false;
     }
 
-    public int getTeleportCooldownDuration(){
-        return (int)((TELEPORTCOOLDOWN / 1000) / 60);
+    public int getTeleportCooldownDuration()
+    {
+        return (int) ((TELEPORTCOOLDOWN / 1000) / 60);
     }
 
-    public int getMinutesRemainTeleport(UUID uuid){
-        if(teleportTimers.containsKey(uuid)){
+    public int getMinutesRemainTeleport(UUID uuid)
+    {
+        if (teleportTimers.containsKey(uuid))
+        {
             long milsReamin = teleportTimers.get(uuid) - System.currentTimeMillis();
-            int minRemain = (int)((milsReamin / 1000) / 60);
+            int minRemain = (int) ((milsReamin / 1000) / 60);
             return minRemain;
-        } else {
+        }
+        else
+        {
             return 0;
         }
     }
 
-    public Location getPlayerHomeLocation(UUID uuid) {
+    public Location getPlayerHomeLocation(UUID uuid)
+    {
         return playerHomeLocations.get(uuid);
     }
 
-    public long getPlayerSetHomeCoolDown(UUID uuid) {
-        if(playerSetHomeCoolDown.containsKey(uuid)){
-           return playerSetHomeCoolDown.get(uuid);
-        } else {
+    public long getPlayerSetHomeCoolDown(UUID uuid)
+    {
+        if (playerSetHomeCoolDown.containsKey(uuid))
+        {
+            return playerSetHomeCoolDown.get(uuid);
+        }
+        else
+        {
             return 0;
         }
     }
 
-    public void setPlayerHome(UUID uuid, Location location){
+    public void setPlayerHome(UUID uuid, Location location)
+    {
 
-        if(playerHomeLocations.containsKey(uuid)){
+        if (playerHomeLocations.containsKey(uuid))
+        {
             playerHomeLocations.remove(uuid);
         }
 
-        if(playerSetHomeCoolDown.containsKey(uuid)){
+        if (playerSetHomeCoolDown.containsKey(uuid))
+        {
             playerSetHomeCoolDown.remove(uuid);
         }
 

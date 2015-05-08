@@ -11,11 +11,13 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 /**
  * Created by ryan on 5/5/2015.
  */
-public class HomeCommand implements CommandExecutor {
+public class HomeCommand implements CommandExecutor
+{
 
     private CoreFunctions plugin;
 
-    public HomeCommand(CoreFunctions plugin){
+    public HomeCommand(CoreFunctions plugin)
+    {
         this.plugin = plugin;
     }
 
@@ -24,28 +26,38 @@ public class HomeCommand implements CommandExecutor {
     {
         final String cmd = command.getName();
 
-        if(sender instanceof Player){
-            Player player = (Player)sender;
-            if(cmd.equalsIgnoreCase("home")){
-                if(plugin.getCoreMethods().canTeleport(player)){
-                    plugin.getCoreMethods().teleport(player, plugin.getCoreMethods().getHomeLocation(player),
-                            plugin.getCoreMethods().isModMode(player));
+        if (sender instanceof Player)
+        {
+            Player player = (Player) sender;
+            if (cmd.equalsIgnoreCase("home"))
+            {
+                if (plugin.getCoreMethods().canTeleport(player))
+                {
+                    plugin.getCoreMethods().teleport(player, plugin.getCoreMethods().getHomeLocation(player), plugin.getCoreMethods().isModMode(player));
                     return true;
-                } else {
+                }
+                else
+                {
                     plugin.getCoreErrors().teleportTimerNotDone(player);
                     return true;
                 }
-            } else {
+            }
+            else
+            {
                 return false;
             }
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
 
     @EventHandler
-    public void onPlayerBedEnter(PlayerBedEnterEvent event){
-        if (!event.isCancelled()){
+    public void onPlayerBedEnter(PlayerBedEnterEvent event)
+    {
+        if (!event.isCancelled())
+        {
 
         }
     }
