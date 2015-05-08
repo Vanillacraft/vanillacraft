@@ -37,7 +37,8 @@ public class CommandRecord implements InsertRecord
                 temp += s + " ";
             }
             statement.setString(3, temp);
-        } catch (SQLException ex)
+        }
+        catch (SQLException ex)
         {
             ex.printStackTrace();
         }
