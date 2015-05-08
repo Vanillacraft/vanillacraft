@@ -3,10 +3,6 @@ package net.vanillacraft.CoreFunctions.datastores;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
-import javax.print.attribute.standard.Finishings;
-import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -32,7 +28,7 @@ public class CoreData
 
     private Location spawnLocation = new Location(plugin.getServer().getWorld("world"), 0, 0, 0);
 
-    public CoreData(CoreFunctions plugin, Database databas)
+    public CoreData(CoreFunctions plugin, Database database)
     {
         this.plugin = plugin;
         this.database = database;
@@ -71,8 +67,7 @@ public class CoreData
         if (teleportTimers.containsKey(uuid))
         {
             long milsReamin = teleportTimers.get(uuid) - System.currentTimeMillis();
-            int minRemain = (int) ((milsReamin / 1000) / 60);
-            return minRemain;
+            return (int) ((milsReamin / 1000) / 60);
         }
         else
         {
@@ -110,7 +105,6 @@ public class CoreData
             playerSetHomeCoolDown.remove(uuid);
         }
 
-        //TODO add method to write to the database
         SetHomeRecord record = new SetHomeRecord(uuid, location);
         getDatabase().submitInsertRecord(record);
 
