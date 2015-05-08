@@ -1,12 +1,10 @@
 package com.gmail.nuclearcat1337.griefprotect.griefData;
 
 import com.gmail.nuclearcat1337.griefprotect.interfaces.BlockWatcher;
-import net.vanillacraft.CoreFunctions.interfaces.ILogger;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 
 public class GriefData
 {
-    private ILogger logger;
     private Database database;
     private BlockWatcher watcher;
 
@@ -28,11 +26,10 @@ public class GriefData
 //
 
 
-    public GriefData(ILogger logger, Database database, BlockWatcher watcher)
+    public GriefData(Database database, BlockWatcher watcher)
     {
-        assert logger != null && database != null && watcher != null;
+        assert database != null && watcher != null;
 
-        this.logger = logger;
         this.database = database;
         this.watcher = watcher;
 
@@ -49,11 +46,6 @@ public class GriefData
     public AllowMap getPlayerAccess()
     {
         return allows;
-    }
-
-    public ILogger getLogger()
-    {
-        return logger;
     }
 
     public Database getDatabase()

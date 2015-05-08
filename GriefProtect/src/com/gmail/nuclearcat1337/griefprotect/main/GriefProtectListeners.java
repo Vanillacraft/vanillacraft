@@ -4,7 +4,7 @@ import com.gmail.nuclearcat1337.griefprotect.griefData.GriefData;
 import com.gmail.nuclearcat1337.griefprotect.griefItems.GriefChest;
 import com.gmail.nuclearcat1337.griefprotect.queries.GriefProtectBlockCheck;
 import net.vanillacraft.CoreFunctions.utils.BlockHelper;
-import com.gmail.nuclearcat1337.griefprotect.util.Loc;
+import net.vanillacraft.CoreFunctions.utils.Loc;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -130,7 +130,7 @@ public class GriefProtectListeners implements Listener
                 check.setBlockMaterial(block.getType());
                 check.setBlockData(block.getData());
                 check.setTimestamp(chest.getTimestamp());
-                check.run();
+                check.runSynchronously();
 
                 return;
             }
@@ -146,7 +146,7 @@ public class GriefProtectListeners implements Listener
             case GRASS:
                 //if (played < 18000)
                 //{
-                    data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), b, c,  true,data));
+                    data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), b, c, true, data));
                 //}
                 break;
 
@@ -156,7 +156,7 @@ public class GriefProtectListeners implements Listener
             case LEAVES:
                 //if (played < 43200)
                 //{
-                    data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), b, c,  true,data));
+                    data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), b, c, true, data));
                 //}
                 break;
 
@@ -164,7 +164,7 @@ public class GriefProtectListeners implements Listener
             case SUGAR_CANE:
                 //if (played < 86400)
                 //{
-                    data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), b, c,  true,data));
+                    data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), b, c, true, data));
                 //}
                 break;
 
@@ -174,27 +174,27 @@ public class GriefProtectListeners implements Listener
                 {
                     if (((Door) m).isTopHalf())
                     {
-                        data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), block.getRelative(BlockFace.DOWN).getState(), c,  true,data));
+                        data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), block.getRelative(BlockFace.DOWN).getState(), c, true, data));
                     }
                     else
                     {
-                        data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), b, c,  true,data));
+                        data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), b, c, true, data));
                     }
                 }
                 else if (m instanceof Bed)
                 {
                     if (((Bed) m).isHeadOfBed())
                     {
-                        data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), block.getRelative(((Bed) m).getFacing().getOppositeFace()).getState(), c,  true,data));
+                        data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), block.getRelative(((Bed) m).getFacing().getOppositeFace()).getState(), c, true, data));
                     }
                     else
                     {
-                        data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), b, c,  true,data));
+                        data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), b, c, true, data));
                     }
                 }
                 else if (m instanceof PistonExtensionMaterial)
                 {
-                    data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), block.getRelative(((PistonExtensionMaterial) m).getAttachedFace()).getState(), c,  true,data));
+                    data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), block.getRelative(((PistonExtensionMaterial) m).getAttachedFace()).getState(), c, true, data));
                 }
                 else if (b instanceof Chest || b instanceof Furnace
                         || b instanceof Dispenser)
@@ -202,11 +202,11 @@ public class GriefProtectListeners implements Listener
                     //chestList.add(block.getLocation());
                     data.getChestCache().addChest(new Loc(block.getLocation(),false));
 
-                    data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), b, c, true,data));
+                    data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), b, c, true, data));
                 }
                 else
                 {
-                    data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player.getUniqueId(), b, c,  true,data));
+                    data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player.getUniqueId(), b, c, true, data));
                 }
 
         }
@@ -292,7 +292,7 @@ public class GriefProtectListeners implements Listener
                     check.setBlockMaterial(block.getType());
                     check.setBlockData(block.getData());
                     check.setTimestamp(chest.getTimestamp());
-                    check.run();
+                    check.runSynchronously();
 
                     return;
                 }
@@ -301,7 +301,7 @@ public class GriefProtectListeners implements Listener
             case BREWING_STAND:
             case HOPPER:
             case DROPPER:
-                data.getDatabase().submitLogQuery(new GriefProtectBlockCheck(player, block.getState(), null, false, data));
+                data.getDatabase().submitSelectRecord(new GriefProtectBlockCheck(player, block.getState(), null, false, data));
         }
     }
 }

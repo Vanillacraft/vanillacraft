@@ -3,9 +3,10 @@ package com.gmail.nuclearcat1337.griefprotect.queries;
 import com.gmail.nuclearcat1337.griefprotect.griefData.GriefData;
 import com.gmail.nuclearcat1337.griefprotect.griefItems.ProtectData;
 import com.gmail.nuclearcat1337.griefprotect.main.GriefProtect;
-import net.vanillacraft.CoreFunctions.interfaces.DBQuery;
+import net.vanillacraft.CoreFunctions.interfaces.SelectRecord;
 import org.bukkit.Material;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Level;
 
-public class GriefProtectPlayerAccessInit implements DBQuery
+public class GriefProtectPlayerAccessInit implements SelectRecord
 {
     private GriefData data;
     private Map<UUID, Map<UUID, List<ProtectData>>> accessMap;
@@ -29,28 +30,13 @@ public class GriefProtectPlayerAccessInit implements DBQuery
     }
 
     @Override
-    public void run()
-    {
-        for(Entry<UUID,Map<UUID,List<ProtectData>>> entry: accessMap.entrySet())
-        {
-            data.getPlayerAccess().addProtectData(entry.getKey(),entry.getValue());
-        }
-    }
-
-    @Override
     public String getQuery()
     {
         return "SELECT col_owner, col_player, col_x, col_y, col_z, col_range, col_allowed_blocks FROM tbl_player_access ORDER BY col_owner, col_player, col_range DESC";
     }
 
     @Override
-    public boolean isCallback()
-    {
-        return true;
-    }
-
-    @Override
-    public void setResult(ResultSet result)
+    public void callbackAsync(final ResultSet result)
     {
         try
         {
@@ -94,5 +80,26 @@ public class GriefProtectPlayerAccessInit implements DBQuery
             //GriefProtect.logWarning("Class={"+this.getClass().getSimpleName()+"} Error: "+e.getMessage(),Level.SEVERE);
             GriefProtect.logError(e.getMessage(),this.getClass());
         }
+    }
+
+    @Override
+    public void runSynchronously()
+    {
+        for(Entry<UUID,Map<UUID,List<ProtectData>>> entry: accessMap.entrySet())
+        {
+            data.getPlayerAccess().addProtectData(entry.getKey(),entry.getValue());
+        }
+    }
+
+    @Override
+    public String getCacheKey()
+    {
+        return "AccessInit";
+    }
+
+    @Override
+    public void setParameters(final PreparedStatement statement)
+    {
+        //Do nothing cause we have a fixed query
     }
 }
