@@ -7,6 +7,7 @@ import com.gmail.nuclearcat1337.griefprotect.griefItems.GriefChest;
 import com.gmail.nuclearcat1337.griefprotect.griefItems.GriefContainer;
 import com.gmail.nuclearcat1337.griefprotect.main.GriefProtect;
 import net.vanillacraft.CoreFunctions.interfaces.DBLogQuery;
+import net.vanillacraft.CoreFunctions.interfaces.InsertRecord;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
@@ -20,7 +21,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.logging.Level;
 
-public class GriefProtectBlockCheck implements DBLogQuery
+public class GriefProtectBlockCheck extends DBLogQuery
 {
     private GriefData data;
 
@@ -47,7 +48,7 @@ public class GriefProtectBlockCheck implements DBLogQuery
     }
 
     @Override
-    public void run()
+    public void runSynchronously()
     {
         long current = System.currentTimeMillis();
 
@@ -104,7 +105,7 @@ public class GriefProtectBlockCheck implements DBLogQuery
                     if (isBreak)
                     {
                         Sign s = (Sign) block;
-                        data.getLogger().log(new WorldLogGriefRecord("BREAK", player, owner, block, allowed, s.getLine(0) + "\n" + s.getLine(1) + "\n" + s.getLine(2) + "\n" + s.getLine(3)));
+                        data.getDatabase().submitInsertRecord(new WorldLogGriefRecord("BREAK", player, owner, block, allowed, s.getLine(0) + "\n" + s.getLine(1) + "\n" + s.getLine(2) + "\n" + s.getLine(3)));
                         //Bukkit.getLogger().info("[GriefProtect] " + (allowed ? "(ok) " : "") + player + " BREAK " + block.getType() + " [" + s.getLine(0) + " _ " + s.getLine(1) + " _ " + s.getLine(2) + " _ " + s.getLine(3) + "] placed by " + owner + " at (" + block.getX() + "," + block.getY() + "," + block.getZ() + ")");
                         GriefProtect.logInfoMessage((allowed ? "(ok) " : "") + player + " BREAK " + block.getType() + " [" + s.getLine(0) + " _ " + s.getLine(1) + " _ " + s.getLine(2) + " _ " + s.getLine(3) + "] placed by " + owner + " at (" + block.getX() + "," + block.getY() + "," + block.getZ() + ")");
                     }
@@ -133,7 +134,7 @@ public class GriefProtectBlockCheck implements DBLogQuery
                         }
                     }
 
-                    data.getLogger().log(new WorldLogGriefRecord((isBreak ? "BREAK" : "OPEN"), player, owner, block, allowed, content));
+                    data.getDatabase().submitInsertRecord(new WorldLogGriefRecord((isBreak ? "BREAK" : "OPEN"), player, owner, block, allowed, content));
                     if (isBreak || !allowed)
                     {
                         //Bukkit.getLogger().info("[GriefProtect] " + (allowed ? "(ok) " : "") + player + (isBreak ? " BREAK " : " OPEN ") + block.getType() + " [" + content + "] placed by " + owner + " at (" + block.getX() + "," + block.getY() + "," + block.getZ() + ")");
@@ -142,7 +143,7 @@ public class GriefProtectBlockCheck implements DBLogQuery
                 }
                 else
                 {
-                    data.getLogger().log(new WorldLogGriefRecord((isBreak ? "BREAK" : "BUCKET"), player, owner, block, allowed));
+                    data.getDatabase().submitInsertRecord(new WorldLogGriefRecord((isBreak ? "BREAK" : "BUCKET"), player, owner, block, allowed));
                     //Bukkit.getLogger().info("[GriefProtect] " + (allowed ? "(ok) " : "") + player + (isBreak ? " BREAK " : " BUCKET ") + block.getType() + " placed by " + owner + " at (" + block.getX() + "," + block.getY() + "," + block.getZ() + ")");
                     GriefProtect.logInfoMessage((allowed ? "(ok) " : "") + player + (isBreak ? " BREAK " : " BUCKET ") + block.getType() + " placed by " + owner + " at (" + block.getX() + "," + block.getY() + "," + block.getZ() + ")");
                 }
@@ -181,7 +182,7 @@ public class GriefProtectBlockCheck implements DBLogQuery
     }
 
     @Override
-    public void setResult(ResultSet result)
+    public void callbackAsync(ResultSet result)
     {
         try
         {
@@ -248,5 +249,4 @@ public class GriefProtectBlockCheck implements DBLogQuery
     {
         this.blockData = data;
     }
-
 }

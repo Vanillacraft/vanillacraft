@@ -1,9 +1,7 @@
 package com.gmail.nuclearcat1337.griefprotect.main;
 
 import com.gmail.nuclearcat1337.griefprotect.griefData.GriefData;
-import net.vanillacraft.CoreFunctions.interfaces.ILogger;
 import com.gmail.nuclearcat1337.griefprotect.queries.GriefProtectPlayerAccessInit;
-import net.vanillacraft.CoreFunctions.worldLogger.WorldLogger;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Bukkit;
@@ -58,13 +56,13 @@ public class GriefProtect extends JavaPlugin
         }
 
         CoreFunctions core = Bukkit.getServicesManager().load(CoreFunctions.class);//getRegistration(CoreFunctions.class).getProvider();
-        Database db = core.getCoredata().getDatabase();
+        Database db = core.getCoreData().getDatabase();
 
         //ILogger l = new WorldLogger(db); //Then create the logger using the database and the created tables
 
-        data = new GriefData(core.getCoredata().getLogger(), db, null); //TODO---Actual or fake block watcher implementation
+        data = new GriefData(db, null); //TODO---Actual or fake block watcher implementation
 
-        db.submitQuery(new GriefProtectPlayerAccessInit(data));
+        db.submitSelectRecord(new GriefProtectPlayerAccessInit(data));
 
        // new AllowCommand(this,data);
        // new RevokeCommand(this,data);

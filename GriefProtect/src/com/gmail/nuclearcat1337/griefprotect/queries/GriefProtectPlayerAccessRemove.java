@@ -1,14 +1,15 @@
 package com.gmail.nuclearcat1337.griefprotect.queries;
 
 
-import net.vanillacraft.CoreFunctions.interfaces.DBQuery;
+import net.vanillacraft.CoreFunctions.interfaces.InsertRecord;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.UUID;
 
-public class GriefProtectPlayerAccessRemove implements DBQuery
+public class GriefProtectPlayerAccessRemove implements InsertRecord
 {
-    public String query;
+    private String query;
 
     public GriefProtectPlayerAccessRemove(UUID owner, UUID player)
     {
@@ -18,7 +19,7 @@ public class GriefProtectPlayerAccessRemove implements DBQuery
     }
 
     @Override
-    public void run()
+    public void setParameters(final PreparedStatement statement)
     {
 
     }
@@ -30,14 +31,8 @@ public class GriefProtectPlayerAccessRemove implements DBQuery
     }
 
     @Override
-    public boolean isCallback()
+    public String getCacheKey()
     {
-        return false;
-    }
-
-    @Override
-    public void setResult(ResultSet result)
-    {
-
+        return "AccessRemove";
     }
 }

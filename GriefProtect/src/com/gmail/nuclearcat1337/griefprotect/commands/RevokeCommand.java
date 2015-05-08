@@ -53,7 +53,7 @@ public class RevokeCommand implements CommandExecutor
                                         {
                                             data.getPlayerAccess().removeAllows(owner.getId(),player.getId());
 
-                                            data.getDatabase().submitQuery(new GriefProtectPlayerAccessRemove(owner.getId(), player.getId()));
+                                            data.getDatabase().submitInsertRecord(new GriefProtectPlayerAccessRemove(owner.getId(), player.getId()));
 
                                             sender.sendMessage(ChatColor.RED
                                                     + "Access revoked for "
@@ -95,7 +95,7 @@ public class RevokeCommand implements CommandExecutor
                             {
                                data.getPlayerAccess().removeAllows(owner.getUniqueId(),player.getId());
 
-                                data.getDatabase().submitQuery(new GriefProtectPlayerAccessRemove(
+                                data.getDatabase().submitInsertRecord(new GriefProtectPlayerAccessRemove(
                                         owner.getUniqueId(), player.getId()));
 
                                 sender.sendMessage(ChatColor.RED+ "Access revoked for " + player.getName()+ ".");

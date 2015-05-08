@@ -27,13 +27,13 @@ public class InsertThread extends Thread implements DisableableThread
 
     public PreparedStatement getStatement(String key, String text, Map<String,PreparedStatement> cache)
     {
-        PreparedStatement statement = cache.get(key.toLowerCase());
+        PreparedStatement statement = cache.get(key);
         if(statement == null)
         {
             try
             {
                 statement = database.getConnection(this.getId()).prepareStatement(text);
-                cache.put(key.toLowerCase(),statement);
+                cache.put(key,statement);
             }
             catch (SQLException e)
             {

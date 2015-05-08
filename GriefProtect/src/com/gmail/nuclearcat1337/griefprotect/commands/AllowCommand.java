@@ -128,7 +128,7 @@ public class AllowCommand implements CommandExecutor
 
                                             if (cmd.equals("allow"))
                                             {
-                                                data.getDatabase().submitQuery(new GriefProtectPlayerAccessAdd(owner.getId(), player.getId(), x, y, z, range, blockMap.toString().substring(1, blockMap.toString().length() - 1)));
+                                                data.getDatabase().submitInsertRecord(new GriefProtectPlayerAccessAdd(owner.getId(), player.getId(), x, y, z, range, blockMap.toString().substring(1, blockMap.toString().length() - 1)));
 
                                                 sender.sendMessage(ChatColor.GREEN
                                                         + "Access granted to " + player.getName()
@@ -233,7 +233,7 @@ public class AllowCommand implements CommandExecutor
 
                                if (cmd.equals("allow"))
                                {
-                                   data.getDatabase().submitQuery(new GriefProtectPlayerAccessAdd(owner.getUniqueId(), player.getId(), x, y, z, range, blockMap.toString().substring(1, blockMap.toString().length() - 1)));
+                                   data.getDatabase().submitInsertRecord(new GriefProtectPlayerAccessAdd(owner.getUniqueId(), player.getId(), x, y, z, range, blockMap.toString().substring(1, blockMap.toString().length() - 1)));
 
                                    sender.sendMessage(ChatColor.GREEN
                                            + "Access granted to " + player.getName() + ".");
