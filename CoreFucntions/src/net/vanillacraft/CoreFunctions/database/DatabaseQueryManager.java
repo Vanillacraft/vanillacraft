@@ -1,6 +1,8 @@
 package net.vanillacraft.CoreFunctions.database;
 
 import net.vanillacraft.CoreFunctions.interfaces.Database;
+import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import org.bukkit.Bukkit;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -10,20 +12,18 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public class DatabaseQueryManager
 {
-    private ScheduledExecutorService executor;
-    private Database database;
-
-    public DatabaseQueryManager(Database database, int threads)
+    public DatabaseQueryManager(Database database, int selectThreads, int insertThreads)
     {
-        this.database = database;
-        if(threads % 2 != 0)
-            threads++;
-        executor = Executors.newScheduledThreadPool(threads);
-
-        int x;
-        for(x = 0; x < threads/2; x++)
-            executor.submit(new DBQueryAsync(database,executor));
-        for(x = 0; x <threads/2;x++)
-            executor.submit(new DBQueryAsync(database,executor));
+        int i;
+        for(i = 0; i < selectThreads; i++)
+        {
+            new SelectThread(database).start();
+            CoreFunctions.logInfoMessage("Created Select Thread #"+(i+1));
+        }
+        for(i = 0; i < insertThreads; i++)
+        {
+            new InsertThread(database).start();
+            CoreFunctions.logInfoMessage("Created Insert Thread #" + (i + 1));
+        }
     }
 }

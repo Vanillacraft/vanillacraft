@@ -9,12 +9,14 @@ public interface Database
 {
     boolean isUseable();
 
-    void submitQuery(DBQuery query);
-    void submitLogQuery(DBLogQuery logQuery);
+    void submitSelectRecord(SelectRecord record);
+    void submitInsertRecord(InsertRecord record);
+    
     void runSyncUpdate(String query);
 
-    Connection getConnection();
+    Connection getConnection(long threadID);
+    //Connection getConnection();
 
-    DBLogQuery getNextLogQuery();
-    DBQuery getNextQuery();
+    InsertRecord nextInsertRecord();
+    SelectRecord nextSelectRecord();
 }

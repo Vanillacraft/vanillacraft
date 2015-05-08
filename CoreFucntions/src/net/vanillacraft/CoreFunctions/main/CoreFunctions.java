@@ -2,7 +2,6 @@ package net.vanillacraft.CoreFunctions.main;
 
 import net.vanillacraft.CoreFunctions.database.DatabaseQueryManager;
 import net.vanillacraft.CoreFunctions.database.MySQLDatabase;
-import net.vanillacraft.CoreFunctions.database.SQLiteDatabase;
 import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.CoreMethods;
@@ -10,8 +9,10 @@ import net.vanillacraft.CoreFunctions.worldLogger.WorldLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
+import sun.security.krb5.Config;
 
 import javax.xml.crypto.Data;
 import java.io.File;
@@ -28,8 +29,6 @@ import java.util.logging.Level;
  */
 public class CoreFunctions extends JavaPlugin
 {
-    //TODO----Handling database timeouts is annoying...Youre supposed to handle SQLExceptions and use those to determine if it timed out
-
     private static CoreFunctions instance;
 
     private CoreData coredata;
@@ -82,7 +81,13 @@ public class CoreFunctions extends JavaPlugin
         if(db == null)
         {
             logWarning("Could not connect to a database. Disabling.");
-            Bukkit.getPluginManager().disablePlugin(this);
+
+            for(Player player : Bukkit.getOnlinePlayers())
+                player.kickPlayer("Error with Database. Kicking for safety.");
+
+            Bukkit.setWhitelist(true);
+            Bukkit.reloadWhitelist();
+
             return;
         }
 
@@ -118,7 +123,7 @@ public class CoreFunctions extends JavaPlugin
         }
         else
         {
-            File file = new File(this.getDataFolder(),"GriefProtect.db");
+            //File file = new File(this.getDataFolder(),"GriefProtect.db");
             //            if(!file.exists())
             //            {
             //                try
@@ -130,8 +135,9 @@ public class CoreFunctions extends JavaPlugin
             //                    e.printStackTrace();
             //                }
             //            }
-            db = new SQLiteDatabase(file);
+            //db = new SQLiteDatabase(file);
             //logInfoMessage("MySQL is turned off. It is currently the only database option and must be enabled.");
+            CoreFunctions.logInfoMessage("MySQL is turned off. It needs to be on.");
         }
 
         if(db == null || !db.isUseable())
@@ -139,10 +145,11 @@ public class CoreFunctions extends JavaPlugin
 
         tableCheck(db); //Then make sure all tables are created
 
-        int threads = getConfig().getInt("Database.Number-Of-DB-Threads");
+        int selectThreads = getConfig().getInt("Database.Select-Threads");
+        int insertThreads = getConfig().getInt("Database.Insert-Threads");
 
         //Run the database handlers to prepare themselves to start logging queries
-        new DatabaseQueryManager(db,threads);
+        new DatabaseQueryManager(db,selectThreads,insertThreads);
         //new DBLogQueryAsync(db);
         //new DBLogQueryAsync(db);
 
@@ -160,8 +167,9 @@ public class CoreFunctions extends JavaPlugin
             db = config.createSection("Database");
             saveConfig = true;
         }
-        saveConfig = setIfNotSet(db,"Use-MySQL",true);
-        saveConfig = setIfNotSet(db, "Number-Of-DB-Threads",3);
+        saveConfig = setIfNotSet(db, "Use-MySQL",true);
+        saveConfig = setIfNotSet(db, "Select-Threads",2);
+        saveConfig = setIfNotSet(db, "Insert-Threads",1);
         ConfigurationSection mysql = db.getConfigurationSection("MySQL");
         if(mysql == null)
         {
