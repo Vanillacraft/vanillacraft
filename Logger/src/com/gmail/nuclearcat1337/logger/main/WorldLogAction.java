@@ -1,4 +1,4 @@
-package net.vanillacraft.CoreFunctions.worldLogger;
+package com.gmail.nuclearcat1337.logger.main;
 
 public enum WorldLogAction
 {

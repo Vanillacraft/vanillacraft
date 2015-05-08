@@ -1,0 +1,6 @@
+name: Logger
+main: com.gmail.nuclearcat1337.logger.main.LoggerMain
+version: 0.1
+description: The plugin for logging things (commands, blocks, etc.)
+authors: [Mr_Little_Kitty]
+commands:

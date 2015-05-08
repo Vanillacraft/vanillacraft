@@ -1,6 +1,7 @@
-package net.vanillacraft.CoreFunctions.worldLogger;
+package com.gmail.nuclearcat1337.logger.records;
 
 import net.vanillacraft.CoreFunctions.interfaces.InsertRecord;
+import com.gmail.nuclearcat1337.logger.main.WorldLogAction;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -18,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.UUID;
 
 public class WorldLogBlockRecord implements InsertRecord
@@ -44,11 +46,17 @@ public class WorldLogBlockRecord implements InsertRecord
     private String content;
     private boolean cancelled;
 
-    public WorldLogBlockRecord(WorldLogAction a, Player p, Block b, boolean c)
+    private boolean isPublic;
+    private boolean isAbandoned;
+    private Integer clanID = null;
+
+    public WorldLogBlockRecord(WorldLogAction a, Player p, Block b, boolean cancelled, boolean isPublic, boolean isAbandoned)
     {
         timestamp = System.currentTimeMillis();
         action = a;
-        cancelled = c;
+        cancelled = cancelled;
+        this.isPublic = isPublic;
+        this.isAbandoned = isAbandoned;
 
         if (p != null)
         {
@@ -148,7 +156,7 @@ public class WorldLogBlockRecord implements InsertRecord
     @Override
     public String getQuery()
     {
-        return "INSERT INTO tbl_block_log (col_timestamp, col_action, col_player, col_item_type, col_player_x, col_player_y, col_player_z, col_player_pitch, col_player_yaw, col_block_material, col_block_data, col_block_x, col_block_y, col_block_z, col_content, col_cancelled, col_world, col_public) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO tbl_block_log (col_timestamp, col_action, col_player, col_item_type, col_player_x, col_player_y, col_player_z, col_player_pitch, col_player_yaw, col_block_material, col_block_data, col_block_x, col_block_y, col_block_z, col_content, col_cancelled, col_world, col_player_clan, col_abandoned, col_public) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
@@ -173,7 +181,13 @@ public class WorldLogBlockRecord implements InsertRecord
             statement.setString(15, content);
             statement.setBoolean(16, cancelled);
             statement.setString(17, world);
-            statement.setBoolean(18,false); //This is like a temporary workaround or something
+            if(clanID == null)
+                statement.setNull(18, Types.INTEGER);
+            else
+                statement.setInt(18,clanID.intValue());
+            statement.setBoolean(19, isAbandoned);
+            statement.setBoolean(20,isPublic);
+
         }
         catch (SQLException ex)
         {

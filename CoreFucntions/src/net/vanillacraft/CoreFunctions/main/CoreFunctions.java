@@ -6,8 +6,6 @@ import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.CoreErrors;
 import net.vanillacraft.CoreFunctions.utils.CoreMethods;
-import net.vanillacraft.CoreFunctions.worldLogger.WorldLogListeners;
-import net.vanillacraft.Factions.datastore.Faction;
 import net.vanillacraft.Factions.main.Factions;
 import net.vanillacraft.Zones.main.Zones;
 import org.bukkit.Bukkit;
@@ -116,7 +114,7 @@ public class CoreFunctions extends JavaPlugin
         coreFactions = (Factions)getServer().getPluginManager().getPlugin("Factions");
 
 
-        new WorldLogListeners(this,db);
+        //new WorldLogListeners(this,db);
 
         Bukkit.getServicesManager().register(CoreFunctions.class, this, this, ServicePriority.High);
     }

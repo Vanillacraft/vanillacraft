@@ -1,4 +1,4 @@
-package net.vanillacraft.CoreFunctions.datastores;
+package com.gmail.nuclearcat1337.logger.records;
 
 import net.vanillacraft.CoreFunctions.interfaces.InsertRecord;
 

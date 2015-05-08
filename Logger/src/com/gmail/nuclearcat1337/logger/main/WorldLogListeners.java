@@ -1,5 +1,6 @@
-package net.vanillacraft.CoreFunctions.worldLogger;
+package com.gmail.nuclearcat1337.logger.main;
 
+import com.gmail.nuclearcat1337.logger.records.WorldLogBlockRecord;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.BlockHelper;
 import org.bukkit.Bukkit;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class WorldLogListeners implements Listener
+class WorldLogListeners implements Listener
 {
     private Database database;
     private Map<UUID, Long> physicalInteractTimers;
@@ -59,7 +60,6 @@ public class WorldLogListeners implements Listener
                 for (Block block : blocks)
                     logAction(WorldLogAction.BREAK, event.getPlayer(), block, event.isCancelled());
             }
-            //TODO----Were also going to need to check the block below to see if there is a button or a lever attached to the bottom of this block
         }
 
         logAction(WorldLogAction.BREAK, event.getPlayer(), b, event.isCancelled());
