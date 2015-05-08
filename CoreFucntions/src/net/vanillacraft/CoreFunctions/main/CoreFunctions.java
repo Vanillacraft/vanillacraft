@@ -7,14 +7,13 @@ import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.CoreErrors;
 import net.vanillacraft.CoreFunctions.utils.CoreMethods;
 import net.vanillacraft.CoreFunctions.worldLogger.WorldLogger;
+import net.vanillacraft.Zones.main.Zones;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
-import sun.security.krb5.Config;
 
-import java.io.File;
 import java.util.logging.Level;
 
 /**
@@ -31,8 +30,9 @@ public class CoreFunctions extends JavaPlugin
     private static CoreFunctions instance;
 
     private CoreData coreData;
-    private CoreMethods coremethods;
+    private CoreMethods coreMethods;
     private CoreErrors coreErrors;
+    private Zones coreZones;
 
     public CoreErrors getCoreErrors()
     {
@@ -41,14 +41,17 @@ public class CoreFunctions extends JavaPlugin
 
     public CoreData getCoreData()
     {
-        //Youre Welcome. -MLK
         return coreData;
     }
 
     public CoreMethods getCoreMethods()
     {
-        //Youre Welcome. -MLK
-        return coremethods;
+        return coreMethods;
+    }
+
+    public Zones getCoreZones()
+    {
+        return coreZones;
     }
 
     public static JavaPlugin getInstance()
@@ -98,7 +101,7 @@ public class CoreFunctions extends JavaPlugin
         }
 
         coreData = new CoreData(this, db, new WorldLogger(db));
-        coremethods = new CoreMethods(this);
+        coreMethods = new CoreMethods(this);
 
         Bukkit.getServicesManager().register(CoreFunctions.class, this, this, ServicePriority.High);
     }
