@@ -37,18 +37,6 @@ public class Faction
         return allyList;
     }
 
-    public boolean getCanSetHome(Faction target, Faction playerFaction)
-    {
-        if (target.allyList.contains(playerFaction.getName()))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public boolean isAlly(String FactionName)
     {
         if (allyList.contains(FactionName))

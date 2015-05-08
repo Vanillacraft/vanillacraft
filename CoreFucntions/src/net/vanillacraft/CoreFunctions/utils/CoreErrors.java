@@ -29,4 +29,14 @@ public class CoreErrors
         sendError(player, "You can't teleport so soon, please wait " + ChatColor.GREEN + plugin.getCoreMethods().getMinutesRemainTeleport(player) + ChatColor.RED + " minutes and try again.");
     }
 
+    public void setHomeTimerNotDone(Player player){
+        sendError(player, "You can't set home so soon, please wait");
+    }
+
+    public void timerNotDone(Player player, String errorType, int minutes){
+        sendError(player, "You can't " + errorType + " so soon, please wait "
+                + ChatColor.GREEN + plugin.getCoreMethods().getMinutesRemainSetHome(player) + ChatColor.RED
+                + " minutes and try again.");
+    }
+
 }

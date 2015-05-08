@@ -66,13 +66,13 @@ public class HomeCommand implements CommandExecutor
                 Faction playerFaction = plugin.getCoreMethods().getFaction(player);
                 Faction targetFaction = plugin.getCoreMethods().getFaction(event.getBed().getLocation());
 
-                if (playerFaction.getCanSetHome(targetFaction, playerFaction))
+                if (plugin.getCoreMethods().canSetHome(player, targetFaction, playerFaction))
                 {
                     plugin.getCoreMethods().setHomeLocation(player);
                 }
                 else
                 {
-
+                    plugin.getCoreErrors().timerNotDone(player, "set home", plugin.getCoreMethods().getMinutesRemainSetHome(player));
                 }
             }
         }

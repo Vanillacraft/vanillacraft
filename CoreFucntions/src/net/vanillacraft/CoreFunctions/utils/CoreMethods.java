@@ -67,6 +67,10 @@ public class CoreMethods
         return plugin.getCoreData().getMinutesRemainTeleport(player.getUniqueId());
     }
 
+    public int getMinutesRemainSetHome(Player player){
+        return plugin.getCoreData().getMinutesRemainSetHome(player.getUniqueId());
+    }
+
     public boolean isModMode(Player player)
     {
         return plugin.getCoreData().isModMode(player.getUniqueId());
@@ -124,6 +128,25 @@ public class CoreMethods
     public Faction getFaction(Location loc)
     {
         return plugin.getCoreFactions().getFaction(getZone(loc).getFactionName());
+    }
+
+    public boolean canSetHome(Player player, Faction targetFaction, Faction playerFaction)
+    {
+        if (plugin.getCoreData().getPlayerSetHomeCoolDown(player.getUniqueId()) == 0)
+        {
+            if (playerFaction.isAlly(targetFaction.getName()))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

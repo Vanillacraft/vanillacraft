@@ -3,6 +3,7 @@ package net.vanillacraft.CoreFunctions.datastores;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Location;
+
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -68,6 +69,19 @@ public class CoreData
         {
             long milsReamin = teleportTimers.get(uuid) - System.currentTimeMillis();
             return (int) ((milsReamin / 1000) / 60);
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public int getMinutesRemainSetHome(UUID uuid)
+    {
+        if (playerSetHomeCoolDown.containsKey(uuid))
+        {
+            long milsRemain = playerSetHomeCoolDown.get(uuid) - System.currentTimeMillis();
+            return (int) ((milsRemain / 1000) / 60);
         }
         else
         {
