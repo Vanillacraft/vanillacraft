@@ -1,14 +1,15 @@
 package net.vanillacraft.CoreFunctions.database;
 
-
-import net.vanillacraft.CoreFunctions.interfaces.DBLogQuery;
-import net.vanillacraft.CoreFunctions.interfaces.DBQuery;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
+import net.vanillacraft.CoreFunctions.interfaces.InsertRecord;
+import net.vanillacraft.CoreFunctions.interfaces.SelectRecord;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -22,9 +23,10 @@ public class MySQLDatabase implements Database
     private final String port;
     private final String hostname;
 
-    private Connection connection;
-    private ConcurrentLinkedQueue<DBQuery> queries;
-    private ConcurrentLinkedQueue<DBLogQuery> logQueries;
+    //private Connection connection;
+    private Map<Long,Connection> connectionMap;
+    private ConcurrentLinkedQueue<SelectRecord> selectRecords;
+    private ConcurrentLinkedQueue<InsertRecord> insertRecords;
 
     public MySQLDatabase(String hostname, String port, String database, String username, String password)
     {
@@ -33,8 +35,9 @@ public class MySQLDatabase implements Database
         this.database = database;
         this.user = username;
         this.password = password;
-        queries = new ConcurrentLinkedQueue<>();
-        logQueries = new ConcurrentLinkedQueue<>();
+        connectionMap = new HashMap<>();
+        selectRecords = new ConcurrentLinkedQueue<>();
+        insertRecords = new ConcurrentLinkedQueue<>();
     }
 
     @Override
@@ -43,7 +46,7 @@ public class MySQLDatabase implements Database
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            getConnection();
+            //getConnection();
             return true;
         }
         catch (Exception e)
@@ -54,15 +57,15 @@ public class MySQLDatabase implements Database
     }
 
     @Override
-    public void submitQuery(final DBQuery query)
+    public void submitSelectRecord(final SelectRecord record)
     {
-        queries.add(query);
+        selectRecords.add(record);
     }
 
     @Override
-    public void submitLogQuery(final DBLogQuery logQuery)
+    public void submitInsertRecord(final InsertRecord record)
     {
-        logQueries.add(logQuery);
+        insertRecords.add(record);
     }
 
     @Override
@@ -70,7 +73,7 @@ public class MySQLDatabase implements Database
     {
         try
         {
-            connection.createStatement().execute(query);
+            getConnection(Long.MAX_VALUE).createStatement().execute(query);
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -78,32 +81,36 @@ public class MySQLDatabase implements Database
     }
 
     @Override
-    public Connection getConnection()
+    public Connection getConnection(long threadID)
     {
-        try
+        //TODO---Keep a timestamp of the last query time. Then if its like greater than 4 hours ago, close the connection and reconnect.
+
+        Connection connection = connectionMap.get(new Long(threadID));
+        if(connection == null)
         {
-            if (connection == null || connection.isClosed())
+            try
             {
                 connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
+                connectionMap.put(new Long(threadID),connection);
             }
-        }
-        catch (SQLException e)
-        {
-            CoreFunctions.logInfoMessage("Error connecting to the MySQL database!");
-            e.printStackTrace();
+            catch (SQLException e)
+            {
+                CoreFunctions.logInfoMessage("Error connecting to the MySQL database!");
+                e.printStackTrace();
+            }
         }
         return connection;
     }
 
     @Override
-    public DBLogQuery getNextLogQuery()
+    public InsertRecord nextInsertRecord()
     {
-        return logQueries.poll();
+        return insertRecords.poll();
     }
 
     @Override
-    public DBQuery getNextQuery()
+    public SelectRecord nextSelectRecord()
     {
-        return queries.poll();
+        return selectRecords.poll();
     }
 }

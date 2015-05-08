@@ -23,7 +23,7 @@ public class SetHomeRecord implements WorldLogRecord {
 
     @Override
     public String getType(){
-        return "Set Home";
+        return "Home";
     }
 
     @Override
