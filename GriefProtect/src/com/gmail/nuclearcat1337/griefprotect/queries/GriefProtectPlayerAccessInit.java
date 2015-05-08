@@ -32,7 +32,7 @@ public class GriefProtectPlayerAccessInit implements SelectRecord
     @Override
     public String getQuery()
     {
-        return "SELECT col_owner, col_player, col_x, col_y, col_z, col_range, col_allowed_blocks FROM tbl_player_access ORDER BY col_owner, col_player, col_range DESC";
+        return "SELECT col_owner, col_player, col_x, col_y, col_z, col_world, col_range, col_allowed_blocks FROM tbl_player_access ORDER BY col_owner, col_player, col_range DESC";
     }
 
     @Override
@@ -71,7 +71,9 @@ public class GriefProtectPlayerAccessInit implements SelectRecord
                 rangeMap.add(new ProtectData(result.getInt("col_x"),
                         result.getInt("col_y"),
                         result.getInt("col_z"),
-                        result.getInt("col_range"), blockMap));
+                        result.getInt("col_range"),
+                        result.getString("col_world"),
+                        blockMap));
             }
         }
         catch (SQLException e)

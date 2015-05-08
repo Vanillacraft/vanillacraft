@@ -6,9 +6,11 @@ import com.gmail.nuclearcat1337.griefprotect.queries.GriefProtectPlayerAccessAdd
 import com.gmail.nuclearcat1337.griefprotect.util.PlayerProfile;
 import com.gmail.nuclearcat1337.griefprotect.util.ProfileUtils;
 import net.vanillacraft.CoreFunctions.utils.Receiver;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,8 +35,8 @@ public class AllowCommand implements CommandExecutor
             final String cmd = command.getName();
             if (sender.isOp())
             {
-                if (args.length < 2)
-                    sender.sendMessage("Usage: /" + cmd + " [Player] [Owner] <range> <block type list>");
+                if (args.length < 3)
+                    sender.sendMessage("Usage: /" + cmd + " [Player] [Owner] [World] <range> <block type list>");
                 else
                 {
                     ProfileUtils.lookup(args[0], new Receiver<PlayerProfile>()
@@ -58,12 +60,19 @@ public class AllowCommand implements CommandExecutor
                                             sender.sendMessage(ChatColor.RED+ "Player and owner cannot be the same.");
                                         else
                                         {
+                                            World w = Bukkit.getWorld(args[2]);
+                                            if(w == null)
+                                            {
+                                                sender.sendMessage("Could not find the specified world.");
+                                                return;
+                                            }
+
                                             int x = 0;
                                             int y = 0;
                                             int z = 0;
 
                                             int range = 100000;
-                                            if (args.length >= 3)
+                                            if (args.length > 3) //atleast 4
                                             {
                                                 try
                                                 {
@@ -86,15 +95,15 @@ public class AllowCommand implements CommandExecutor
                                                 }
                                                 catch (NumberFormatException e)
                                                 {
-                                                    sender.sendMessage("Usage: /"+ cmd+ " [Player] [Owner] <range> <block type list>");
+                                                    sender.sendMessage("Usage: /"+ cmd+ " [Player] [Owner] [World] <range> <block type list>");
                                                     return;
                                                 }
                                             }
 
                                             HashSet<Material> blockMap = new HashSet<Material>();
-                                            if (args.length >= 4)
+                                            if (args.length > 4)
                                             {
-                                                for (int i = 3; i < args.length; i++)
+                                                for (int i = 4; i < args.length; i++)
                                                 {
                                                     Material material = Material.matchMaterial(args[i]);
 
@@ -124,11 +133,11 @@ public class AllowCommand implements CommandExecutor
 //
 //                                            rangeMap.add(new ProtectData(x, y, z, range,
 //                                                    blockMap));
-                                            data.getPlayerAccess().addProtectData(owner.getId(),player.getId(),new ProtectData(x, y, z, range, blockMap));
+                                            data.getPlayerAccess().addProtectData(owner.getId(),player.getId(),new ProtectData(x, y, z, range, w.getName(),blockMap));
 
                                             if (cmd.equals("allow"))
                                             {
-                                                data.getDatabase().submitInsertRecord(new GriefProtectPlayerAccessAdd(owner.getId(), player.getId(), x, y, z, range, blockMap.toString().substring(1, blockMap.toString().length() - 1)));
+                                                data.getDatabase().submitInsertRecord(new GriefProtectPlayerAccessAdd(owner.getId(), player.getId(), x, y, z, w.getName(),range, blockMap.toString().substring(1, blockMap.toString().length() - 1)));
 
                                                 sender.sendMessage(ChatColor.GREEN
                                                         + "Access granted to " + player.getName()
@@ -229,11 +238,11 @@ public class AllowCommand implements CommandExecutor
 //                                       .get(playerName);
 //
 //                               rangeMap.add(new ProtectData(x, y, z, range, blockMap));
-                               data.getPlayerAccess().addProtectData(owner.getUniqueId(),player.getId(),new ProtectData(x, y, z, range, blockMap));
+                               data.getPlayerAccess().addProtectData(owner.getUniqueId(),player.getId(),new ProtectData(x, y, z, range, owner.getWorld().getName(), blockMap));
 
                                if (cmd.equals("allow"))
                                {
-                                   data.getDatabase().submitInsertRecord(new GriefProtectPlayerAccessAdd(owner.getUniqueId(), player.getId(), x, y, z, range, blockMap.toString().substring(1, blockMap.toString().length() - 1)));
+                                   data.getDatabase().submitInsertRecord(new GriefProtectPlayerAccessAdd(owner.getUniqueId(), player.getId(), x, y, z, owner.getWorld().getName(), range, blockMap.toString().substring(1, blockMap.toString().length() - 1)));
 
                                    sender.sendMessage(ChatColor.GREEN
                                            + "Access granted to " + player.getName() + ".");
