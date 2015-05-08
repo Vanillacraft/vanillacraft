@@ -2,5 +2,5 @@ name: CoreFunctions
 main: net.vanillacraft.CoreFunctions.main
 version: 0.1
 description: Plugin that contains the core features / functions that VC uses.
-authors: [ryan00793]
+authors: [ryan00793,Mr_Little_Kitty]
 commands:
