@@ -1,6 +1,6 @@
 package net.vanillacraft.CoreFunctions.datastores;
 
-import net.vanillacraft.CoreFunctions.interfaces.WorldLogRecord;
+import net.vanillacraft.CoreFunctions.interfaces.InsertRecord;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -11,9 +11,8 @@ import java.util.UUID;
 /**
  * Created by ryan on 5/7/2015.
  */
-public class SetHomeRecord implements WorldLogRecord
+public class SetHomeRecord implements InsertRecord
 {
-
     private UUID uuid;
     private Location location;
 
@@ -24,19 +23,7 @@ public class SetHomeRecord implements WorldLogRecord
     }
 
     @Override
-    public String getType()
-    {
-        return "Home";
-    }
-
-    @Override
-    public String getStatementText()
-    {
-        return "INSERT INTO tbl_homes (col_UUID, col_world, col_x, col_y, col_z) VALUES (?,?,?,?,?)";
-    }
-
-    @Override
-    public void executeRecord(final PreparedStatement statement)
+    public void setParameters(final PreparedStatement statement)
     {
         try
         {
@@ -52,4 +39,15 @@ public class SetHomeRecord implements WorldLogRecord
         }
     }
 
+    @Override
+    public String getQuery()
+    {
+        return "INSERT INTO tbl_homes (col_UUID, col_world, col_x, col_y, col_z) VALUES (?,?,?,?,?);";
+    }
+
+    @Override
+    public String getCacheKey()
+    {
+        return "Home";
+    }
 }

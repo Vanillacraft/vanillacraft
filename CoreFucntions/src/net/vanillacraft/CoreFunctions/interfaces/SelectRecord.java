@@ -1,5 +1,6 @@
 package net.vanillacraft.CoreFunctions.interfaces;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /*
@@ -11,4 +12,5 @@ public interface SelectRecord
     void callbackAsync(ResultSet set);
     void runSynchronously();
     String getCacheKey();
+    void setParameters(PreparedStatement statement);
 }

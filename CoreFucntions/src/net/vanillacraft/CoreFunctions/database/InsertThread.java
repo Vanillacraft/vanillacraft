@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 /*
 Created by Mr_Little_Kitty on 5/7/2015
 */
-public class InsertThread extends Thread
+public class InsertThread extends Thread implements DisableableThread
 {
     private Database database;
     private boolean enabled;
@@ -65,6 +65,7 @@ public class InsertThread extends Thread
                 PreparedStatement statement = getStatement(record.getCacheKey(),record.getQuery(),statementCache);
                 try
                 {
+                    record.setParameters(statement);
                     statement.execute();
                 }
                 catch (SQLException e)

@@ -15,7 +15,7 @@ import java.util.Map;
 /*
 Created by Mr_Little_Kitty on 5/7/2015
 */
-public class SelectThread extends Thread
+public class SelectThread extends Thread implements DisableableThread
 {
     private Database database;
     private boolean enabled;
@@ -67,6 +67,7 @@ public class SelectThread extends Thread
                 PreparedStatement statement = getStatement(record.getCacheKey(),record.getQuery(),statementCache);
                 try
                 {
+                    record.setParameters(statement);
                     statement.execute();
                     record.callbackAsync(statement.getResultSet());
                     statement.getResultSet().close();
@@ -92,6 +93,13 @@ public class SelectThread extends Thread
             statementCache.clear();
         }
     }
+
+    @Override
+    public void disable()
+    {
+        this.enabled = false;
+    }
+
     private class SyncRun implements Runnable
     {
         private SelectRecord record;

@@ -1,6 +1,6 @@
 package net.vanillacraft.CoreFunctions.worldLogger;
 
-import net.vanillacraft.CoreFunctions.interfaces.WorldLogRecord;
+import net.vanillacraft.CoreFunctions.interfaces.InsertRecord;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class WorldLogBlockRecord implements WorldLogRecord
+public class WorldLogBlockRecord implements InsertRecord
 {
     private long timestamp;
     private WorldLogAction action;
@@ -31,6 +31,7 @@ public class WorldLogBlockRecord implements WorldLogRecord
     private double playerX;
     private double playerY;
     private double playerZ;
+
     private float pitch;
     private float yaw;
 
@@ -145,39 +146,14 @@ public class WorldLogBlockRecord implements WorldLogRecord
     }
 
     @Override
-    public String getType()
-    {
-        return "Block";
-    }
-
-    @Override
-    public String getStatementText()
+    public String getQuery()
     {
         return "INSERT INTO tbl_block_log (col_timestamp, col_action, col_player, col_item_type, col_player_x, col_player_y, col_player_z, col_player_pitch, col_player_yaw, col_block_material, col_block_data, col_block_x, col_block_y, col_block_z, col_content, col_cancelled, col_world, col_public) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
-    public void executeRecord(final PreparedStatement statement)
+    public void setParameters(final PreparedStatement statement)
     {
-        //col_timestamp,
-        //col_action,
-        //col_player,
-        //col_item_type,
-        //col_player_x,
-        //col_player_y,
-        //col_player_z,
-        //col_player_pitch,
-        //col_player_yaw,
-        //col_block_material,
-        //col_block_data,
-        //col_block_x,
-        //col_block_y,
-        //col_block_z,
-        //col_content,
-        //col_cancelled,
-        //col_world,
-        //col_public
-
         try
         {
             statement.setTimestamp(1, new Timestamp(timestamp));
@@ -198,7 +174,6 @@ public class WorldLogBlockRecord implements WorldLogRecord
             statement.setBoolean(16, cancelled);
             statement.setString(17, world);
             statement.setBoolean(18,false); //This is like a temporary workaround or something
-            statement.execute();
         }
         catch (SQLException ex)
         {
@@ -206,6 +181,11 @@ public class WorldLogBlockRecord implements WorldLogRecord
         }
     }
 
+    @Override
+    public String getCacheKey()
+    {
+        return "Block";
+    }
 }
 
 

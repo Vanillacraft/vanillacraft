@@ -1,6 +1,6 @@
 package net.vanillacraft.CoreFunctions.worldLogger;
 
-import net.vanillacraft.CoreFunctions.interfaces.ILogger;
+import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.BlockHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,12 +22,12 @@ import java.util.UUID;
 
 public class WorldLogListeners implements Listener
 {
-    private ILogger log;
+    private Database database;
     private Map<UUID, Long> physicalInteractTimers;
 
-    public WorldLogListeners(Plugin plugin, ILogger log)
+    public WorldLogListeners(Plugin plugin, Database database)
     {
-        this.log = log;
+        this.database = database;
         Bukkit.getPluginManager().registerEvents(this, plugin);
         physicalInteractTimers = new HashMap<>();
     }
@@ -35,7 +35,7 @@ public class WorldLogListeners implements Listener
     private void logAction(WorldLogAction action, Player player, Block block, boolean cancelled)
     {
         //Bukkit.getLogger().info("Attempted to log a block break");
-        log.log(new WorldLogBlockRecord(action, player, block, cancelled));
+        database.submitInsertRecord(new WorldLogBlockRecord(action, player, block, cancelled));
     }
 
 
