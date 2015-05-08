@@ -2,7 +2,8 @@ name: GriefProtect
 main: com.gmail.nuclearcat1337.griefprotect.main.GriefProtect
 version: 1.0
 description: Protection from griefs and hacks
-authors: [void420, Mr_Little_Kitty]
+authors: [void420, Mr_Little_Kitty,ryan00793]
+softdepend: [CoreFunctions]
 commands:
   allow:
     description: allow player to modify owner blocks
