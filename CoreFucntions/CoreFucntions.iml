@@ -7,8 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="craftbukkit-1.8.3" level="project" />
-    <orderEntry type="library" name="bukkit-1.8-R0.1-SNAPSHOT-shaded" level="project" />
+    <orderEntry type="library" name="bukkit-1.8-R0.1-SNAPSHOT-shaded" level="application" />
     <orderEntry type="module" module-name="Zones" />
+    <orderEntry type="module" module-name="Factions" />
+    <orderEntry type="module" module-name="GriefProtect" />
   </component>
 </module>

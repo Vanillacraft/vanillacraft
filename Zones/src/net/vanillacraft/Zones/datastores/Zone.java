@@ -33,7 +33,7 @@ public class Zone
     int warning;
     boolean permaBan;
 
-    String faction;
+    String factionName;
 
     HashSet<Integer> ignoreBlockId;
 
@@ -64,7 +64,7 @@ public class Zone
 
         spawn = null;
 
-        faction = null;
+        factionName = null;
 
         opOnly = false;
 
@@ -165,9 +165,9 @@ public class Zone
         return permaBan;
     }
 
-    public String getFaction()
+    public String getFactionName()
     {
-        return faction;
+        return factionName;
     }
 
     public HashSet<Integer> getIgnoreBlockId()

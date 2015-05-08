@@ -1,6 +1,7 @@
 package net.vanillacraft.CoreFunctions.commands;
 
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import net.vanillacraft.Factions.datastore.Faction;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -56,9 +57,24 @@ public class HomeCommand implements CommandExecutor
     @EventHandler
     public void onPlayerBedEnter(PlayerBedEnterEvent event)
     {
+        Player player = event.getPlayer();
+
         if (!event.isCancelled())
         {
+            if (plugin.getCoreMethods().getFaction(player) != null)
+            {
+                Faction playerFaction = plugin.getCoreMethods().getFaction(player);
+                Faction targetFaction = plugin.getCoreMethods().getFaction(event.getBed().getLocation());
 
+                if (playerFaction.getCanSetHome(targetFaction, playerFaction))
+                {
+                    plugin.getCoreMethods().setHomeLocation(player);
+                }
+                else
+                {
+
+                }
+            }
         }
     }
 

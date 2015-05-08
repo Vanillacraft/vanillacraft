@@ -7,16 +7,15 @@ import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.CoreErrors;
 import net.vanillacraft.CoreFunctions.utils.CoreMethods;
 import net.vanillacraft.CoreFunctions.worldLogger.WorldLogListeners;
-import net.vanillacraft.Zones.datastores.Zone;
+import net.vanillacraft.Factions.datastore.Faction;
+import net.vanillacraft.Factions.main.Factions;
 import net.vanillacraft.Zones.main.Zones;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
-import sun.security.krb5.Config;
 
-import java.io.File;
 import java.util.logging.Level;
 
 /**
@@ -33,9 +32,10 @@ public class CoreFunctions extends JavaPlugin
     private static CoreFunctions instance;
 
     private CoreData coreData;
-    private CoreMethods coremethods;
+    private CoreMethods coreMethods;
     private CoreErrors coreErrors;
     private Zones coreZones;
+    private Factions coreFactions;
 
     public CoreErrors getCoreErrors()
     {
@@ -49,12 +49,17 @@ public class CoreFunctions extends JavaPlugin
 
     public CoreMethods getCoreMethods()
     {
-        return coremethods;
+        return coreMethods;
     }
 
     public Zones getCoreZones()
     {
         return coreZones;
+    }
+
+    public Factions getCoreFactions()
+    {
+        return coreFactions;
     }
 
     public static JavaPlugin getInstance()
@@ -104,7 +109,12 @@ public class CoreFunctions extends JavaPlugin
         }
 
         coreData = new CoreData(this, db);
-        coremethods = new CoreMethods(this);
+        coreMethods = new CoreMethods(this);
+        coreErrors = new CoreErrors(this);
+
+        coreZones = (Zones)getServer().getPluginManager().getPlugin("Zones");
+        coreFactions = (Factions)getServer().getPluginManager().getPlugin("Factions");
+
 
         new WorldLogListeners(this,db);
 
