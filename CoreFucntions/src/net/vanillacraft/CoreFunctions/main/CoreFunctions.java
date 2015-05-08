@@ -6,7 +6,9 @@ import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.CoreErrors;
 import net.vanillacraft.CoreFunctions.utils.CoreMethods;
-import net.vanillacraft.CoreFunctions.worldLogger.WorldLogger;
+import net.vanillacraft.CoreFunctions.worldLogger.WorldLogListeners;
+import net.vanillacraft.Zones.datastores.Zone;
+import net.vanillacraft.Zones.main.Zones;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -33,6 +35,7 @@ public class CoreFunctions extends JavaPlugin
     private CoreData coreData;
     private CoreMethods coremethods;
     private CoreErrors coreErrors;
+    private Zones coreZones;
 
     public CoreErrors getCoreErrors()
     {
@@ -41,14 +44,17 @@ public class CoreFunctions extends JavaPlugin
 
     public CoreData getCoreData()
     {
-        //Youre Welcome. -MLK
         return coreData;
     }
 
     public CoreMethods getCoreMethods()
     {
-        //Youre Welcome. -MLK
         return coremethods;
+    }
+
+    public Zones getCoreZones()
+    {
+        return coreZones;
     }
 
     public static JavaPlugin getInstance()
@@ -97,8 +103,10 @@ public class CoreFunctions extends JavaPlugin
             return;
         }
 
-        coreData = new CoreData(this, db, new WorldLogger(db));
+        coreData = new CoreData(this, db);
         coremethods = new CoreMethods(this);
+
+        new WorldLogListeners(this,db);
 
         Bukkit.getServicesManager().register(CoreFunctions.class, this, this, ServicePriority.High);
     }
