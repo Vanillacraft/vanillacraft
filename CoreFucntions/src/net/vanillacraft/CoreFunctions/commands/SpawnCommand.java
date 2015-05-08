@@ -6,11 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.NPC;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.logging.Level;
 
 /**
  * Created by ryan on 5/5/2015.
@@ -31,15 +27,15 @@ public class SpawnCommand implements CommandExecutor {
             if(sender instanceof Player){
                 Player player = (Player)sender;
 
-                if(player.getLocation().getWorld() == plugin.getCoredata().getSpawnLocation().getWorld()){
-                    if(plugin.getCoremethods().isModMode(player)){
-                        normalTeleport(player, plugin.getCoredata().getSpawnLocation(), true);
+                if(player.getLocation().getWorld() == plugin.getCoreData().getSpawnLocation().getWorld()){
+                    if(plugin.getCoreMethods().isModMode(player)){
+                        normalTeleport(player, plugin.getCoreData().getSpawnLocation(), true);
                     } else {
-                        normalTeleport(player, plugin.getCoredata().getSpawnLocation());
+                        normalTeleport(player, plugin.getCoreData().getSpawnLocation());
                         return true;
                     }
                 } else {
-                    player.sendMessage(ChatColor.RED + "You must be in the main world.");
+                    player.sendMessage(ChatColor.RED + "You must be in the main world to use this command.");
                     return true;
                 }
             }
@@ -52,7 +48,7 @@ public class SpawnCommand implements CommandExecutor {
     }
 
     public void normalTeleport(Player player, Location location, Boolean op){
-        plugin.getCoremethods().teleport(player, location,op);
+        plugin.getCoreMethods().teleport(player, location,op);
     }
 
 }

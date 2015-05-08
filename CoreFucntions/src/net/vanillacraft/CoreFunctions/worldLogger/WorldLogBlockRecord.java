@@ -182,7 +182,7 @@ public class WorldLogBlockRecord implements WorldLogRecord
         {
             statement.setTimestamp(1, new Timestamp(timestamp));
             statement.setString(2, action.toString());
-            statement.setString(3, player.toString());
+            statement.setString(3, player.toString());//This is a UUID
             statement.setString(4, itemType.toString());
             statement.setDouble(5, playerX);
             statement.setDouble(6, playerY);

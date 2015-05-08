@@ -30,6 +30,7 @@ public class CoreData {
     private final long SETHOMECOOLDOWN = (1000 * 60) * 60;
     private final long TELEPORTCOOLDOWN = (1000 * 60) * 30;
 
+
     private Location spawnLocation = new Location(plugin.getServer().getWorld("world"), 0,0,0);
 
     public CoreData(CoreFunctions plugin, Database database, ILogger logger){
@@ -60,6 +61,10 @@ public class CoreData {
             }
         }
         return false;
+    }
+
+    public int getTeleportCooldownDuration(){
+        return (int)((TELEPORTCOOLDOWN / 1000) / 60);
     }
 
     public int getMinutesRemainTeleport(UUID uuid){

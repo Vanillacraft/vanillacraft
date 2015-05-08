@@ -5,15 +5,14 @@ import net.vanillacraft.CoreFunctions.database.MySQLDatabase;
 import net.vanillacraft.CoreFunctions.database.SQLiteDatabase;
 import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
+import net.vanillacraft.CoreFunctions.utils.CoreErrors;
 import net.vanillacraft.CoreFunctions.utils.CoreMethods;
 import net.vanillacraft.CoreFunctions.worldLogger.WorldLogger;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.logging.Level;
 
@@ -32,16 +31,21 @@ public class CoreFunctions extends JavaPlugin
 
     private static CoreFunctions instance;
 
-    private CoreData coredata;
+    private CoreData coreData;
     private CoreMethods coremethods;
+    private CoreErrors coreErrors;
 
-    public CoreData getCoredata()
-    {
-        //Youre Welcome. -MLK
-        return coredata;
+    public CoreErrors getCoreErrors() {
+        return coreErrors;
     }
 
-    public CoreMethods getCoremethods()
+    public CoreData getCoreData()
+    {
+        //Youre Welcome. -MLK
+        return coreData;
+    }
+
+    public CoreMethods getCoreMethods()
     {
         //Youre Welcome. -MLK
         return coremethods;
@@ -86,7 +90,7 @@ public class CoreFunctions extends JavaPlugin
             return;
         }
 
-        coredata = new CoreData(this,db,new WorldLogger(db));
+        coreData = new CoreData(this,db,new WorldLogger(db));
         coremethods = new CoreMethods(this);
 
         Bukkit.getServicesManager().register(CoreFunctions.class, this, this, ServicePriority.High);
