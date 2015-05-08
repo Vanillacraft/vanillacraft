@@ -1,6 +1,7 @@
 package net.vanillacraft.CoreFunctions.utils;
 
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import net.vanillacraft.Zones.datastores.Zone;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -104,4 +105,13 @@ public class CoreMethods
         }
     }
 
+    public Zone getZone(Location location)
+    {
+        return plugin.getCoreZones().getZone(location);
+    }
+
+    public Zone getZone(Player player)
+    {
+        return getZone(player.getLocation());
+    }
 }
