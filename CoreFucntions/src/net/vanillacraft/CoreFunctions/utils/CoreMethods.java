@@ -41,12 +41,13 @@ public class CoreMethods
             }
             else
             {
-                player.sendMessage(ChatColor.RED + "Your teleport timer is not up yet. Please wait "+profile.getRemainingDelay(Delay.TELEPORT).getFormatted()+" till it expires.");
+                //player.sendMessage(ChatColor.RED + "Your teleport timer is not up yet. Please wait "+profile.getRemainingDelay(Delay.TELEPORT).getFormatted()+" till it expires.");
+                plugin.getCoreErrors().timerNotDone(player,"teleport",profile.getRemainingDelay(Delay.TELEPORT).getFormatted());
             }
         }
     }
 
-    private boolean canTeleport(PlayerProfile profile)
+    public boolean canTeleport(PlayerProfile profile)
     {
         if (profile.isModMode())
         {
@@ -54,14 +55,14 @@ public class CoreMethods
         }
         else
         {
-           return profile.hasActiveDelay(Delay.TELEPORT);
+           return !profile.hasActiveDelay(Delay.TELEPORT);
         }
     }
 
-    public boolean isModMode(Player player)
-    {
-        return CoreData.getProfile(player).isModMode();
-    }
+//    public boolean isModMode(Player player)
+//    {
+//        return CoreData.getProfile(player).isModMode();
+//    }
 
 //    public Location getHomeLocation(Player player)
 //    {
@@ -75,27 +76,20 @@ public class CoreMethods
 //        }
 //    }
 //
-//    public boolean setHomeLocation(Player player)
-//    {
-//        if (plugin.getCoreData().getPlayerSetHomeCoolDown(player.getUniqueId()) > 0)
-//        {
-//            if (plugin.getCoreData().getPlayerSetHomeCoolDown(player.getUniqueId()) < System.currentTimeMillis())
-//            {
-//                plugin.getCoreData().setPlayerHome(player.getUniqueId(), player.getLocation());
-//                return true;
-//            }
-//            else
-//            {
-//                //this is if the player's cool down isn't done.
-//                return false;
-//            }
-//        }
-//        else
-//        {
-//            plugin.getCoreData().setPlayerHome(player.getUniqueId(), player.getLocation());
-//            return true;
-//        }
-//    }
+    public boolean setHomeLocation(Player player)
+    {
+        PlayerProfile profile = CoreData.getProfile(player);
+        if (!profile.hasActiveDelay(Delay.SETHOME))
+        {
+            plugin.getCoreData().setPlayerHome(player.getUniqueId(), player.getLocation());
+            return true;
+        }
+        else
+        {
+            plugin.getCoreErrors().timerNotDone(player,"set home",profile.getRemainingDelay(Delay.SETHOME).getFormatted());
+            return true;
+        }
+    }
 
     public Zone getZone(Location location)
     {

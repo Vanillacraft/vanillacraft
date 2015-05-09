@@ -1,5 +1,6 @@
 package net.vanillacraft.CoreFunctions.datastores;
 
+import net.vanillacraft.CoreFunctions.utils.Loc;
 import net.vanillacraft.Factions.datastore.Faction;
 
 import java.util.EnumMap;
@@ -38,8 +39,10 @@ public class PlayerProfile
 
     public <T> T getData(Object key, Class<T> returnType)
     {
-        checkDataMap();
-        return (T)data.get(key);
+        Object b = data.get(key);
+        if(b == null)
+            return null;
+        return (T)b;
     }
 
     public Boolean is(Object key)
@@ -52,14 +55,7 @@ public class PlayerProfile
 
     public void setData(Object key, Object value)
     {
-        checkDataMap();
         data.put(key, value);
-    }
-
-    private void checkDataMap()
-    {
-        if(data == null)
-            data = new HashMap<>();
     }
 
     public boolean hasActiveDelay(Delay delay)
@@ -85,5 +81,10 @@ public class PlayerProfile
     public boolean isModMode()
     {
         return is("ModeMode");
+    }
+
+    public Loc getHomeLocation()
+    {
+        return getData("Home",Loc.class);
     }
 }

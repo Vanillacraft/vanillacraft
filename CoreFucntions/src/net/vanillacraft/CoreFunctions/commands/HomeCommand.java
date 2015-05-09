@@ -1,5 +1,8 @@
 package net.vanillacraft.CoreFunctions.commands;
 
+import net.vanillacraft.CoreFunctions.datastores.CoreData;
+import net.vanillacraft.CoreFunctions.datastores.Delay;
+import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import net.vanillacraft.Factions.datastore.Faction;
 import org.bukkit.Bukkit;
@@ -31,17 +34,19 @@ public class HomeCommand implements Listener
         {
             Player player = event.getPlayer();
             String command[] = event.getMessage().split(" ");
+            PlayerProfile profile = CoreData.getProfile(player);
 
             if (command[0].equalsIgnoreCase("/home"))
             {
-                if (plugin.getCoreMethods().canTeleport(player))
-                {
-                    plugin.getCoreMethods().teleport(player, plugin.getCoreMethods().getHomeLocation(player), plugin.getCoreMethods().isModMode(player));
-                }
-                else
-                {
-                    plugin.getCoreErrors().teleportTimerNotDone(player);
-                }
+                plugin.getCoreMethods().teleport(player,profile.getHomeLocation().toLocation());
+//                if (plugin.getCoreMethods().canTeleport(profile))
+//                {
+//                    plugin.getCoreMethods().teleport(player, plugin.getCoreMethods().getHomeLocation(player));
+//                }
+//                else
+//                {
+//                    plugin.getCoreErrors().teleportTimerNotDone(player);
+//                }
             }
 
         }
@@ -65,7 +70,7 @@ public class HomeCommand implements Listener
                 }
                 else
                 {
-                    plugin.getCoreErrors().timerNotDone(player, "set home", plugin.getCoreMethods().getMinutesRemainSetHome(player));
+                    plugin.getCoreErrors().timerNotDone(player, "set home", CoreData.getProfile(player).getRemainingDelay(Delay.SETHOME).getFormatted());
                 }
             }
         }

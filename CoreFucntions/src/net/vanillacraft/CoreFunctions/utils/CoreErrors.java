@@ -1,5 +1,7 @@
 package net.vanillacraft.CoreFunctions.utils;
 
+import net.vanillacraft.CoreFunctions.datastores.CoreData;
+import net.vanillacraft.CoreFunctions.datastores.Delay;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -24,21 +26,21 @@ public class CoreErrors
         player.sendMessage(preFix + errorMessage);
     }
 
-    public void teleportTimerNotDone(Player player)
-    {
-        sendError(player, "You can't teleport so soon, please wait " + ChatColor.GREEN + plugin.getCoreMethods().getMinutesRemainTeleport(player) + ChatColor.RED + " minutes and try again.");
-    }
+//    public void teleportTimerNotDone(Player player)
+//    {
+//        sendError(player, "You can't teleport so soon, please wait " + ChatColor.GREEN + CoreData.getProfile(player).getRemainingDelay(Delay.TELEPORT).getFormatted() + ChatColor.RED + "and try again.");
+//    }
+//
+//    public void setHomeTimerNotDone(Player player)
+//    {
+//        sendError(player, "You can't set home so soon. Please wait "+ChatColor.GREEN+CoreData.getProfile(player).getRemainingDelay(Delay.SETHOME).getFormatted()+ChatColor.RED+" and try again");
+//    }
 
-    public void setHomeTimerNotDone(Player player)
+    public void timerNotDone(Player player, String errorMessage, String formattedTime)
     {
-        sendError(player, "You can't set home so soon, please wait");
-    }
-
-    public void timerNotDone(Player player, String errorMessage, int minutes)
-    {
-        sendError(player, "You can't " + errorMessage + " so soon, please wait "
-                + ChatColor.GREEN + plugin.getCoreMethods().getMinutesRemainSetHome(player) + ChatColor.RED
-                + " minutes and try again.");
+        sendError(player, "You can't " + errorMessage + " so soon. Please wait "
+                + ChatColor.GREEN + formattedTime + ChatColor.RED
+                + " and try again.");
     }
 
     public void mustBeInWorld(Player player, String worldName)

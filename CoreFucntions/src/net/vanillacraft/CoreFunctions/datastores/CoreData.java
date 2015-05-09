@@ -2,6 +2,7 @@ package net.vanillacraft.CoreFunctions.datastores;
 
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import net.vanillacraft.CoreFunctions.utils.Loc;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -138,24 +139,24 @@ public class CoreData implements Listener
     //        }
     //    }
     //
-    //    public void setPlayerHome(UUID uuid, Location location)
-    //    {
-    //
-    //        if (playerHomeLocations.containsKey(uuid))
-    //        {
-    //            playerHomeLocations.remove(uuid);
-    //        }
-    //
-    //        if (playerSetHomeCoolDown.containsKey(uuid))
-    //        {
-    //            playerSetHomeCoolDown.remove(uuid);
-    //        }
-    //
-    //        SetHomeRecord record = new SetHomeRecord(uuid, location);
-    //        getDatabase().submitInsertRecord(record);
-    //
-    //        playerSetHomeCoolDown.put(uuid, System.currentTimeMillis() + SETHOMECOOLDOWN);
-    //        playerHomeLocations.put(uuid, location);
-    //    }
+        public void setPlayerHome(UUID uuid, Location location)
+        {
+//            if (playerHomeLocations.containsKey(uuid))
+//            {
+//                playerHomeLocations.remove(uuid);
+//            }
+//
+//            if (playerSetHomeCoolDown.containsKey(uuid))
+//            {
+//                playerSetHomeCoolDown.remove(uuid);
+//            }
+
+            getProfile(uuid).addDelay(Delay.SETHOME);
+            getProfile(uuid).setData("Home",new Loc(location,true));
+
+            SetHomeRecord record = new SetHomeRecord(uuid, location);
+            getDatabase().submitInsertRecord(record);
+
+        }
 
 }
