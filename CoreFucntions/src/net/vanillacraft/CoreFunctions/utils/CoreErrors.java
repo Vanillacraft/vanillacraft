@@ -19,22 +19,18 @@ public class CoreErrors
         this.plugin = plugin;
     }
 
-    private String preFix = ChatColor.RED + "[Error] : ";
+    private String errorPreFix = ChatColor.RED + "[Error] : ";
+    private String syntaxPreFix = ChatColor.GRAY + "[Syntax] : ";
+
+    private void sendMessage(Player player, String preFix, String message)
+    {
+        player.sendMessage(preFix + message);
+    }
 
     public void sendError(Player player, String errorMessage)
     {
-        player.sendMessage(preFix + errorMessage);
+        sendMessage(player, errorPreFix, errorMessage);
     }
-
-//    public void teleportTimerNotDone(Player player)
-//    {
-//        sendError(player, "You can't teleport so soon, please wait " + ChatColor.GREEN + CoreData.getProfile(player).getRemainingDelay(Delay.TELEPORT).getFormatted() + ChatColor.RED + "and try again.");
-//    }
-//
-//    public void setHomeTimerNotDone(Player player)
-//    {
-//        sendError(player, "You can't set home so soon. Please wait "+ChatColor.GREEN+CoreData.getProfile(player).getRemainingDelay(Delay.SETHOME).getFormatted()+ChatColor.RED+" and try again");
-//    }
 
     public void timerNotDone(Player player, String errorMessage, String formattedTime)
     {
@@ -46,5 +42,21 @@ public class CoreErrors
     public void mustBeInWorld(Player player, String worldName)
     {
         sendError(player, "You must be in the " + worldName + " to use this command");
+    }
+
+    public void playerNotOnline(Player player)
+    {
+        sendError(player, "That player is not online.");
+    }
+
+    public void commandSantaxError(Player player, String command, String syntax)
+    {
+        sendError(player, "That was improper usage of the " + command + " the proper syntax is:");
+        sendMessage(player, syntaxPreFix, "/" + command + " " + syntax);
+    }
+
+    public void enableModMode(Player player)
+    {
+        sendError(player, "You must enable moderator mode to use this command.");
     }
 }

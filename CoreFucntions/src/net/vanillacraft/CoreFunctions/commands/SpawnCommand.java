@@ -1,10 +1,7 @@
 package net.vanillacraft.CoreFunctions.commands;
 
-import net.vanillacraft.CoreFunctions.datastores.CoreData;
-import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -36,9 +33,13 @@ public class SpawnCommand implements Listener
             if (command[0].equalsIgnoreCase("/spawn"))
             {
                 if (player.getLocation().getWorld() == plugin.getCoreData().getSpawnLocation().getWorld())
-                   plugin.getCoreMethods().teleport(player,plugin.getCoreData().getSpawnLocation());
+                {
+                    plugin.getCoreMethods().teleport(player, plugin.getCoreData().getSpawnLocation());
+                }
                 else
+                {
                     plugin.getCoreErrors().mustBeInWorld(player, "main world");
+                }
             }
         }
     }

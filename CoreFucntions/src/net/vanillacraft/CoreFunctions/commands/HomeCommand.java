@@ -39,14 +39,6 @@ public class HomeCommand implements Listener
             if (command[0].equalsIgnoreCase("/home"))
             {
                 plugin.getCoreMethods().teleport(player,profile.getHomeLocation().toLocation());
-//                if (plugin.getCoreMethods().canTeleport(profile))
-//                {
-//                    plugin.getCoreMethods().teleport(player, plugin.getCoreMethods().getHomeLocation(player));
-//                }
-//                else
-//                {
-//                    plugin.getCoreErrors().teleportTimerNotDone(player);
-//                }
             }
 
         }
@@ -56,12 +48,12 @@ public class HomeCommand implements Listener
     public void onPlayerBedEnter(PlayerBedEnterEvent event)
     {
         Player player = event.getPlayer();
-
+        PlayerProfile profile = CoreData.getProfile(player);
         if (!event.isCancelled())
         {
             if (plugin.getCoreMethods().getFaction(player) != null)
             {
-                Faction playerFaction = plugin.getCoreMethods().getFaction(player);
+                Faction playerFaction = profile.getData("Faction", Faction.class);
                 Faction targetFaction = plugin.getCoreMethods().getFaction(event.getBed().getLocation());
 
                 if (plugin.getCoreMethods().canSetHome(player, targetFaction, playerFaction))

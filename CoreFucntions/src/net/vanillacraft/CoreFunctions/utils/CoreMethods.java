@@ -41,7 +41,6 @@ public class CoreMethods
             }
             else
             {
-                //player.sendMessage(ChatColor.RED + "Your teleport timer is not up yet. Please wait "+profile.getRemainingDelay(Delay.TELEPORT).getFormatted()+" till it expires.");
                 plugin.getCoreErrors().timerNotDone(player,"teleport",profile.getRemainingDelay(Delay.TELEPORT).getFormatted());
             }
         }
@@ -59,23 +58,6 @@ public class CoreMethods
         }
     }
 
-//    public boolean isModMode(Player player)
-//    {
-//        return CoreData.getProfile(player).isModMode();
-//    }
-
-//    public Location getHomeLocation(Player player)
-//    {
-//        if (plugin.getCoreData().getPlayerHomeLocation(player.getUniqueId()) != null)
-//        {
-//            return plugin.getCoreData().getPlayerHomeLocation(player.getUniqueId());
-//        }
-//        else
-//        {
-//            return null;
-//        }
-//    }
-//
     public boolean setHomeLocation(Player player)
     {
         PlayerProfile profile = CoreData.getProfile(player);
@@ -96,6 +78,12 @@ public class CoreMethods
         return plugin.getCoreZones().getZone(location);
     }
 
+    /**
+     * This is old
+     *
+     * @deprecated please use player Profile instead
+     */
+    @Deprecated
     public Zone getZone(Player player)
     {
         return getZone(player.getLocation());
