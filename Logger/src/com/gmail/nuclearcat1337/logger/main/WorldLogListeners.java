@@ -36,7 +36,8 @@ class WorldLogListeners implements Listener
     private void logAction(WorldLogAction action, Player player, Block block, boolean cancelled)
     {
         //Bukkit.getLogger().info("Attempted to log a block break");
-        database.submitInsertRecord(new WorldLogBlockRecord(action, player, block, cancelled));
+        //TODO----Not always set abandoned and public it as false
+        database.submitInsertRecord(new WorldLogBlockRecord(action, player, block, cancelled,false,false));
     }
 
 

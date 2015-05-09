@@ -1,5 +1,8 @@
 package net.vanillacraft.CoreFunctions.utils;
 
+import net.vanillacraft.CoreFunctions.datastores.CoreData;
+import net.vanillacraft.CoreFunctions.datastores.Delay;
+import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import net.vanillacraft.Factions.datastore.Faction;
 import net.vanillacraft.Zones.datastores.Zone;
@@ -21,94 +24,78 @@ public class CoreMethods
         this.plugin = plugin;
     }
 
-    public void teleport(Player player, Location loc, boolean isOpMode)
+    public void teleport(Player player, Location loc)
     {
-        if (isOpMode)
+        PlayerProfile profile = CoreData.getProfile(player);
+        if (profile.isModMode())
         {
             player.sendMessage(ChatColor.GREEN + "You were teleported while in Mod Mode this does not count against " + "your timers.");
             player.teleport(loc);
         }
         else
         {
-            if (canTeleport(player))
+            if (canTeleport(profile))
             {
                 player.teleport(loc);
-                player.sendMessage(ChatColor.GREEN + "Your teleport timer has just had " + plugin.getCoreData().getTeleportCooldownDuration() + " minutes added to it.");
+                player.sendMessage(ChatColor.GREEN + "Your teleport timer has just had " + Delay.TELEPORT.getDelayTime().getAsMinutes() + " minutes added to it.");
             }
             else
             {
-                player.sendMessage(ChatColor.RED + "Your teleport timer is not up yet please wait " +
-                        getMinutesRemainTeleport(player) + " minutes till it expires.");
+                player.sendMessage(ChatColor.RED + "Your teleport timer is not up yet. Please wait "+profile.getRemainingDelay(Delay.TELEPORT).getFormatted()+" till it expires.");
             }
         }
     }
 
-    public boolean canTeleport(Player player)
+    private boolean canTeleport(PlayerProfile profile)
     {
-        if (isModMode(player))
+        if (profile.isModMode())
         {
             return true;
         }
         else
         {
-            if (getMinutesRemainTeleport(player) == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+           return profile.hasActiveDelay(Delay.TELEPORT);
         }
-    }
-
-    public int getMinutesRemainTeleport(Player player)
-    {
-        return plugin.getCoreData().getMinutesRemainTeleport(player.getUniqueId());
-    }
-
-    public int getMinutesRemainSetHome(Player player){
-        return plugin.getCoreData().getMinutesRemainSetHome(player.getUniqueId());
     }
 
     public boolean isModMode(Player player)
     {
-        return plugin.getCoreData().isModMode(player.getUniqueId());
+        return CoreData.getProfile(player).isModMode();
     }
 
-    public Location getHomeLocation(Player player)
-    {
-        if (plugin.getCoreData().getPlayerHomeLocation(player.getUniqueId()) != null)
-        {
-            return plugin.getCoreData().getPlayerHomeLocation(player.getUniqueId());
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    public boolean setHomeLocation(Player player)
-    {
-        if (plugin.getCoreData().getPlayerSetHomeCoolDown(player.getUniqueId()) > 0)
-        {
-            if (plugin.getCoreData().getPlayerSetHomeCoolDown(player.getUniqueId()) < System.currentTimeMillis())
-            {
-                plugin.getCoreData().setPlayerHome(player.getUniqueId(), player.getLocation());
-                return true;
-            }
-            else
-            {
-                //this is if the player's cool down isn't done.
-                return false;
-            }
-        }
-        else
-        {
-            plugin.getCoreData().setPlayerHome(player.getUniqueId(), player.getLocation());
-            return true;
-        }
-    }
+//    public Location getHomeLocation(Player player)
+//    {
+//        if (plugin.getCoreData().getPlayerHomeLocation(player.getUniqueId()) != null)
+//        {
+//            return plugin.getCoreData().getPlayerHomeLocation(player.getUniqueId());
+//        }
+//        else
+//        {
+//            return null;
+//        }
+//    }
+//
+//    public boolean setHomeLocation(Player player)
+//    {
+//        if (plugin.getCoreData().getPlayerSetHomeCoolDown(player.getUniqueId()) > 0)
+//        {
+//            if (plugin.getCoreData().getPlayerSetHomeCoolDown(player.getUniqueId()) < System.currentTimeMillis())
+//            {
+//                plugin.getCoreData().setPlayerHome(player.getUniqueId(), player.getLocation());
+//                return true;
+//            }
+//            else
+//            {
+//                //this is if the player's cool down isn't done.
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            plugin.getCoreData().setPlayerHome(player.getUniqueId(), player.getLocation());
+//            return true;
+//        }
+//    }
 
     public Zone getZone(Location location)
     {
@@ -132,7 +119,7 @@ public class CoreMethods
 
     public boolean canSetHome(Player player, Faction targetFaction, Faction playerFaction)
     {
-        if (plugin.getCoreData().getPlayerSetHomeCoolDown(player.getUniqueId()) == 0)
+        if (CoreData.getProfile(player).hasActiveDelay(Delay.SETHOME))
         {
             if (playerFaction.isAlly(targetFaction.getName()))
             {
