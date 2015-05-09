@@ -51,7 +51,7 @@ public class HomeCommand implements Listener
         PlayerProfile profile = CoreData.getProfile(player);
         if (!event.isCancelled())
         {
-            if (plugin.getCoreMethods().getFaction(player) != null)
+            if (profile.getData("Faction", Faction.class) != null)
             {
                 Faction playerFaction = profile.getData("Faction", Faction.class);
                 Faction targetFaction = plugin.getCoreMethods().getFaction(event.getBed().getLocation());

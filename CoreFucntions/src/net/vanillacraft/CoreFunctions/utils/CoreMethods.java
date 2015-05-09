@@ -79,16 +79,19 @@ public class CoreMethods
     }
 
     /**
-     * This is old
-     *
-     * @deprecated please use player Profile instead
+     * just saw this in commit we may still want to use this thought i did this on get faction .
      */
-    @Deprecated
     public Zone getZone(Player player)
     {
         return getZone(player.getLocation());
     }
 
+    /**
+     * This is old
+     *
+     * @deprecated please use player profile instead
+     */
+    @Deprecated
     public Faction getFaction(Player player)
     {
         return plugin.getCoreFactions().getFaction(player);
