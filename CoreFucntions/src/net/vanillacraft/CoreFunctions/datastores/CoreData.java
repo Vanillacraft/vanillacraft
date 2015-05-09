@@ -72,7 +72,7 @@ public class CoreData implements Listener
         return spawnLocation;
     }
 
-    @EventHandler(priority = EventPriority.NORMAL.LOWEST,ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.LOWEST,ignoreCancelled = true)
     public void playerProfileLoad(PlayerJoinEvent event)
     {
         Player p = event.getPlayer();
