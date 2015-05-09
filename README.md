@@ -11,6 +11,7 @@ This README would normally document whatever steps are necessary to get your app
 
 * Please do not submit your IDE's project configuration files (eg. /idea folder however we're leaving .imls for now so that dependencies are correctly applied)
 * Speaking of dependencies you so far need bukkit and craftbukkit.
+* In the future all contributions must be done through branches and be reviewed as write access to master will be taken away once we have a working plugin set.
 
 ### Who do I talk to? ###
 
