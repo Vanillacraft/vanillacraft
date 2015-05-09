@@ -70,7 +70,7 @@ public class PlayerProfile
         return true;
     }
 
-    private Cooldown getRemainingDelay(Delay delay)
+    public Cooldown getRemainingDelay(Delay delay)
     {
         if(!hasActiveDelay(delay))
             return new Cooldown(0);
@@ -80,5 +80,10 @@ public class PlayerProfile
     public void addDelay(Delay delay)
     {
         delays.put(delay,System.currentTimeMillis()+delay.getDelayTime().getAsMiliseconds());
+    }
+
+    public boolean isModMode()
+    {
+        return is("ModeMode");
     }
 }

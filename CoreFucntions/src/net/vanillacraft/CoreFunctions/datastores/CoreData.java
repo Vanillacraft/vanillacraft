@@ -24,7 +24,22 @@ public class CoreData implements Listener
 
     private CoreFunctions plugin;
 
-    private Map<UUID,PlayerProfile> profiles;
+    private static Map<UUID,PlayerProfile> profiles;
+
+    public static PlayerProfile getProfile(Player player)
+    {
+        return getProfile(player.getUniqueId());
+    }
+
+    public static PlayerProfile getProfile(UUID id)
+    {
+        return profiles.get(id);
+    }
+
+    public static void clearProfiles()
+    {
+        profiles.clear();
+    }
 
     //    private HashMap<UUID, Long> teleportTimers = new HashMap<>();
     //    private HashMap<UUID, opMode> modMode = new HashMap<>();
@@ -56,16 +71,6 @@ public class CoreData implements Listener
         return spawnLocation;
     }
 
-    public PlayerProfile getProfile(Player player)
-    {
-        return getProfile(player.getUniqueId());
-    }
-
-    public PlayerProfile getProfile(UUID id)
-    {
-        return profiles.get(id);
-    }
-
     @EventHandler(priority = EventPriority.NORMAL.LOWEST,ignoreCancelled = true)
     public void playerProfileLoad(PlayerJoinEvent event)
     {
@@ -75,11 +80,6 @@ public class CoreData implements Listener
             profiles.put(p.getUniqueId(), new PlayerProfile(p.getUniqueId(), p.getName()));
             CoreFunctions.logInfoMessage("Created player profle for "+p.getName());
         }
-    }
-
-    public boolean isModMode(Player player)
-    {
-        return getProfile(player).is("ModMode");
     }
 
 
@@ -93,11 +93,6 @@ public class CoreData implements Listener
     //            }
     //        }
     //        return false;
-    //    }
-
-    //    public int getTeleportCooldownDuration()
-    //    {
-    //        return (int) ((TELEPORTCOOLDOWN / 1000) / 60);
     //    }
     //
     //    public int getMinutesRemainTeleport(UUID uuid)

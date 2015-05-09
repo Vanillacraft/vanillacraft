@@ -10,16 +10,16 @@ public enum Delay
     SETHOME(60),
     TELEPORT(30);
 
-    private long delay;
+    private final Cooldown time;
 
     private Delay(int minutes)
     {
-        delay = minutes*60*1000;
+        time = new Cooldown(minutes*60*1000);
     }
 
     public Cooldown getDelayTime()
     {
-        return new Cooldown(delay);
+        return time;
     }
 
     //    public static long Convert(long miliseconds,TimeUnit value)
