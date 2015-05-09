@@ -2,29 +2,32 @@ package net.vanillacraft.CoreFunctions.commands;
 
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import net.vanillacraft.Factions.datastore.Faction;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 /**
  * Created by ryan on 5/5/2015.
  */
-public class HomeCommand
+public class HomeCommand implements Listener
 {
 
     private CoreFunctions plugin;
 
     public HomeCommand(CoreFunctions plugin)
     {
+        Bukkit.getPluginManager().registerEvents(this, CoreFunctions.getInstance());
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event)
     {
         if (!event.isCancelled())
@@ -32,7 +35,8 @@ public class HomeCommand
             Player player = event.getPlayer();
             String command[] = event.getMessage().split(" ");
 
-            if(command[0].equalsIgnoreCase("/home")){
+            if (command[0].equalsIgnoreCase("/home"))
+            {
                 if (plugin.getCoreMethods().canTeleport(player))
                 {
                     plugin.getCoreMethods().teleport(player, plugin.getCoreMethods().getHomeLocation(player), plugin.getCoreMethods().isModMode(player));
