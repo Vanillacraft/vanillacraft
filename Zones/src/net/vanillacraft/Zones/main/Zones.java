@@ -1,12 +1,18 @@
 package net.vanillacraft.Zones.main;
 
+import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
+import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import net.vanillacraft.Factions.datastore.Faction;
 import net.vanillacraft.Zones.datastores.Zone;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Created by ryan on 5/6/2015.
@@ -16,8 +22,12 @@ public class Zones extends JavaPlugin
 
     private static Zones instance;
 
+    private HashMap<UUID, Long> warningTimeout = new HashMap<UUID, Long>();
+
     private ArrayList<String> worldsWithZones = new ArrayList<>();
     private ArrayList<Zone> zoneList = new ArrayList<>();
+
+    private CoreFunctions coreFunctions;
 
     public static JavaPlugin getInstance()
     {
@@ -33,6 +43,7 @@ public class Zones extends JavaPlugin
     public void onEnable()
     {
         instance = this;
+        coreFunctions = (CoreFunctions) getServer().getPluginManager().getPlugin("CoreFunctions");
     }
 
     @Override
@@ -73,6 +84,59 @@ public class Zones extends JavaPlugin
         }
 
         return null;
+    }
+
+    public Boolean playerHasPermissionBuild(Player player, Zone zone)
+    {
+        PlayerProfile profile = coreFunctions.getCoreData().getProfile(player);
+        if (zone.isOpOnly())
+        {
+            if (profile.isModMode())
+            {
+                return true;
+            }
+
+            return false;
+        }
+        else if (zone.isDonor())
+        {
+            if (profile.is("Donor") || profile.isModMode())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        if (zone.getFactionName().equalsIgnoreCase(profile.getData("Faction", Faction.class).getName()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void notifyPlayer(Player player, Zone zone)
+    {
+        Long time = warningTimeout.get(player.getUniqueId());
+
+        if (time == null || time < System.currentTimeMillis())
+        {
+            warningTimeout.put(player.getUniqueId(), System.currentTimeMillis() + 10000);
+            coreFunctions.getCoreErrors().notifyPlayerModifyPlace(player, zone.getName());
+        }
+    }
+
+    public void warnPlayer(Player player, Zone zone)
+    {
+        Long time = warningTimeout.get(player.getUniqueId());
+
+        if(time == null || time < System.currentTimeMillis()){
+            warningTimeout.put(player.getUniqueId(), System.currentTimeMillis() + 10000);
+            coreFunctions.getCoreErrors().notifyPlayerCantModifyPlace(player, zone.getName());
+        }
     }
 
 }

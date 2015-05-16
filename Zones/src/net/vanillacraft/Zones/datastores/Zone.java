@@ -1,6 +1,7 @@
 package net.vanillacraft.Zones.datastores;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import java.util.HashSet;
 
@@ -28,14 +29,13 @@ public class Zone
     boolean protect;
     boolean opOnly;
     boolean donor;
-    boolean modOnly;
 
     int warning;
     boolean permaBan;
 
     String factionName;
 
-    HashSet<Integer> ignoreBlockId;
+    HashSet<Material> ignoreBlock;
 
     Location spawn;
 
@@ -60,7 +60,7 @@ public class Zone
         this.warning = warning;
         this.permaBan = permaBan;
 
-        ignoreBlockId = null;
+        ignoreBlock = null;
 
         spawn = null;
 
@@ -150,11 +150,6 @@ public class Zone
         return donor;
     }
 
-    public boolean isModOnly()
-    {
-        return modOnly;
-    }
-
     public int getWarning()
     {
         return warning;
@@ -170,9 +165,9 @@ public class Zone
         return factionName;
     }
 
-    public HashSet<Integer> getIgnoreBlockId()
+    public HashSet<Material> getIgnoreBlock()
     {
-        return ignoreBlockId;
+        return ignoreBlock;
     }
 
     public Location getSpawn()
