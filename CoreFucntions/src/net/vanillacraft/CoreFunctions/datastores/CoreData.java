@@ -74,13 +74,13 @@ public class CoreData implements Listener
         }
     }
 
-        public void setPlayerHome(UUID uuid, Location location)
-        {
-            getProfile(uuid).addDelay(Delay.SETHOME);
-            getProfile(uuid).setData("Home",new Loc(location,true));
+    public void setPlayerHome(UUID uuid, Location location)
+    {
+        getProfile(uuid).addDelay(Delay.SETHOME);
+        getProfile(uuid).setData("Home",new Loc(location,true));
 
-            SetHomeRecord record = new SetHomeRecord(uuid, location);
-            getDatabase().submitInsertRecord(record);
-        }
+        SetHomeRecord record = new SetHomeRecord(uuid, location);
+        getDatabase().submitInsertRecord(record);
+    }
 
 }

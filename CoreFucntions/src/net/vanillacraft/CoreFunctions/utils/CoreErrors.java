@@ -20,6 +20,7 @@ public class CoreErrors
     }
 
     private String errorPreFix = ChatColor.RED + "[Error] : ";
+    private String warrningPrefix = ChatColor.GOLD + "[Warning] : ";
     private String syntaxPreFix = ChatColor.GRAY + "[Syntax] : ";
 
     private void sendMessage(Player player, String preFix, String message)
@@ -31,6 +32,11 @@ public class CoreErrors
     {
         sendMessage(player, errorPreFix, errorMessage);
     }
+
+    public void sendWarning(Player player, String message){
+        sendMessage(player, warrningPrefix, message);
+    }
+
 
     public void timerNotDone(Player player, String errorMessage, String formattedTime)
     {
@@ -59,4 +65,15 @@ public class CoreErrors
     {
         sendError(player, "You must enable moderator mode to use this command.");
     }
+
+    public void notifyPlayerModifyPlace(Player player, String zoneName)
+    {
+        sendError(player, ChatColor.GREEN + "You are modifying " + ChatColor.WHITE + zoneName + ChatColor.GREEN + ".");
+    }
+
+    public void notifyPlayerCantModifyPlace(Player player, String zoneName){
+        sendWarning(player, "You're not allowed to modify " + ChatColor.WHITE + zoneName + ChatColor.GREEN + ".");
+    }
+
+
 }
