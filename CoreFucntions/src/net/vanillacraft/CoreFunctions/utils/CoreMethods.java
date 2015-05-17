@@ -42,7 +42,7 @@ public class CoreMethods
             }
             else
             {
-                plugin.getCoreErrors().timerNotDone(player,"teleport",profile.getRemainingDelay(Delay.TELEPORT).getFormatted());
+                plugin.getCoreErrors().timerNotDone(player, "teleport", profile.getRemainingDelay(Delay.TELEPORT).getFormatted());
             }
         }
     }
@@ -55,7 +55,7 @@ public class CoreMethods
         }
         else
         {
-           return !profile.hasActiveDelay(Delay.TELEPORT);
+            return !profile.hasActiveDelay(Delay.TELEPORT);
         }
     }
 
@@ -69,7 +69,7 @@ public class CoreMethods
         }
         else
         {
-            plugin.getCoreErrors().timerNotDone(player,"set home",profile.getRemainingDelay(Delay.SETHOME).getFormatted());
+            plugin.getCoreErrors().timerNotDone(player, "set home", profile.getRemainingDelay(Delay.SETHOME).getFormatted());
             return true;
         }
     }
@@ -122,35 +122,46 @@ public class CoreMethods
         }
     }
 
-    public void hidePlayer(Player target){
+    public void hidePlayer(Player target)
+    {
         plugin.getCoreData().setHiddenPlayer(target);
-        for(Player player : Bukkit.getServer().getOnlinePlayers()){
+        for (Player player : Bukkit.getServer().getOnlinePlayers())
+        {
             PlayerProfile profile = CoreData.getProfile(player);
 
-            if(!profile.isModMode()){
+            if (!profile.isModMode())
+            {
                 player.hidePlayer(target);
             }
         }
     }
 
-    public void showPlayer(Player target){
+    public void showPlayer(Player target)
+    {
         plugin.getCoreData().removeHiddenPlayer(target);
-        for(Player player : Bukkit.getServer().getOnlinePlayers()){
+        for (Player player : Bukkit.getServer().getOnlinePlayers())
+        {
             player.showPlayer(target);
         }
     }
 
-    public void resetSpiesForPlayer(Player target){
-        for(Player player : Bukkit.getServer().getOnlinePlayers()){
-            if(plugin.getCoreData().isPlayerHidden(player)){
+    public void resetSpiesForPlayer(Player target)
+    {
+        for (Player player : Bukkit.getServer().getOnlinePlayers())
+        {
+            if (plugin.getCoreData().isPlayerHidden(player))
+            {
                 target.hidePlayer(player);
             }
         }
     }
 
-    public void showAllSpiesForPlayer(Player target){
-        for(Player player : Bukkit.getServer().getOnlinePlayers()){
-            if(plugin.getCoreData().isPlayerHidden(player)){
+    public void showAllSpiesForPlayer(Player target)
+    {
+        for (Player player : Bukkit.getServer().getOnlinePlayers())
+        {
+            if (plugin.getCoreData().isPlayerHidden(player))
+            {
                 target.showPlayer(player);
             }
         }

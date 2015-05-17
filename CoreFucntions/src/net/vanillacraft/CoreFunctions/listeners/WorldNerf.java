@@ -40,7 +40,4 @@ public class WorldNerf implements Listener
             }
         }
     }
-
-
-
 }

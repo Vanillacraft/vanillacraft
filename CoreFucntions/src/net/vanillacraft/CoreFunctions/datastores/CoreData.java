@@ -23,7 +23,7 @@ public class CoreData implements Listener
 
     private CoreFunctions plugin;
 
-    private static Map<UUID,PlayerProfile> profiles;
+    private static Map<UUID, PlayerProfile> profiles;
 
     private List<UUID> hiddenPlayers = new ArrayList<UUID>();
 
@@ -37,7 +37,8 @@ public class CoreData implements Listener
         return profiles.get(id);
     }
 
-    public static int getSpawnSize(){
+    public static int getSpawnSize()
+    {
         return 100;
     }
 
@@ -50,7 +51,7 @@ public class CoreData implements Listener
 
     public CoreData(CoreFunctions plugin, Database database)
     {
-        Bukkit.getPluginManager().registerEvents(this,plugin);
+        Bukkit.getPluginManager().registerEvents(this, plugin);
         this.plugin = plugin;
         this.database = database;
         this.profiles = new HashMap<>();
@@ -66,14 +67,14 @@ public class CoreData implements Listener
         return spawnLocation;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST,ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void playerProfileLoad(PlayerJoinEvent event)
     {
         Player p = event.getPlayer();
-        if(!profiles.containsKey(p.getUniqueId()))
+        if (!profiles.containsKey(p.getUniqueId()))
         {
             profiles.put(p.getUniqueId(), new PlayerProfile(p.getUniqueId(), p.getName()));
-            CoreFunctions.logInfoMessage("Created player profle for "+p.getName());
+            CoreFunctions.logInfoMessage("Created player profle for " + p.getName());
             //TODO: populate with more information {ex. home or faction}
         }
     }
@@ -81,28 +82,36 @@ public class CoreData implements Listener
     public void setPlayerHome(UUID uuid, Location location)
     {
         getProfile(uuid).addDelay(Delay.SETHOME);
-        getProfile(uuid).setData("Home",new Loc(location,true));
+        getProfile(uuid).setData("Home", new Loc(location, true));
 
         SetHomeRecord record = new SetHomeRecord(uuid, location);
         getDatabase().submitInsertRecord(record);
     }
 
-    public boolean isPlayerHidden(Player player){
-        if(hiddenPlayers.contains(player.getUniqueId())){
+    public boolean isPlayerHidden(Player player)
+    {
+        if (hiddenPlayers.contains(player.getUniqueId()))
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
 
-    public void setHiddenPlayer(Player player){
-        if(!hiddenPlayers.contains(player.getUniqueId())){
+    public void setHiddenPlayer(Player player)
+    {
+        if (!hiddenPlayers.contains(player.getUniqueId()))
+        {
             hiddenPlayers.add(player.getUniqueId());
         }
     }
 
-    public void removeHiddenPlayer(Player player){
-        if(hiddenPlayers.contains(player.getUniqueId())){
+    public void removeHiddenPlayer(Player player)
+    {
+        if (hiddenPlayers.contains(player.getUniqueId()))
+        {
             hiddenPlayers.remove(player.getUniqueId());
         }
     }

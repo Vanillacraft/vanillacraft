@@ -33,7 +33,8 @@ public class CoreErrors
         sendMessage(player, errorPreFix, errorMessage);
     }
 
-    public void sendWarning(Player player, String message){
+    public void sendWarning(Player player, String message)
+    {
         sendMessage(player, warrningPrefix, message);
     }
 
@@ -71,11 +72,13 @@ public class CoreErrors
         sendError(player, ChatColor.GREEN + "You are modifying " + ChatColor.WHITE + zoneName + ChatColor.GREEN + ".");
     }
 
-    public void notifyPlayerCantModifyPlace(Player player, String zoneName){
+    public void notifyPlayerCantModifyPlace(Player player, String zoneName)
+    {
         sendWarning(player, "You're not allowed to modify " + ChatColor.WHITE + zoneName + ChatColor.GREEN + ".");
     }
 
-    public void cantCraftGoldenApples(Player player){
+    public void cantCraftGoldenApples(Player player)
+    {
         sendError(player, "You can't craft Enchanted Golden Apples.");
     }
 

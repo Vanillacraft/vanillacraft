@@ -98,7 +98,9 @@ public class CoreFunctions extends JavaPlugin
             logWarning("Could not connect to a database. Disabling.");
 
             for (Player player : Bukkit.getOnlinePlayers())
+            {
                 player.kickPlayer("Error with Database. Kicking for safety.");
+            }
 
             Bukkit.setWhitelist(true);
             Bukkit.reloadWhitelist();
@@ -110,8 +112,8 @@ public class CoreFunctions extends JavaPlugin
         coreMethods = new CoreMethods(this);
         coreErrors = new CoreErrors(this);
 
-        coreZones = (Zones)getServer().getPluginManager().getPlugin("Zones");
-        coreFactions = (Factions)getServer().getPluginManager().getPlugin("Factions");
+        coreZones = (Zones) getServer().getPluginManager().getPlugin("Zones");
+        coreFactions = (Factions) getServer().getPluginManager().getPlugin("Factions");
 
 
         //new WorldLogListeners(this,db);
@@ -163,7 +165,9 @@ public class CoreFunctions extends JavaPlugin
         }
 
         if (db == null || !db.isUseable())
+        {
             return null;
+        }
 
         tableCheck(db); //Then make sure all tables are created
 
@@ -205,7 +209,9 @@ public class CoreFunctions extends JavaPlugin
         saveConfig = setIfNotSet(mysql, "Database", "Test");
 
         if (saveConfig)
+        {
             saveConfig();
+        }
     }
 
     private boolean setIfNotSet(ConfigurationSection section, String path, Object value)

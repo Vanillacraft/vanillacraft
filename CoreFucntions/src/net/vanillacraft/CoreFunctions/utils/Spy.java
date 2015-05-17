@@ -20,7 +20,8 @@ public class Spy implements Listener
 {
     private CoreFunctions plugin;
 
-    public Spy(CoreFunctions plugin){
+    public Spy(CoreFunctions plugin)
+    {
         Bukkit.getPluginManager().registerEvents(this, CoreFunctions.getInstance());
         this.plugin = plugin;
     }
@@ -36,10 +37,13 @@ public class Spy implements Listener
 
             if (command[0].equalsIgnoreCase("/spy"))
             {
-                if(profile.isModMode()){
+                if (profile.isModMode())
+                {
                     plugin.getCoreMethods().hidePlayer(player);
                     player.sendMessage(ChatColor.GREEN + "You're now hidden from other players except people in mod mode.");
-                } else {
+                }
+                else
+                {
                     plugin.getCoreErrors().enableModMode(player);
                 }
             }
@@ -47,12 +51,14 @@ public class Spy implements Listener
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onPlayerJoin(PlayerJoinEvent event){
+    public void onPlayerJoin(PlayerJoinEvent event)
+    {
         plugin.getCoreMethods().resetSpiesForPlayer(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onPlayerQuit(PlayerQuitEvent event){
+    public void onPlayerQuit(PlayerQuitEvent event)
+    {
         plugin.getCoreMethods().showAllSpiesForPlayer(event.getPlayer());
     }
 }

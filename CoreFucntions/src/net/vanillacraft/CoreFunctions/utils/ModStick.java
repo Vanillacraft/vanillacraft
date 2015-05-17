@@ -64,10 +64,15 @@ public class ModStick implements Listener
                                 if (!nonStickableItems.contains(b.getType()))
                                 {
                                     //TODO: make method to make a break event via logs.
-                                } else {
-                                    if(player.getName().equalsIgnoreCase("ryan00793")){
+                                }
+                                else
+                                {
+                                    if (player.getName().equalsIgnoreCase("ryan00793"))
+                                    {
                                         //TODO: call break method
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         //TODO: probably some alert logged somewhere incase of abuse??
                                         plugin.getCoreErrors().sendError(player, "You can not stick this item please contact ryan00793");
                                     }

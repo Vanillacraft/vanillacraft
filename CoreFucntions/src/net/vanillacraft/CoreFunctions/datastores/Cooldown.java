@@ -19,17 +19,17 @@ public class Cooldown
 
     public long getAsMinutes()
     {
-        return TimeUnit.MINUTES.convert(timeInMillis,TimeUnit.MILLISECONDS);
+        return TimeUnit.MINUTES.convert(timeInMillis, TimeUnit.MILLISECONDS);
     }
 
     public long getAsSeconds()
     {
-        return TimeUnit.SECONDS.convert(timeInMillis,TimeUnit.MILLISECONDS);
+        return TimeUnit.SECONDS.convert(timeInMillis, TimeUnit.MILLISECONDS);
     }
 
     public String getFormatted()
     {
-        return DurationFormatUtils.formatDuration(getAsMiliseconds(),"mm:ss");
+        return DurationFormatUtils.formatDuration(getAsMiliseconds(), "mm:ss");
     }
 
     public long getAsMiliseconds()

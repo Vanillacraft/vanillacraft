@@ -38,7 +38,7 @@ public class HomeCommand implements Listener
 
             if (command[0].equalsIgnoreCase("/home"))
             {
-                plugin.getCoreMethods().teleport(player,profile.getHomeLocation().toLocation());
+                plugin.getCoreMethods().teleport(player, profile.getHomeLocation().toLocation());
             }
 
         }
