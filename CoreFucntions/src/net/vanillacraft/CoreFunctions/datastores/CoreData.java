@@ -11,9 +11,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by ryan on 5/5/2015.
@@ -26,6 +24,8 @@ public class CoreData implements Listener
     private CoreFunctions plugin;
 
     private static Map<UUID,PlayerProfile> profiles;
+
+    private List<UUID> hiddenPlayers = new ArrayList<UUID>();
 
     public static PlayerProfile getProfile(Player player)
     {
@@ -87,4 +87,23 @@ public class CoreData implements Listener
         getDatabase().submitInsertRecord(record);
     }
 
+    public boolean isPlayerHidden(Player player){
+        if(hiddenPlayers.contains(player.getUniqueId())){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setHiddenPlayer(Player player){
+        if(!hiddenPlayers.contains(player.getUniqueId())){
+            hiddenPlayers.add(player.getUniqueId());
+        }
+    }
+
+    public void removeHiddenPlayer(Player player){
+        if(hiddenPlayers.contains(player.getUniqueId())){
+            hiddenPlayers.remove(player.getUniqueId());
+        }
+    }
 }

@@ -6,6 +6,7 @@ import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import net.vanillacraft.Factions.datastore.Faction;
 import net.vanillacraft.Zones.datastores.Zone;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -121,4 +122,37 @@ public class CoreMethods
         }
     }
 
+    public void hidePlayer(Player target){
+        plugin.getCoreData().setHiddenPlayer(target);
+        for(Player player : Bukkit.getServer().getOnlinePlayers()){
+            PlayerProfile profile = CoreData.getProfile(player);
+
+            if(!profile.isModMode()){
+                player.hidePlayer(target);
+            }
+        }
+    }
+
+    public void showPlayer(Player target){
+        plugin.getCoreData().removeHiddenPlayer(target);
+        for(Player player : Bukkit.getServer().getOnlinePlayers()){
+            player.showPlayer(target);
+        }
+    }
+
+    public void resetSpiesForPlayer(Player target){
+        for(Player player : Bukkit.getServer().getOnlinePlayers()){
+            if(plugin.getCoreData().isPlayerHidden(player)){
+                target.hidePlayer(player);
+            }
+        }
+    }
+
+    public void showAllSpiesForPlayer(Player target){
+        for(Player player : Bukkit.getServer().getOnlinePlayers()){
+            if(plugin.getCoreData().isPlayerHidden(player)){
+                target.showPlayer(player);
+            }
+        }
+    }
 }
