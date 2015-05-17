@@ -1,7 +1,5 @@
 package net.vanillacraft.CoreFunctions.listeners;
 
-import net.vanillacraft.CoreFunctions.datastores.CoreData;
-import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,7 +9,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 /**
  * Created by ryan on 5/15/2015.
