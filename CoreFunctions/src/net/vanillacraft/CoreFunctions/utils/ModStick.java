@@ -3,6 +3,7 @@ package net.vanillacraft.CoreFunctions.utils;
 import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -28,6 +29,7 @@ public class ModStick implements Listener
 
     public ModStick(CoreFunctions plugin)
     {
+        Bukkit.getPluginManager().registerEvents(this, CoreFunctions.getInstance());
         this.plugin = plugin;
 
         //todo: this is something that may change but im just throwing it there incase i want this.
