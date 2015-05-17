@@ -1,5 +1,6 @@
 package net.vanillacraft.CoreFunctions.listeners;
 
+import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -15,7 +16,6 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
  */
 public class MobControl implements Listener
 {
-
     private CoreFunctions plugin;
 
     public MobControl(CoreFunctions plugin)
@@ -29,7 +29,8 @@ public class MobControl implements Listener
     {
         if (!event.isCancelled())
         {
-            if (event.getEntity() instanceof Enderman || event.getEntity() instanceof Wither || event.getEntity() instanceof Ghast)
+            Entity entity = event.getEntity();
+            if (entity instanceof Enderman || entity instanceof Wither || entity instanceof Ghast || entity instanceof Creeper)
             {
                 event.setCancelled(true);
             }
@@ -44,13 +45,11 @@ public class MobControl implements Listener
             Location loc = event.getLocation();
             if (event.getEntity() instanceof Monster)
             {
-                if (Math.abs(loc.getBlockX()) < plugin.getCoreData().getSpawnSize() && Math.abs(loc.getBlockZ()) < plugin.getCoreData().getSpawnSize())
+                if (Math.abs(loc.getBlockX()) < CoreData.getSpawnSize() && Math.abs(loc.getBlockZ()) < CoreData.getSpawnSize())
                 {
                     event.setCancelled(true);
                 }
             }
         }
     }
-
-
 }
