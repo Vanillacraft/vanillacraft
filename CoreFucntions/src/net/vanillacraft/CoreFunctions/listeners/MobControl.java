@@ -24,18 +24,6 @@ public class MobControl implements Listener
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onEntityChangeBlock(EntityChangeBlockEvent event)
-    {
-        if (!event.isCancelled())
-        {
-            if (event.getEntity() instanceof Enderman || event.getEntity() instanceof Wither || event.getEntity() instanceof Ghast)
-            {
-                event.setCancelled(true);
-            }
-        }
-    }
-
     @EventHandler(priority = EventPriority.LOW)
     public void onCreatureSpawn(CreatureSpawnEvent event)
     {
