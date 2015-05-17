@@ -1,7 +1,6 @@
 package net.vanillacraft.CoreFunctions.interfaces;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /*
