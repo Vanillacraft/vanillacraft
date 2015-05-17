@@ -75,5 +75,8 @@ public class CoreErrors
         sendWarning(player, "You're not allowed to modify " + ChatColor.WHITE + zoneName + ChatColor.GREEN + ".");
     }
 
+    public void cantCraftGoldenApples(Player player){
+        sendError(player, "You can't craft Enchanted Golden Apples.");
+    }
 
 }
