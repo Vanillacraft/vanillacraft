@@ -37,6 +37,10 @@ public class CoreData implements Listener
         return profiles.get(id);
     }
 
+    public static int getSpawnSize(){
+        return 100;
+    }
+
     public static void clearProfiles()
     {
         profiles.clear();
