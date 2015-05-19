@@ -54,6 +54,7 @@ public class PlayerProfile
         "ModeMode" : returns bool if moderator mode is enabled  todo: still need to make a command to enable this
         "Home"     : returns a loc class                        todo: still need to make a method to insert home into this on player login or server load
         "hasPerm"  : returns bool if player is allowed to do    todo: still need to make a groups plugin
+        "Nerfed"   : returns long if nerfed
      */
 
     public Boolean is(Object key)
@@ -110,4 +111,9 @@ public class PlayerProfile
         //TODO: need to make this be a basic permision system
         return false;
     }
+    /*
+        Perms so far
+        "nerf" : used to see if they are allowed to nerf players.
+     */
+
 }

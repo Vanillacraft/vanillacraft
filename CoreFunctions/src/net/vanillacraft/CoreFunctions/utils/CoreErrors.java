@@ -106,7 +106,7 @@ public class CoreErrors
 
         for (Player player : Bukkit.getOnlinePlayers()){
             PlayerProfile profile = CoreData.getProfile(target);
-            if(profile.isModMode()){
+            if(profile.hasPermision("nerf")){
                 sendNerfMsg(player, mod.getDisplayName() + ChatColor.LIGHT_PURPLE + msg + target.getDisplayName());
             }
         }
