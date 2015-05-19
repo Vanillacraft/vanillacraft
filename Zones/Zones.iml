@@ -7,8 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="bukkit-1.8-R0.1-SNAPSHOT-shaded" level="project" />
-    <orderEntry type="module" module-name="CoreFucntions" />
+    <orderEntry type="module" module-name="CoreFunctions" />
     <orderEntry type="module" module-name="Factions" />
+    <orderEntry type="module" module-name="Factions" />
+    <orderEntry type="module" module-name="CoreFunctions" />
+    <orderEntry type="library" name="bukkit-1.8-R0.1-SNAPSHOT-shaded" level="project" />
   </component>
 </module>
