@@ -1,5 +1,6 @@
 package net.vanillacraft.CoreFunctions.utils;
 
+import net.minecraft.server.v1_8_R2.PlayerInventory;
 import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.fanciful.Title;
@@ -17,10 +18,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.*;
 
 import java.util.List;
 
@@ -211,6 +210,51 @@ public class Nerf implements Listener
             }
         }
     }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void onBucketEvent(PlayerBucketEvent event)
+    {
+        if (!event.isCancelled())
+        {
+            PlayerProfile profile = CoreData.getProfile(event.getPlayer());
+
+            if (profile.getData("Nerfed", long.class) != null)
+            {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void onItemDrop(PlayerDropItemEvent event)
+    {
+        if (!event.isCancelled())
+        {
+            PlayerProfile profile = CoreData.getProfile(event.getPlayer());
+
+            if (profile.getData("Nerfed", long.class) != null)
+            {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void onInventoryClick(InventoryClickEvent event)
+    {
+        if (!event.isCancelled() && event.getWhoClicked() instanceof Player)
+        {
+            PlayerProfile profile = CoreData.getProfile((Player) event.getWhoClicked());
+
+            if (profile.getData("Nerfed", long.class) != null)
+            {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+
+
 
     private void nerfPlayer(Player mod, Player targetPlayer, PlayerProfile target)
     {
