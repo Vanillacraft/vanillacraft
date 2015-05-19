@@ -1,6 +1,5 @@
 package net.vanillacraft.CoreFunctions.utils;
 
-import net.minecraft.server.v1_8_R2.PlayerInventory;
 import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.fanciful.Title;
@@ -253,15 +252,12 @@ public class Nerf implements Listener
         }
     }
 
-
-
-
     private void nerfPlayer(Player mod, Player targetPlayer, PlayerProfile target)
     {
         target.setData("Nerfed", System.currentTimeMillis() + 5000);
         plugin.getCoreErrors().notifyModNerfedPlayer(mod, targetPlayer, true);
         frozenTitle.send(targetPlayer);
-        //TODO: Title shit & channels
+        //TODO: channels
     }
 
     private void unnerfPlayer(Player mod, Player targetPlayer, PlayerProfile target)
@@ -269,7 +265,7 @@ public class Nerf implements Listener
         target.setData("Nerfed", null);
         plugin.getCoreErrors().notifyModNerfedPlayer(mod, targetPlayer, false);
         frozenTitle.clearTitle(targetPlayer);
-        //TODO: Title shit & channels
+        //TODO: channels
     }
 
 }
