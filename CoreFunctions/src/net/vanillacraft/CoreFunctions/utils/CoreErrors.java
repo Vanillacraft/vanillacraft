@@ -2,7 +2,9 @@ package net.vanillacraft.CoreFunctions.utils;
 
 import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.datastores.Delay;
+import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -22,6 +24,7 @@ public class CoreErrors
     private String errorPreFix = ChatColor.RED + "[Error] : ";
     private String warrningPrefix = ChatColor.GOLD + "[Warning] : ";
     private String syntaxPreFix = ChatColor.GRAY + "[Syntax] : ";
+    private String nerfPreFix = ChatColor.LIGHT_PURPLE + "[Nerf] : ";
 
     private void sendMessage(Player player, String preFix, String message)
     {
@@ -38,6 +41,9 @@ public class CoreErrors
         sendMessage(player, warrningPrefix, message);
     }
 
+    public void sendNerfMsg(Player player, String message){
+        sendMessage(player, nerfPreFix, message);
+    }
 
     public void timerNotDone(Player player, String errorMessage, String formattedTime)
     {
@@ -80,6 +86,34 @@ public class CoreErrors
     public void cantCraftGoldenApples(Player player)
     {
         sendError(player, "You can't craft Enchanted Golden Apples.");
+    }
+
+    public void playerNotFound(Player player){
+        sendError(player, "That player was not found.");
+    }
+
+    public void youCannotNerfThatPlayer(Player player){
+        sendError(player, "You can not nerf that player.");
+    }
+
+    public void notifyModNerfedPlayer(Player mod, Player target, boolean froze){
+        String msg = "";
+        if(froze){
+            msg = " has frozen ";
+        } else {
+            msg = " has unfrozen ";
+        }
+
+        for (Player player : Bukkit.getOnlinePlayers()){
+            PlayerProfile profile = CoreData.getProfile(target);
+            if(profile.isModMode()){
+                sendNerfMsg(player, mod.getDisplayName() + ChatColor.LIGHT_PURPLE + msg + target.getDisplayName());
+            }
+        }
+    }
+
+    public void playerAlreadyFrozen(Player mod){
+        sendError(mod, "That player is already frozen.");
     }
 
 }

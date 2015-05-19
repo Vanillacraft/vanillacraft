@@ -13,7 +13,7 @@ Created by Mr_Little_Kitty on 5/8/2015
 */
 public class PlayerProfile
 {
-    private Map<Delay,Long> delays;
+    private Map<Delay, Long> delays;
     private Map<Object, Object> data;
 
     private UUID id;
@@ -40,9 +40,11 @@ public class PlayerProfile
     public <T> T getData(Object key, Class<T> returnType)
     {
         Object b = data.get(key);
-        if(b == null)
+        if (b == null)
+        {
             return null;
-        return (T)b;
+        }
+        return (T) b;
     }
 
     /*
@@ -51,15 +53,17 @@ public class PlayerProfile
         "Stick"    : returns if the mod stick is enabled        todo: still need to make a command to enable this
         "ModeMode" : returns bool if moderator mode is enabled  todo: still need to make a command to enable this
         "Home"     : returns a loc class                        todo: still need to make a method to insert home into this on player login or server load
-        "Moderator": returns bool if is a moderator             todo: still need to make a groups plugin
+        "hasPerm"  : returns bool if player is allowed to do    todo: still need to make a groups plugin
      */
 
     public Boolean is(Object key)
     {
         Object obj = data.get(key);
-        if(obj == null || !(obj instanceof Boolean))
+        if (obj == null || !(obj instanceof Boolean))
+        {
             return false;
-        return (Boolean)obj;
+        }
+        return (Boolean) obj;
     }
 
     public void setData(Object key, Object value)
@@ -70,21 +74,25 @@ public class PlayerProfile
     public boolean hasActiveDelay(Delay delay)
     {
         Long l = delays.get(delay);
-        if(l == null || l.longValue() < System.currentTimeMillis())
+        if (l == null || l.longValue() < System.currentTimeMillis())
+        {
             return false;
+        }
         return true;
     }
 
     public Cooldown getRemainingDelay(Delay delay)
     {
-        if(!hasActiveDelay(delay))
+        if (!hasActiveDelay(delay))
+        {
             return new Cooldown(0);
-        return new Cooldown(delays.get(delay)-System.currentTimeMillis());
+        }
+        return new Cooldown(delays.get(delay) - System.currentTimeMillis());
     }
 
     public void addDelay(Delay delay)
     {
-        delays.put(delay,System.currentTimeMillis()+delay.getDelayTime().getAsMiliseconds());
+        delays.put(delay, System.currentTimeMillis() + delay.getDelayTime().getAsMiliseconds());
     }
 
     public boolean isModMode()
@@ -94,6 +102,12 @@ public class PlayerProfile
 
     public Loc getHomeLocation()
     {
-        return getData("Home",Loc.class);
+        return getData("Home", Loc.class);
+    }
+
+    public boolean hasPermision(String permison)
+    {
+        //TODO: need to make this be a basic permision system
+        return false;
     }
 }
