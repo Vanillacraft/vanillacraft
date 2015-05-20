@@ -6,6 +6,7 @@ import net.vanillacraft.CoreFunctions.datastores.CoreData;
 import net.vanillacraft.CoreFunctions.interfaces.Database;
 import net.vanillacraft.CoreFunctions.utils.CoreErrors;
 import net.vanillacraft.CoreFunctions.utils.CoreMethods;
+import net.vanillacraft.CoreFunctions.utils.Nerf;
 import net.vanillacraft.Factions.main.Factions;
 import net.vanillacraft.Zones.main.Zones;
 import org.bukkit.Bukkit;
@@ -35,6 +36,8 @@ public class CoreFunctions extends JavaPlugin
     private CoreErrors coreErrors;
     private Zones coreZones;
     private Factions coreFactions;
+
+    private Nerf nerfListener;
 
     public CoreErrors getCoreErrors()
     {
@@ -118,7 +121,7 @@ public class CoreFunctions extends JavaPlugin
 
 
         //new WorldLogListeners(this,db);
-
+        nerfListener = new Nerf(this);
         Bukkit.getServicesManager().register(CoreFunctions.class, this, this, ServicePriority.High);
     }
 
