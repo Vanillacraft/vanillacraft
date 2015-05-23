@@ -16,9 +16,13 @@
 -Zones          | WIP
 	-load zones mysql           | not started
 	
--Factions       | not done
+-Factions       | Ryan starting on this
+	-Player faction             | not started
+	-build/destroy prevent      | not started
+	-changing faction           | not started
 -GriefProtect   | done ish (needs clan part, mod ignore)
 -Chat           | not started
 -Groups         | not started (permision system)
+-Clans          | not started (in game user groups)
 
 -Mod powers     |  / tp ([Ignoreing build permisions part of most things])
