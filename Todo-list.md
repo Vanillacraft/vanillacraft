@@ -24,9 +24,9 @@ Below is the current todo list for the Vanillacraft 2.0 plugins.
 	  
     
 - **Factions**       | Ryan starting on this
-	-**Player faction**             | not started
-	-**build/destroy prevent**      | not started
-	-**changing faction**           | not started
+	- **Player faction**             | not started
+	- **build/destroy prevent**      | not started
+	- **changing faction**           | not started
 - **GriefProtect**   | done ish (needs clan part, mod ignore)
 - **Chat**           | not started
 - **Groups**         | not started (permision system)
