@@ -1,8 +1,8 @@
 -Core Functions | WIP
-	-Homes and spawn system     | kinda done
+	-Homes and spawn system     | Done(ish)
 	-Logger                     | done ish (needs sessions, uuids, clan logging, deaths)
 	-Death Broadcast            | NEED INPUT ON THIS because of worldNerf
-	-God Mode                   | Ryan working on this
+	-God Mode                   | Done(ish)
 	-Nerf                       | Done(ish) waiting on chat plugin
 	-Compass / Clock            | not started
 	-Mob Control                | Done(ish)
