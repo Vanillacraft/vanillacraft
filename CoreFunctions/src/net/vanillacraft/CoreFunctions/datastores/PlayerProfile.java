@@ -49,12 +49,13 @@ public class PlayerProfile
 
     /*
         So far the values we're using
-        "Faction"  : returns player's faction                   todo: still needs to be implemented in factions plugin
-        "Stick"    : returns if the mod stick is enabled        todo: still need to make a command to enable this
-        "ModeMode" : returns bool if moderator mode is enabled  todo: still need to make a command to enable this
-        "Home"     : returns a loc class                        todo: still need to make a method to insert home into this on player login or server load
-        "hasPerm"  : returns bool if player is allowed to do    todo: still need to make a groups plugin
-        "Nerfed"   : returns long if nerfed
+        "Faction"    : returns player's faction                   todo: still needs to be implemented in factions plugin
+        "locFaction" : returns the faction the player is  in
+        "Stick"      : returns if the mod stick is enabled        todo: still need to make a command to enable this
+        "ModeMode"   : returns bool if moderator mode is enabled  todo: still need to make a command to enable this
+        "Home"       : returns a loc class                        todo: still need to make a method to insert home into this on player login or server load
+        "hasPerm"    : returns bool if player is allowed to do    todo: still need to make a groups plugin
+        "Nerfed"     : returns long if nerfed
      */
 
     public Boolean is(Object key)
