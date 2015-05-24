@@ -1,6 +1,8 @@
 package net.vanillacraft.Factions.main;
 
 import net.vanillacraft.Factions.datastore.Faction;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,11 +19,17 @@ public class Factions extends JavaPlugin
 
     private HashMap<String, Faction> factionList;
     private HashMap<UUID, Faction> playerFactionList;
+    private static Factions instance;
+
+    public static JavaPlugin getInstance()
+    {
+        return instance;
+    }
 
     @Override
     public void onEnable()
     {
-
+        instance = this;
     }
 
     @Override
@@ -52,6 +60,15 @@ public class Factions extends JavaPlugin
         {
             return null;
         }
+    }
+
+    public Faction getFaction(Location location){
+        //TODO: Need to work with zones plugin.
+        return null;
+    }
+
+    public void playerEnterNewFaction(Player player, Faction fac){
+        player.sendMessage(ChatColor.GREEN + " You've now entered " + ChatColor.WHITE + fac.getName() + ChatColor.GREEN + " zone.");
     }
 
 }
