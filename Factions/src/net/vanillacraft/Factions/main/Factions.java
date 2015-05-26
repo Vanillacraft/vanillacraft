@@ -52,6 +52,15 @@ public class Factions extends JavaPlugin
 
     }
 
+    public void joinFaction(Player player, Faction fac)
+    {
+        //TODO: make this
+    }
+
+    public void leaveFaction(Player player){
+        //TODO: make this
+    }
+
     public Faction[] getFactions()
     {
         Faction[] output = new Faction[factionList.size()];
