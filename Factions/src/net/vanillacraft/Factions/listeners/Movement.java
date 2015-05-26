@@ -14,6 +14,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 /**
  * Created by ryan on 5/23/2015.
  */
+//todo : i need to move this to zones since it will only be one they move to another zone and then just call
+//todo : some method from factions plugin when the move into another faction or just use zones to aleart them
 public class Movement implements Listener
 {
     private Factions plugin;
