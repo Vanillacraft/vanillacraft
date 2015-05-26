@@ -1,5 +1,5 @@
 name: Zones
-main: net.vanillacraft.Zones.main
+main: net.vanillacraft.Zones.main.Zones
 version: 0.1
 description: The Zoneing off plugin.
 authors: [ryan00793,Mr_Litttle_Kitty]

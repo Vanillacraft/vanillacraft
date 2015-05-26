@@ -8,6 +8,7 @@ Created by Mr_Little_Kitty on 5/8/2015
 public enum Delay
 {
     SETHOME(60),
+    FACTION(1440),
     TELEPORT(30);
 
     private final Cooldown time;
