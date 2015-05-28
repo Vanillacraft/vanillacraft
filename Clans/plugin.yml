@@ -1,0 +1,8 @@
+name: Clans
+main: com.gmail.nuclearcat1337.clans.ClansMain
+version: 0.1
+description: Plugin for managing clans
+authors: [Mr_Little_Kitty]
+commands:
+  Clan:
+    description: The main command for managing clans
