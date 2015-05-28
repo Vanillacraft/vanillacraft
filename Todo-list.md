@@ -28,8 +28,8 @@ Below is the current todo list for the Vanillacraft 2.0 plugins.
 	- **build/destroy prevent**      | not started
 	- **changing faction**           | not started
 - **GriefProtect**   | done ish (needs clan part, mod ignore)
-- **Chat**           | not started
+- **Chat**           | Jiibrael
 - **Groups**         | not started (permision system)
-- **Clans**          | not started (in game user groups)
+- **Clans**          | Mr_Little_Kitty
 
 - **Mod powers**     |  / tp ([Ignoreing build permisions part of most things])
