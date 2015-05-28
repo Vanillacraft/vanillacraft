@@ -1,0 +1,7 @@
+name: Chat
+main: net.vanillacraft.Chat.main
+version: 0.1
+description: Everything Vanillacraft chat related and channel handling
+authors: [Jiibrael]
+softdepend: [CoreFunctions]
+commands:
