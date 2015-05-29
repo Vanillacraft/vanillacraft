@@ -4,6 +4,9 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Jiibrael on 5/27/2015.
+ */
 public class Channel {
 
 	private String channelName;
@@ -15,6 +18,14 @@ public class Channel {
 		if (chOwner.isOnline()) {
 			userList.add(chOwner);
 			owner = chOwner;
+			channelName = chName; // TODO: Profanity filtering
+		}
+	}
+	
+	public Channel(String chName, ArrayList<Player> users){
+		if (chName == "Global" || chName == "Regional" || chName == "Local") {
+			userList.addAll(users);
+			owner = null;
 			channelName = chName; // TODO: Profanity filtering
 		}
 	}
@@ -32,17 +43,30 @@ public class Channel {
 	}
 	
 	public boolean contains(Player player){
-		return false;
+		return userList.contains(player);
 	}	
 	
 	public void addUser(Player player){
-		// TODO: check if player is allowed to enter the channel
-		if (player.isOnline()) {
+		/**
+		 * NOTE: Exceptions user not online or user does not exists treated
+		 * at the command event.
+		 */ 
+		if (!this.contains(player)) {
 			userList.add(player);
+		} else {
+			// TODO: Send info: user is already in the channel
 		}
 	}	
 	
 	public void removeUser(Player player){
-		
+		/**
+		 * NOTE: Exceptions user not online or user does not exists treated
+		 * at the command event.
+		 */ 
+		if (this.contains(player)){
+			userList.remove(player);
+		} else {
+			// TODO: Send info: user is not in the channel
+		}
 	}
 }
