@@ -1,7 +1,11 @@
 package net.vanillacraft.Factions.main;
 
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
+import net.vanillacraft.Factions.database.JoinFactionRecord;
+import net.vanillacraft.Factions.database.LeaveFactionQuery;
 import net.vanillacraft.Factions.datastore.Faction;
+import net.vanillacraft.Factions.listeners.Movement;
+import net.vanillacraft.Factions.listeners.PlayerJoin;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -19,6 +23,9 @@ public class Factions extends JavaPlugin
     private HashMap<UUID, Faction> playerFactionList;
     private static Factions instance;
     private CoreFunctions coreFunctions;
+
+    private Movement movementListener;
+    private PlayerJoin joinListener;
 
     public static JavaPlugin getInstance()
     {
@@ -39,6 +46,9 @@ public class Factions extends JavaPlugin
         instance = this;
 
         coreFunctions = (CoreFunctions) getServer().getPluginManager().getPlugin("CoreFunctions");
+
+        movementListener = new Movement(this);
+        joinListener = new PlayerJoin(this);
     }
 
     public CoreFunctions getCoreFunctions()
@@ -55,10 +65,22 @@ public class Factions extends JavaPlugin
     public void joinFaction(Player player, Faction fac)
     {
         //TODO: make this
+        JoinFactionRecord record = new JoinFactionRecord(player.getUniqueId(), fac);
+        getCoreFunctions().getCoreData().getDatabase().submitInsertRecord(record);
+
+        player.sendMessage(ChatColor.WHITE + "You've just joined " + fac.getColor() + fac.getName() + ChatColor.WHITE + " Faction.");
+        player.sendMessage(ChatColor.WHITE + "You will now have to wait at least 1 day before moving to another faction.");
     }
 
-    public void leaveFaction(Player player){
-        //TODO: make this
+    public void leaveFaction(Player player)
+    {
+        //I didn't know if this should be done on insert record but idk it should work based on code but we should be able
+        //to do it on either thread.
+        LeaveFactionQuery query = new LeaveFactionQuery(player.getUniqueId());
+        getCoreFunctions().getCoreData().getDatabase().submitInsertRecord(query);
+
+        player.sendMessage(ChatColor.WHITE + "You've just left your faction old faction. You will now have to wait at least a 1 day before joing another faction.");
+        player.sendMessage(ChatColor.WHITE + "Next time to directly switch factions with out a cool down period you can just do /faction join to switch.");
     }
 
     public Faction[] getFactions()

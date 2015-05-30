@@ -20,7 +20,8 @@ public class Movement implements Listener
 {
     private Factions plugin;
 
-    public Movement(Factions plugin){
+    public Movement(Factions plugin)
+    {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin.getInstance());
     }
@@ -28,13 +29,16 @@ public class Movement implements Listener
     //this might cause some lag so we might want to change this to sync task every X amount of time
     //instead of being onMoveEvent
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onPlayerMove(PlayerMoveEvent event){
-        if(!event.isCancelled()){
+    public void onPlayerMove(PlayerMoveEvent event)
+    {
+        if (!event.isCancelled())
+        {
             Player player = event.getPlayer();
             PlayerProfile profile = CoreData.getProfile(player);
             Faction faction = plugin.getFaction(event.getTo());
 
-            if(profile.getData("locFaction", Faction.class) != faction){
+            if (profile.getData("locFaction", Faction.class) != faction)
+            {
                 profile.setData("locFaction", faction);
                 plugin.playerEnterNewFaction(player, faction);
             }
