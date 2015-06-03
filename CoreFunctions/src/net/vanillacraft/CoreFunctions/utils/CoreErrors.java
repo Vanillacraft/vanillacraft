@@ -25,6 +25,7 @@ public class CoreErrors
     private String warrningPrefix = ChatColor.GOLD + "[Warning] : ";
     private String syntaxPreFix = ChatColor.GRAY + "[Syntax] : ";
     private String nerfPreFix = ChatColor.LIGHT_PURPLE + "[Nerf] : ";
+    private String infoPreFix = ChatColor.GRAY + "[Info] : ";
 
     private void sendMessage(Player player, String preFix, String message)
     {
@@ -44,6 +45,11 @@ public class CoreErrors
     public void sendNerfMsg(Player player, String message)
     {
         sendMessage(player, nerfPreFix, message);
+    }
+
+    public void sendInfoMsg(Player player, String message)
+    {
+        sendMessage(player, infoPreFix, message);
     }
 
     public void timerNotDone(Player player, String errorMessage, String formattedTime)
@@ -124,6 +130,11 @@ public class CoreErrors
     public void playerAlreadyFrozen(Player mod)
     {
         sendError(mod, "That player is already frozen.");
+    }
+
+    public void playerFactionLoaded(Player player)
+    {
+        sendInfoMsg(player, "Your faction has been loaded and you can now interact with the world normally");
     }
 
 }

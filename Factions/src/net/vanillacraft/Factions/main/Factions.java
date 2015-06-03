@@ -1,11 +1,18 @@
 package net.vanillacraft.Factions.main;
 
+import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
+import net.vanillacraft.CoreFunctions.interfaces.DBLogQuery;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import net.vanillacraft.Factions.database.JoinFactionRecord;
 import net.vanillacraft.Factions.database.LeaveFactionQuery;
+import net.vanillacraft.Factions.database.PlayerFactionLoadedTask;
+import net.vanillacraft.Factions.database.PlayerFactionQuery;
 import net.vanillacraft.Factions.datastore.Faction;
 import net.vanillacraft.Factions.listeners.Movement;
 import net.vanillacraft.Factions.listeners.PlayerJoin;
+import net.vanillacraft.Zones.datastores.Zone;
+import net.vanillacraft.Zones.main.Zones;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -21,7 +28,10 @@ public class Factions extends JavaPlugin
 
     private HashMap<String, Faction> factionList;
     private HashMap<UUID, Faction> playerFactionList;
+
     private static Factions instance;
+
+    private Zones coreZones;
     private CoreFunctions coreFunctions;
 
     private Movement movementListener;
@@ -46,6 +56,7 @@ public class Factions extends JavaPlugin
         instance = this;
 
         coreFunctions = (CoreFunctions) getServer().getPluginManager().getPlugin("CoreFunctions");
+        coreZones = (Zones) getServer().getPluginManager().getPlugin("Zones");
 
         movementListener = new Movement(this);
         joinListener = new PlayerJoin(this);
@@ -56,6 +67,11 @@ public class Factions extends JavaPlugin
         return coreFunctions;
     }
 
+    public Zones getCoreZones()
+    {
+        return coreZones;
+    }
+
     @Override
     public void onDisable()
     {
@@ -64,7 +80,6 @@ public class Factions extends JavaPlugin
 
     public void joinFaction(Player player, Faction fac)
     {
-        //TODO: make this
         JoinFactionRecord record = new JoinFactionRecord(player.getUniqueId(), fac);
         getCoreFunctions().getCoreData().getDatabase().submitInsertRecord(record);
 
@@ -121,7 +136,12 @@ public class Factions extends JavaPlugin
 
     public Faction getFaction(Location location)
     {
-        //TODO: Need to work with zones plugin.
+        Zone zone = getCoreZones().getZone(location);
+        if (zone != null && getFaction(zone.getFactionName()) != null)
+        {
+            return getFaction(zone.getFactionName());
+        }
+
         return null;
     }
 
@@ -165,5 +185,19 @@ public class Factions extends JavaPlugin
         {
             getCoreFunctions().getCoreErrors().commandSantaxError(player, "faction", "[help] | this will tell you how to use the faction command");
         }
+    }
+
+    public void mysqlDBcallback(PlayerFactionQuery query)
+    {
+        if (query != null && query.getFactionName() != null && query.getUUID() != null)
+        {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this, new PlayerFactionLoadedTask(Bukkit.getPlayer(query.getUUID()), getFaction(query.getFactionName()), this));
+        }
+        else
+        {
+            //TODO throw error some how
+        }
+
+
     }
 }
