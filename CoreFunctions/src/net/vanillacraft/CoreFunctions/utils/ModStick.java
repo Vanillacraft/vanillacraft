@@ -1,6 +1,7 @@
 package net.vanillacraft.CoreFunctions.utils;
 
 import net.vanillacraft.CoreFunctions.datastores.CoreData;
+import net.vanillacraft.CoreFunctions.datastores.ModStickBlockLog;
 import net.vanillacraft.CoreFunctions.datastores.PlayerProfile;
 import net.vanillacraft.CoreFunctions.main.CoreFunctions;
 import org.bukkit.Bukkit;
@@ -65,13 +66,13 @@ public class ModStick implements Listener
                                 Block b = player.getTargetBlock(null, 10);
                                 if (!nonStickableItems.contains(b.getType()))
                                 {
-                                    //TODO: make method to make a break event via logs.
+                                    logModStickBreak(player, b);
                                 }
                                 else
                                 {
                                     if (player.getName().equalsIgnoreCase("ryan00793"))
                                     {
-                                        //TODO: call break method
+                                        logModStickBreak(player, b);
                                     }
                                     else
                                     {
@@ -89,5 +90,12 @@ public class ModStick implements Listener
                 }
             }
         }
+    }
+
+    public void logModStickBreak(Player player, Block block)
+    {
+        //todo is this how this works?
+        plugin.getCoreData().getDatabase().submitInsertRecord(new ModStickBlockLog(player.getUniqueId(), block.getLocation()));
+        block.breakNaturally();
     }
 }
