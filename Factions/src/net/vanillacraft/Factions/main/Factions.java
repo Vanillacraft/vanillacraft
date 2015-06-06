@@ -195,7 +195,7 @@ public class Factions extends JavaPlugin
         }
         else
         {
-            //TODO throw error some how
+            //Todo this can either be an error or person not having a faction don't know what to do here.
         }
 
 
