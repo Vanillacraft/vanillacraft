@@ -15,7 +15,7 @@ Below is the current todo list for the Vanillacraft 2.0 plugins.
 	- **bans / kicks**               | not started
 	- **time keeper**                | Pence working on it
 	- **world nerf**                 | NEED INPUT ON THIS
-	- **mod stick**                  | done
+	- **mod stick**                  | needs some looking at by MLK in terms of if im using his db plugin correctly
 	- **tp**                         | done
 	   
 
@@ -34,3 +34,5 @@ Below is the current todo list for the Vanillacraft 2.0 plugins.
 - **Clans**          | Mr_Little_Kitty
 
 - **Mod powers**     |  / tp ([Ignoreing build permisions part of most things])
+
+everything needs logs basicly.
