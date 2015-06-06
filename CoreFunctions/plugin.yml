@@ -1,6 +1,22 @@
 name: CoreFunctions
-main: net.vanillacraft.CoreFunctions.main
+main: net.vanillacraft.CoreFunctions.main.CoreFunctions
 version: 0.1
 description: Plugin that contains the core features / functions that VC uses.
 authors: [ryan00793,Mr_Little_Kitty]
 commands:
+  god:
+    description: Puts a player into god mode
+    usage: |
+           /<command>
+  home:
+    description: Teleports a player home
+    usage: |
+           /<command>
+  tp:
+    description: Teleports a moderator to a player
+    usage: |
+           /<command> <Player>
+  modmode:
+    description: Puts a player into mod mode
+    usage: |
+           /<command>

@@ -1,5 +1,5 @@
 name: Factions
-main: net.vanillacraft.Factions.main
+main: net.vanillacraft.Factions.main.Factions
 version: 0.1
 description: Plugin that contains factions.
 authors: [ryan00793,Mr_Little_Kitty]

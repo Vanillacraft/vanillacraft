@@ -1,6 +1,6 @@
 package com.gmail.nuclearcat1337.griefprotect.interfaces;
 
-import com.gmail.nuclearcat1337.griefprotect.util.Loc;
+import net.vanillacraft.CoreFunctions.utils.Loc;
 import org.bukkit.entity.Player;
 
 public abstract class BlockWatcher

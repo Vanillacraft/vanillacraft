@@ -50,7 +50,8 @@ public class Faction
     }
 
     @Override
-    public String toString(){
+    public String toString()
+    {
         return name;
     }
 }
