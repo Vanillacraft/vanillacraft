@@ -8,8 +8,8 @@ Below is the current todo list for the Vanillacraft 2.0 plugins.
 	- **Logger**                     | done ish (needs sessions, uuids, clan logging, deaths)
 	- **Death Broadcast**            | NEED INPUT ON THIS because of worldNerf
 	- **God Mode**                   | Done(ish)
-	- **Nerf**                       | Ryan working on this
-	- **Compass / Clock**            | not started
+	- **Nerf**                       | Done(ish)
+	- **Compass / Clock**            | Ryan working on this
 	- **Mob Control**                | Done(ish)
 	- **Spy**                        | Done(ish)
 	- **bans / kicks**               | not started
@@ -23,10 +23,10 @@ Below is the current todo list for the Vanillacraft 2.0 plugins.
   - **load zones mysql**           | not started
 	  
     
-- **Factions**       | Ryan starting on this
-	- **Player faction**             | not started
-	- **build/destroy prevent**      | not started
-	- **changing faction**           | not started
+- **Factions**       | Done(ish)
+	- **Player faction**             | Done
+	- **build/destroy prevent**      | Done
+	- **changing faction**           | Done
 
 - **GriefProtect**   | done ish (needs clan part, mod ignore)
 - **Chat**           | Jiibrael

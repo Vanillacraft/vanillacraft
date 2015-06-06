@@ -29,7 +29,6 @@ import java.util.logging.Level;
  */
 public class CoreFunctions extends JavaPlugin
 {
-    //Commit Test
     private static CoreFunctions instance;
 
     private CoreData coreData;
