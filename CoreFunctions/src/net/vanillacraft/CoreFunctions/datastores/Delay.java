@@ -7,15 +7,17 @@ Created by Mr_Little_Kitty on 5/8/2015
 */
 public enum Delay
 {
-    SETHOME(60),
-    FACTION(1440),
-    TELEPORT(30);
+    //changed this to seconds because it was not compatible with compass/clocks
+    SETHOME(3600),
+    FACTION(86400),
+    TELEPORT(1800),
+    COMPASS(5);
 
     private final Cooldown time;
 
-    private Delay(int minutes)
+    private Delay(int seconds)
     {
-        time = new Cooldown(minutes*60*1000);
+        time = new Cooldown(seconds*1000);
     }
 
     public Cooldown getDelayTime()
