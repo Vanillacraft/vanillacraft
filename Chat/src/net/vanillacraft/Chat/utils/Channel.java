@@ -56,7 +56,9 @@ public class Channel {
 		if (!this.contains(player)) {
 			userList.add(player.getUniqueId());
 		} else {
-			// TODO: Send info: user is already in the channel
+			// Send info: user is already in the channel
+			player.sendMessage(player.getDisplayName() +"is already in channel" 
+								+ this.getChannelName());
 		}
 	}	
 	
