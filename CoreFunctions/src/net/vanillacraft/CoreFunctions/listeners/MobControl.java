@@ -47,6 +47,7 @@ public class MobControl implements Listener
             {
                 if (Math.abs(loc.getBlockX()) < CoreData.getSpawnSize() && Math.abs(loc.getBlockZ()) < CoreData.getSpawnSize())
                 {
+                    event.getEntity().remove(); //Supposedly this fixes the memory leak of just canceling the event.
                     event.setCancelled(true);
                 }
             }
